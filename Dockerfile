@@ -20,9 +20,9 @@ RUN apt-get -qq update \
     zlib1g-dev \
     > /dev/null
 
-RUN Rscript -e "install.packages(c('elevatr', 'gdalcubes', 'lwgeom', 'mapview', 'ncdf4', 'openeo', 'raster', 'rgdal', 'rgeos', 'rstac', 's2', 'satellite', 'sf', 'sp', 'stars', 'starsExtra', 'terra', 'units', 'whitebox'), repos = 'https://cran.rstudio.com')"
-RUN Rscript -e "install.packages(c('remotes', 'rcmdcheck', 'tinytest))"
-RUN Rscript -e "whitebox::install_whitebox()"
+RUN Rscript -e "install.packages(c('elevatr', 'gdalcubes', 'lwgeom', 'mapview', 'ncdf4', 'openeo', 'raster', 'rgdal', 'rgeos', 'rstac', 's2', 'satellite', 'sf', 'sp', 'stars', 'starsExtra', 'terra', 'units', 'whitebox'), repos = 'https://cran.rstudio.com')" \
+    && Rscript -e "install.packages(c('remotes', 'rcmdcheck', 'tinytest))" \
+    && Rscript -e "whitebox::install_whitebox()"
 
 # default for executing container
 CMD /bin/bash
