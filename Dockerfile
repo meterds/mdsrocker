@@ -22,7 +22,7 @@ RUN apt-get -qq update \
     > /dev/null
 
 # RUN Rscript -e "install.packages(c('elevatr', 'gdalcubes', 'lwgeom', 'mapview', 'ncdf4', 'openeo', 'raster', 'rgdal', 'rgeos', 'rstac', 's2', 'satellite', 'sf', 'sp', 'stars', 'starsExtra', 'terra', 'units', 'whitebox'), repos = 'https://cran.rstudio.com')" 
-RUN Rscript -e "install.packages(c('remotes', 'rcmdcheck', 'tinytest), quiet = TRUE)" 
+RUN Rscript -e "install.packages(c('remotes', 'rcmdcheck', 'tinytest'), quiet = TRUE)" 
 # RUN Rscript -e "whitebox::install_whitebox()"
 
 # default for executing container
