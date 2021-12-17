@@ -1,0 +1,73 @@
+---
+output: 
+    github_document:
+    code_folding: hide
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+pkg_spatial = c(
+    'elevatr'
+    , 'gdalcubes'
+    , 'lwgeom'
+    , 'mapview'
+    , 'ncdf4'
+    , 'openeo'
+    , 'raster'
+    , 'rgdal'
+    , 'rgeos'
+    , 'rstac'
+    , 's2'
+    , 'satellite'
+    , 'sf'
+    , 'sp'
+    , 'stars'
+    , 'starsExtra'
+    , 'terra'
+    , 'units'
+    , 'whitebox'
+)
+
+pkg_nonspatial = c(
+    'remotes'
+    , 'rcmdcheck'
+    , 'tinytest'
+)
+```
+
+
+# mdsrocker
+
+[![Docker Image CI](https://github.com/meterds/mdsrocker/actions/workflows/docker-image.yml/badge.svg)](https://github.com/meterds/mdsrocker/actions/workflows/docker-image.yml)
+
+The Docker image `mdsrocker` contains R plus a set of geospatial packages and is 
+designed towards pipelines of spatial packages at METER Data Science. The image 
+can be pulled from [Dockerhub](https://hub.docker.com/repository/docker/meterds/mdsrocker).
+
+Currently, the following packages are included:
+
+```{r, echo = FALSE}
+data.table::data.table(
+    Package = pkg_spatial
+    , Title = sapply(pkg_spatial, \(i) packageDescription(i)$Title)
+) |> 
+    kableExtra::kable()
+```
+
+
+Additionally, the following non-spatial packages are installed: 
+
+```{r, echo = FALSE}
+data.table::data.table(
+    Package = pkg_nonspatial
+    , Title = sapply(pkg_nonspatial, \(i) packageDescription(i)$Title)
+) |> 
+    kableExtra::kable()
+```
+
