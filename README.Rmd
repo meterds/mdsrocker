@@ -49,7 +49,7 @@ pkg_nonspatial = c(
 The Docker image `mdsrocker` adds a set of geospatial packages to the 
 [r-ver](https://hub.docker.com/r/rocker/r-ver) base R image and is designed 
 towards pipelines of spatial packages at METER Data Science. The image can be 
-pulled from [Dockerhub](https://hub.docker.com/repository/docker/meterds/mdsrocker).
+pulled from [Dockerhub](https://hub.docker.com/r/meterds/mdsrocker).
 
 Currently, the following packages are included:
 
@@ -57,7 +57,7 @@ Currently, the following packages are included:
 data.table::data.table(
     Package = pkg_spatial
     , Title = sapply(pkg_spatial, \(i) packageDescription(i)$Title)
-) |> 
+) |>
     kableExtra::kable()
 ```
 
@@ -68,7 +68,7 @@ Additionally, the following non-spatial packages are installed:
 data.table::data.table(
     Package = pkg_nonspatial
     , Title = sapply(pkg_nonspatial, \(i) packageDescription(i)$Title)
-) |> 
+) |>
     kableExtra::kable()
 ```
 
