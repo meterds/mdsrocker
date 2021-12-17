@@ -46,9 +46,10 @@ pkg_nonspatial = c(
 
 [![Docker Image CI](https://github.com/meterds/mdsrocker/actions/workflows/docker-image.yml/badge.svg)](https://github.com/meterds/mdsrocker/actions/workflows/docker-image.yml)
 
-The Docker image `mdsrocker` contains R plus a set of geospatial packages and is 
-designed towards pipelines of spatial packages at METER Data Science. The image 
-can be pulled from [Dockerhub](https://hub.docker.com/repository/docker/meterds/mdsrocker).
+The Docker image `mdsrocker` adds a set of geospatial packages to the 
+[r-ver](https://hub.docker.com/r/rocker/r-ver) base R image and is designed 
+towards pipelines of spatial packages at METER Data Science. The image can be 
+pulled from [Dockerhub](https://hub.docker.com/repository/docker/meterds/mdsrocker).
 
 Currently, the following packages are included:
 
