@@ -45,3 +45,16 @@ data.table::data.table(
 ) |>
     kableExtra::kable()
 ```
+
+
+## Version-stable METER Rocker images for R
+
+Images built from this repository are: 
+
+- r-aws-minimal: Adds only some system libraries
+- r-aws-spatial: Adds only some system libraries
+- r-cicd-minimal: Adds some development related packages
+- r-cicd-spatial: Adds a set of spatial libraries
+
+This image stack is based on 
+[`rocker/r-ver`](https://hub.docker.com/r/rocker/r-ver)
