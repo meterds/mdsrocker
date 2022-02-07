@@ -24,7 +24,6 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: dockerfiles/mdsgeospatial_4.1.2.Dockerfile
+        file: dockerfiles/r-aws-minimal_4.1.2.Dockerfile
         push: true
-        # tags: meterds/mdsgeospatial:4.1.2
-        tags: cstepper/mdsgeospatial:4.1.2
+        tags: cstepper/r-aws-minimal:4.1.2
