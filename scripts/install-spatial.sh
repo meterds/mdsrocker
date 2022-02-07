@@ -1,28 +1,16 @@
 #!/bin/bash
 
-# NOTE:
-# generate installation commands by running sysreqs.R and copying final output
-
 set -e
 
-# always set this for scripts but don't declare as ENV..
+# always set this for scripts but don't declare as ENV.
 export DEBIAN_FRONTEND=noninteractive
 
 ## build ARGs
 NCPUS=${NCPUS:--1}
 
-# install general utils
-apt-get update -qq \
-  && apt-get install -y --no-install-recommends \
-  git \
-  jq \
-  libxml2-dev \
-  libxt6 \
-  pandoc
-
-# install spatial system requirements
-apt-get update -qq \
-  && apt-get install -y --no-install-recommends \
+#install system requirements
+apt-get -qq update \
+  && apt-get -y --no-install-recommends install \
   gdal-bin \
   gsfonts \
   imagemagick \
@@ -40,13 +28,7 @@ apt-get update -qq \
   make \
   zlib1g-dev
 
-# install R packages for CI/CD
-install2.r --error --skipinstalled -n $NCPUS \
-  remotes \
-  rcmdcheck \
-  tinytest
-
-# install geospatial R packages (plus dependencies)
+#install R packages
 install2.r --error --skipinstalled -n $NCPUS -r https://cran.rstudio.com \
   elevatr \
   gdalcubes \
@@ -56,7 +38,6 @@ install2.r --error --skipinstalled -n $NCPUS -r https://cran.rstudio.com \
   openeo \
   raster \
   rgdal \
-  rgeos \
   rstac \
   s2 \
   satellite \
@@ -68,8 +49,8 @@ install2.r --error --skipinstalled -n $NCPUS -r https://cran.rstudio.com \
   units \
   whitebox
 
-# install whiteboxtools
-r -e "whitebox::install_whitebox()"
+#install whiteboxtools
+r -e 'whitebox::install_whitebox'
 
 # clean up
 rm -rf /var/lib/apt/lists/*
