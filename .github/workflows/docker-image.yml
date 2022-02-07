@@ -51,4 +51,3 @@ jobs:
         file: dockerfiles/r-cicd-spatial_4.1.2.Dockerfile
         push: true
         tags: cstepper/r-cicd-spatial:4.1.2
-
