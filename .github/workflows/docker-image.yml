@@ -1,4 +1,4 @@
-name: Pubish Docker Image
+name: Publish Docker Image
 
 on: workflow_dispatch
 #  push:
@@ -20,10 +20,35 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PAT }}
     -
-      name: Build and push Docker image
+      name: Build and push Docker image 1/4
       uses: docker/build-push-action@v2
       with:
         context: .
         file: dockerfiles/r-aws-minimal_4.1.2.Dockerfile
         push: true
         tags: cstepper/r-aws-minimal:4.1.2
+    -
+      name: Build and push Docker image 2/4
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: dockerfiles/r-aws-spatial_.1.2.Dockerfile
+        push: true
+        tags: cstepper/r-aws-spatial:4.1.2
+    -
+      name: Build and push Docker image 3/4
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: dockerfiles/r-cicd-minimal_4.1.2.Dockerfile
+        push: true
+        tags: cstepper/r-cicd-minimal:4.1.2
+    -
+      name: Build and push Docker image 4/4
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: dockerfiles/r-cicd-spatial_4.1.2.Dockerfile
+        push: true
+        tags: cstepper/r-cicd-spatial:4.1.2
+

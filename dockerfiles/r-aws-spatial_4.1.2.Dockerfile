@@ -1,9 +1,9 @@
-FROM meterds/r-aws-minimal:4.1.2
+FROM cstepper/r-aws-minimal:4.1.2
 
-COPY /scripts/install_spatial.sh /rocker_scripts
+COPY /scripts/install-spatial.sh /rocker_scripts
 
-RUN chmod +x /rocker_scripts/install_spatial.sh
-RUN /rocker_scripts/install_spatial.sh
+RUN chmod +x /rocker_scripts/install-spatial.sh
+RUN /rocker_scripts/install-spatial.sh
 
 # default for executing container
 CMD /bin/bash
