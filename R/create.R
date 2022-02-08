@@ -318,7 +318,7 @@ create_action_workflow = function(
     list(
       "name" = "name: Publish Docker Images",
       "on" = c("on:",
-               "  schedule:", '    - cron "30 5 * * SUN"',
+               "  schedule:", '    - cron: "30 5 * * SUN"',
                "  workflow_dispatch:"
       ),
       "jobs" = c("jobs:",
