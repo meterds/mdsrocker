@@ -2,15 +2,11 @@ name: Publish Docker Image
 
 on:
   schedule:
-    - cron: "0 0 * * SUN"
+    - cron: "30 5 * * SUN"
   workflow_dispatch:
-#  push:
-#    branches: [ main ]
-#  pull_request:
-#    branches: [ main ]
 
 # TODO:
-# add a job for running the generate_shell_scripts.R dockerfiles
+# add a job for running the generate_shell_scripts.R file
 # creating the different shell scripts and push into cache
 
 jobs:
