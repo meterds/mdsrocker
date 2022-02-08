@@ -28,26 +28,120 @@ apt-get -qq update \
   make \
   zlib1g-dev
 
-#install R packages
-install2.r --error --skipinstalled -n $NCPUS -r https://cran.rstudio.com \
+#install binary R packages
+install2.r --error --skipinstalled -n $NCPUS \
+  Rcpp \
+  sp \
+  rlang \
+  magrittr \
+  purrr \
+  glue \
+  parallelly \
+  listenv \
+  digest \
+  vctrs \
+  lifecycle \
+  globals \
+  ellipsis \
+  future \
+  proxy \
+  wk \
+  e1071 \
+  DBI \
+  classInt \
+  sys \
+  askpass \
+  R6 \
+  mime \
+  jsonlite \
+  furrr \
+  progressr \
+  RcppProgress \
+  ps \
+  processx \
+  callr \
+  later \
+  promises \
+  xfun \
+  colorspace \
+  viridisLite \
+  RColorBrewer \
+  munsell \
+  labeling \
+  farver \
+  plyr \
+  cpp11 \
+  yaml \
+  fastmap \
+  uuid \
+  htmlwidgets \
+  htmltools \
+  brew \
+  base64enc \
+  utf8 \
+  crayon \
+  cli \
+  pkgconfig \
+  pillar \
+  fansi \
+  withr \
+  tibble \
+  isoband \
+  gtable \
+  gridExtra \
+  ggplot2 \
+  lazyeval \
+  leaflet.providers \
+  viridis \
+  scales \
+  markdown \
+  crosstalk \
+  sfheaders \
+  geometries \
+  generics \
+  lubridate \
+  abind \
+  BH \
+  RcppEigen \
+  nabor \
+  whitebox
+
+#install source R packages
+install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
+  terra \
+  png \
+  raster \
+  units \
+  s2 \
+  openssl \
+  curl \
+  slippymath \
+  sf \
+  httr \
   elevatr \
+  ncdf4 \
   gdalcubes \
   lwgeom \
+  httpuv \
+  systemfonts \
+  svglite \
+  rapidjsonr \
+  jsonify \
+  leaflet \
+  geojsonsf \
+  webshot \
+  servr \
+  satellite \
+  leafpop \
+  leafem \
   mapview \
-  ncdf4 \
   openeo \
-  raster \
   rgdal \
   rstac \
-  s2 \
-  satellite \
-  sf \
-  sp \
   stars \
-  starsExtra \
-  terra \
-  units \
-  whitebox
+  data.table \
+  nngeo \
+  starsExtra
 
 #install whiteboxtools
 r -e 'whitebox::install_whitebox'

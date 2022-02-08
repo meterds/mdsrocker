@@ -1,60 +1,55 @@
 ---
-output: 
-    github_document:
-    code_folding: hide
-editor_options: 
-  chunk_output_type: console
+output: github_document
 ---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
 )
-
-source("R/pkgs_sysreqs.R")
 ```
-
 
 # mdsrocker
 
-[![Docker Image CI](https://github.com/meterds/mdsrocker/actions/workflows/docker-image.yml/badge.svg)](https://github.com/meterds/mdsrocker/actions/workflows/docker-image.yml)
+<!-- badges: start -->
+<!-- badges: end -->
 
-The Docker image `mdsgeospatial` adds a set of geospatial packages to the 
-[r-ver](https://hub.docker.com/r/rocker/r-ver) base R image and is designed 
-towards pipelines of spatial packages at METER Data Science. The image can be 
-pulled from [Dockerhub](https://hub.docker.com/r/meterds/mdsgeospatial).
+The goal of mdsrocker is to ...
 
-Currently, the following packages are included:
+## Installation
 
-```{r, echo = FALSE}
-data.table::data.table(
-    Package = pkg_spatial
-    , Title = sapply(pkg_spatial, \(i) packageDescription(i)$Title)
-) |>
-    kableExtra::kable()
+You can install the development version of mdsrocker from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("cstepper/mdsrocker")
 ```
 
+## Example
 
-Additionally, the following packages (for *CI/CD*) are installed: 
+This is a basic example which shows you how to solve a common problem:
 
-```{r, echo = FALSE}
-data.table::data.table(
-    Package = pkg_cicd
-    , Title = sapply(pkg_cicd, \(i) packageDescription(i)$Title)
-) |>
-    kableExtra::kable()
+```{r example}
+library(mdsrocker)
+## basic example code
 ```
 
+What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
-## Version-stable METER Rocker images for R
+```{r cars}
+summary(cars)
+```
 
-Images built from this repository are: 
+You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
 
-- r-aws-minimal: Adds only some system libraries
-- r-aws-spatial: Adds only some system libraries
-- r-cicd-minimal: Adds some development related packages
-- r-cicd-spatial: Adds a set of spatial libraries
+You can also embed plots, for example:
 
-This image stack is based on 
-[`rocker/r-ver`](https://hub.docker.com/r/rocker/r-ver)
+```{r pressure, echo = FALSE}
+plot(pressure)
+```
+
+In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.

@@ -13,9 +13,13 @@ apt-get -qq update \
   && apt-get -y --no-install-recommends install \
   jq
 
-#install R packages
+#install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
   renv
+
+#install source R packages
+install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
+  
 
 # clean up
 rm -rf /var/lib/apt/lists/*
