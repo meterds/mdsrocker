@@ -8,13 +8,12 @@
 
 # function ----
 
-generate_shell_script = function(
+generate_script = function(
   type,
   pkgs,
   os = "ubuntu-20.04",
   additional_sysreqs = NULL,
-  save_as = fs::path("scripts", glue::glue("install-{type}.sh")),
-  open = FALSE
+  save_as = fs::path("scripts", glue::glue("install-{type}.sh"))
 ) {
 
   type = checkmate::assert_choice(type, c("aws", "cicd", "spatial"))
@@ -121,12 +120,12 @@ generate_shell_script = function(
   on.exit(close(con), add = TRUE)
 
   writeLines(all_content, con = con)
+
+  # make executable
+  system(glue::glue("chmod +x {save_as}"))
+
+  # return
   usethis::ui_done("Writing installation instructions to {ui_path(save_as)}")
-
-  if (open) {
-    usethis::edit_file(fs::path(save_as))
-  }
-
   invisible(TRUE)
 
 }
@@ -181,4 +180,4 @@ script_data = pkgs |>
   )
 
 # execute
-purrr::pwalk(script_data, generate_shell_script)
+purrr::pwalk(script_data, generate_script)
