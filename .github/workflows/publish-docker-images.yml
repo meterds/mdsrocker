@@ -1,10 +1,17 @@
 name: Publish Docker Image
 
-on: workflow_dispatch
+on:
+  workflow_dispatch
+  schedule:
+    - cron: "0 0 * * SUN"
 #  push:
 #    branches: [ main ]
 #  pull_request:
 #    branches: [ main ]
+
+# TODO:
+# add a job for running the generate_shell_scripts.R dockerfiles
+# creating the different shell scripts and push into cache
 
 jobs:
   push_to_registry:
@@ -32,7 +39,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: dockerfiles/r-aws-spatial_.1.2.Dockerfile
+        file: dockerfiles/r-aws-spatial_4.1.2.Dockerfile
         push: true
         tags: cstepper/r-aws-spatial:4.1.2
     -

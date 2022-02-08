@@ -135,6 +135,8 @@ generate_shell_script = function(
 # apply ----
 
 # packages
+
+# TODO: should these pkgs live in an extra file?
 pkgs = list(
   "aws" = c("renv")
   , "cicd" = c(
