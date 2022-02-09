@@ -37,7 +37,7 @@ description
 <a href="https://hub.docker.com/r/cstepper/r-aws-minimal" style="     " >r-aws-minimal</a>
 </td>
 <td style="text-align:left;">
-r-ver plus R package `renv` and system library `jq`
+r-ver plus R packages `renv` & `units` and system library `jq`
 </td>
 </tr>
 <tr>
@@ -78,7 +78,8 @@ data):
 
 -   `rocker_installation`: *three* different software bundles for the
     various scopes of the docker images, each containing a list of R
-    packages and system libraries to install.
+    packages and system libraries (not required by the R packages) to
+    install.
 
 <table>
 <thead>
@@ -100,7 +101,7 @@ syslibs
 aws
 </td>
 <td style="text-align:left;">
-renv
+renv , units
 </td>
 <td style="text-align:left;">
 jq

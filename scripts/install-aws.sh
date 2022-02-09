@@ -11,15 +11,17 @@ NCPUS=${NCPUS:--1}
 #install system requirements
 apt-get -qq update \
   && apt-get -y --no-install-recommends install \
-  jq
+  jq \
+  libudunits2-dev
 
 #install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
-  renv
+  renv \
+  Rcpp
 
 #install source R packages
 install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
-  
+  units
 
 # clean up
 rm -rf /var/lib/apt/lists/*

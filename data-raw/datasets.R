@@ -9,7 +9,10 @@ for (r in required) {
 ## shell scripts ----
 
 pkgs = list(
-  aws = c("renv")
+  aws = c(
+    "renv"
+    , "units"
+  )
   , cicd = c(
     "checkmate"
     , "covr"

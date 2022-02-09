@@ -47,7 +47,7 @@ version as image tag (e.g. `rocker/r-ver:4.1.2`).
 
 stack = tibble::tribble(
   ~image,           ~description,
-  "r-aws-minimal",  "r-ver plus R package `renv` and system library `jq`",
+  "r-aws-minimal",  "r-ver plus R packages `renv` & `units` and system library `jq`",
   "r-aws-spatial",  "r-aws-minimal plus a spatial libraries stack",
   "r-cicd-minimal", "r-aws-minimal plus a set of CI/CD tools",
   "r-cicd-spatial", "r-aws-spatial plus a set of CI/CD tools",
@@ -77,7 +77,7 @@ All relevant information is stored in *two* `data.frames` (as package data):
 
 - `rocker_installation`: *three* different software bundles for the various
   scopes of the docker images, each containing a list of R packages and
-  system libraries to install.
+  system libraries (not required by the R packages) to install.
 
 ```{r installation, echo = FALSE}
 kableExtra::kable(rocker_installation)
