@@ -5,26 +5,29 @@
 \title{Create Dockerfile}
 \usage{
 create_dockerfile(
-  name,
+  image,
   from,
-  tag = "4.1.2",
+  tag = as.character(getRversion()),
   script,
-  save_as = fs::path("dockerfiles", glue::glue("{name}_{tag}.Dockerfile"))
+  save_as = fs::path("dockerfiles", glue::glue("{image}_{tag}.Dockerfile"))
 )
 }
 \arguments{
-\item{name}{name of docker image to create, one of
-\code{c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")}}
+\item{image}{name of docker image to create, one of
+\code{c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")},
+plus R version as \code{tag}.}
 
-\item{from}{\code{character} docker image (\emph{without \code{tag}}) to use as basis.}
+\item{from}{\code{character} docker image (incl. \emph{dockerhub} account)
+to use as basis.}
 
-\item{tag}{\code{character} tag for the docker image, default to \code{"4.1.2"}}
+\item{tag}{\code{character} tag for the docker image, default to the current
+R version; \code{as.character(getRversion())}.}
 
 \item{script}{\code{character} name of installation shell script to be
 executed in \verb{docker build} process.}
 
 \item{save_as}{path for storing the dockerfile; default
-to \code{fs::path("dockerfiles", glue::glue("{name}_{tag}.Dockerfile"))}.}
+to \code{fs::path("dockerfiles", glue::glue("{image}_{tag}.Dockerfile"))}.}
 }
 \value{
 Logical indicating whether a write occurred, invisibly.

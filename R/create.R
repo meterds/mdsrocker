@@ -168,14 +168,17 @@ create_shellscript = function(
 #'
 #' Different dockerfiles are required for the various docker images.
 #'
-#' @param name name of docker image to create, one of
-#'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`
-#' @param from `character` docker image (*without `tag`*) to use as basis.
-#' @param tag `character` tag for the docker image, default to `"4.1.2"`
+#' @param image name of docker image to create, one of
+#'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`,
+#'   plus R version as `tag`.
+#' @param from `character` docker image (incl. *dockerhub* account)
+#'   to use as basis.
+#' @param tag `character` tag for the docker image, default to the current
+#'   R version; `as.character(getRversion())`.
 #' @param script `character` name of installation shell script to be
 #'   executed in `docker build` process.
 #' @param save_as path for storing the dockerfile; default
-#'   to `fs::path("dockerfiles", glue::glue("{name}_{tag}.Dockerfile"))`.
+#'   to `fs::path("dockerfiles", glue::glue("{image}_{tag}.Dockerfile"))`.
 #'
 #' @return Logical indicating whether a write occurred, invisibly.
 #'
@@ -188,16 +191,16 @@ create_shellscript = function(
 #'
 #' @export
 create_dockerfile = function(
-  name,
+  image,
   from,
-  tag = "4.1.2",
+  tag = as.character(getRversion()),
   script,
-  save_as = fs::path("dockerfiles", glue::glue("{name}_{tag}.Dockerfile"))
+  save_as = fs::path("dockerfiles", glue::glue("{image}_{tag}.Dockerfile"))
 ) {
 
-  name = checkmate::assert_choice(
-    name,
-    c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")
+  image = checkmate::assert_choice(
+    image,
+      c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")
   )
 
   checkmate::assert_character(from, len = 1L)
@@ -206,7 +209,7 @@ create_dockerfile = function(
   checkmate::assert_file_exists(fs::path("scripts", script), access = "x")
   checkmate::assert_path_for_output(save_as, overwrite = TRUE)
 
-  # script content
+  # file content
   content =
     list(
       "from" = glue::glue("FROM {from}:{tag}"),
@@ -238,7 +241,8 @@ create_dockerfile = function(
 #'
 #' @param images names of docker images to create, subset of
 #'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`
-#' @param tag `character` tag for the docker image, default to `"4.1.2"`
+#' @param tag `character` tag for the docker image, default to the current
+#'   R version; `as.character(getRversion())`.
 #' @param account `character` dockerhub account for pushing the images.
 #' @param save_as path for storing the yml file; default
 #'   to `fs::path(".github", "workflows", "publish-docker-images.yml")`.
@@ -255,14 +259,16 @@ create_dockerfile = function(
 #' @export
 create_action_workflow = function(
   images,
-  tag = "4.1.2",
+  tag = as.character(getRversion()),
   account,
   save_as = fs::path(".github", "workflows", "publish-docker-images.yml")
 ) {
 
   checkmate::assert_subset(
     images,
-    choices = c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")
+    choices = c(
+      "r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial"
+    )
   )
   checkmate::assert_character(tag, len = 1L)
   checkmate::assert_character(account, len = 1L)

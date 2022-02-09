@@ -6,7 +6,7 @@
 \usage{
 create_action_workflow(
   images,
-  tag = "4.1.2",
+  tag = as.character(getRversion()),
   account,
   save_as = fs::path(".github", "workflows", "publish-docker-images.yml")
 )
@@ -15,7 +15,8 @@ create_action_workflow(
 \item{images}{names of docker images to create, subset of
 \code{c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")}}
 
-\item{tag}{\code{character} tag for the docker image, default to \code{"4.1.2"}}
+\item{tag}{\code{character} tag for the docker image, default to the current
+R version; \code{as.character(getRversion())}.}
 
 \item{account}{\code{character} dockerhub account for pushing the images.}
 

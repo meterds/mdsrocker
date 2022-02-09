@@ -7,9 +7,9 @@
 \format{
 A \code{tibble} with \emph{4} rows and \emph{3} columns:
 \itemize{
-\item \emph{name}: name of the docker repository, one of
+\item \emph{image}: name of the docker image, one of
 \code{c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")},
-\item \emph{from}: docker image (without \code{tag}) to use as basis,
+\item \emph{from}: docker image (incl. \emph{dockerhub} account) to use as basis,
 \item \emph{script}: name of installation shell script to be
 executed in \verb{docker build} process.
 }

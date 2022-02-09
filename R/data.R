@@ -18,9 +18,9 @@
 #' A data set containing the the specifications for different dockerfiles.
 #'
 #' @format A `tibble` with *4* rows and *3* columns:
-#' * _name_: name of the docker repository, one of
+#' * _image_: name of the docker image, one of
 #'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`,
-#' * _from_: docker image (without `tag`) to use as basis,
+#' * _from_: docker image (incl. _dockerhub_ account) to use as basis,
 #' * _script_: name of installation shell script to be
 #'   executed in `docker build` process.
 #'

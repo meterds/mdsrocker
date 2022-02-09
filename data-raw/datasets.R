@@ -1,4 +1,4 @@
-required = c("dplyr", "glue", "purrr", "tibble")
+required = c("desc", "dplyr", "glue", "purrr", "tibble")
 
 for (r in required) {
   if (!requireNamespace(r, quietly = TRUE)) {
@@ -61,10 +61,10 @@ usethis::use_data(rocker_installation, overwrite = TRUE)
 
 ## dockerfiles -----
 
-account = "cstepper" # "meterds"
+account = desc::desc_get_field("Config/Dockerhub/Account")
 
 rocker_dockerfiles = tibble::tribble(
-  ~name,            ~from,                                ~script,
+  ~image,           ~from,                                ~script,
   "r-aws-minimal",  "rocker/r-ver",                        "install-aws.sh",
   "r-aws-spatial",  glue::glue("{account}/r-aws-minimal"), "install-spatial.sh",
   "r-cicd-minimal", glue::glue("{account}/r-aws-minimal"), "install-cicd.sh",
