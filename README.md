@@ -4,52 +4,224 @@
 # mdsrocker
 
 <!-- badges: start -->
+
+[![Docker Image
+CI](https://github.com/cstepper/mdsrocker/actions/workflows/publish-docker-images.yml/badge.svg)](https://github.com/cstepper/mdsrocker/actions/workflows/publish-docker-images.yml)
 <!-- badges: end -->
 
-The goal of mdsrocker is to …
+The goal of *mdsrocker* is to provide a framework for building a stack
+of version-stable docker images based on
+[rocker/r-ver](https://hub.docker.com/r/rocker/r-ver), an *ubuntu*-based
+docker image containing version-stable *base R* & a set of src build
+tools.
 
-## Installation
+We follow the *version tag* approach of the *rocker*-project, using the
+R version as image tag (e.g. `rocker/r-ver:4.1.2`).
 
-You can install the development version of mdsrocker from
-[GitHub](https://github.com/) with:
+## Image stack
 
-``` r
-# install.packages("devtools")
-devtools::install_github("cstepper/mdsrocker")
-```
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+image
+</th>
+<th style="text-align:left;">
+description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://hub.docker.com/r/cstepper/r-aws-minimal" style="     " >r-aws-minimal</a>
+</td>
+<td style="text-align:left;">
+r-ver plus R package `renv` and system library `jq`
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="https://hub.docker.com/r/cstepper/r-aws-spatial" style="     " >r-aws-spatial</a>
+</td>
+<td style="text-align:left;">
+r-aws-minimal plus a spatial libraries stack
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="https://hub.docker.com/r/cstepper/r-cicd-minimal" style="     " >r-cicd-minimal</a>
+</td>
+<td style="text-align:left;">
+r-aws-minimal plus a set of CI/CD tools
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="https://hub.docker.com/r/cstepper/r-cicd-spatial" style="     " >r-cicd-spatial</a>
+</td>
+<td style="text-align:left;">
+r-aws-spatial plus a set of CI/CD tools
+</td>
+</tr>
+</tbody>
+</table>
 
-## Example
+## Architecture
 
-This is a basic example which shows you how to solve a common problem:
+This building system is designed as an R package.
 
-``` r
-library(mdsrocker)
-## basic example code
-```
+### Data
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+All relevant information is stored in *two* `data.frames` (as package
+data):
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
+-   `rocker_installation`: *three* different software bundles for the
+    various scopes of the docker images, each containing a list of R
+    packages and system libraries to install.
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+type
+</th>
+<th style="text-align:left;">
+pkgs
+</th>
+<th style="text-align:left;">
+syslibs
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+aws
+</td>
+<td style="text-align:left;">
+renv
+</td>
+<td style="text-align:left;">
+jq
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cicd
+</td>
+<td style="text-align:left;">
+checkmate, covr , DT , lintr , pkgdown , renv , rcmdcheck, tinytest ,
+xml2
+</td>
+<td style="text-align:left;">
+NULL
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+spatial
+</td>
+<td style="text-align:left;">
+elevatr , gdalcubes , lwgeom , mapview , ncdf4 , openeo , raster , rgdal
+, rstac , s2 , satellite , sf , sp , stars , starsExtra, terra , units ,
+whitebox
+</td>
+<td style="text-align:left;">
+NULL
+</td>
+</tr>
+</tbody>
+</table>
 
-You can also embed plots, for example:
+-   `rocker_dockerfiles`: *four* dockerfile specifications, each
+    containing the relevant information for generating the dockerfiles.
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+image
+</th>
+<th style="text-align:left;">
+from
+</th>
+<th style="text-align:left;">
+script
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+r-aws-minimal
+</td>
+<td style="text-align:left;">
+rocker/r-ver
+</td>
+<td style="text-align:left;">
+install-aws.sh
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r-aws-spatial
+</td>
+<td style="text-align:left;">
+cstepper/r-aws-minimal
+</td>
+<td style="text-align:left;">
+install-spatial.sh
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r-cicd-minimal
+</td>
+<td style="text-align:left;">
+cstepper/r-aws-minimal
+</td>
+<td style="text-align:left;">
+install-cicd.sh
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r-cicd-spatial
+</td>
+<td style="text-align:left;">
+cstepper/r-aws-spatial
+</td>
+<td style="text-align:left;">
+install-cicd.sh
+</td>
+</tr>
+</tbody>
+</table>
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+### Scripts & Files
+
+In this building system,
+
+-   standalone shell scripts containing all the install logic are
+    located under the `scripts/` directory,
+-   dockerfiles used in the Github Actions workflow to build the images
+    are located under `dockerfiles/`, and
+-   a github actions workflow is stored under `.github/workflows/`.
+
+All of these files can be re-created when changes (e.g. additional R
+packages) are required.
+
+Therefore,
+
+-   update the code generating the package data in
+    `data-raw/datasets.R`,
+-   re-install the package (or load using `devtools::load_all(".")`),
+-   run `execute.R` for calling the `create_...` functions
+    (`shellscript`, `dockerfile`, `action_workflow`) with the updated
+    data.
+
+# Execution
+
+The Github Actions workflow (building and pushing the images) is
+scheduled to run every Sunday or can be started manually on Github.
