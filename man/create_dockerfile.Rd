@@ -6,8 +6,10 @@
 \usage{
 create_dockerfile(
   image,
-  from,
+  description,
+  parent,
   tag = as.character(getRversion()),
+  labels = NULL,
   script,
   save_as = fs::path("dockerfiles", glue::glue("{image}_{tag}.Dockerfile"))
 )
@@ -17,11 +19,16 @@ create_dockerfile(
 \code{c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")},
 plus R version as \code{tag}.}
 
-\item{from}{\code{character} docker image (incl. \emph{dockerhub} account)
-to use as basis.}
+\item{description}{content of docker image,}
+
+\item{parent}{\code{character} parent docker image (incl. \emph{dockerhub} account)
+from which to build.}
 
 \item{tag}{\code{character} tag for the docker image, default to the current
 R version; \code{as.character(getRversion())}.}
+
+\item{labels}{named \code{list} with labels (see \strong{Details}). If \code{NULL},
+filled with predefined keys.}
 
 \item{script}{\code{character} name of installation shell script to be
 executed in \verb{docker build} process.}
@@ -34,4 +41,10 @@ Logical indicating whether a write occurred, invisibly.
 }
 \description{
 Different dockerfiles are required for the various docker images.
+}
+\details{
+We add some labels to the docker images, following the Open Container
+Initiative (OCI). See the
+\href{https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys}{list of predefined annotation keys}
+for more information.
 }

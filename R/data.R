@@ -17,10 +17,12 @@
 #'
 #' A data set containing the the specifications for different dockerfiles.
 #'
-#' @format A `tibble` with *4* rows and *3* columns:
+#' @format A `tibble` with *4* rows and *4* columns:
 #' * _image_: name of the docker image, one of
 #'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`,
-#' * _from_: docker image (incl. _dockerhub_ account) to use as basis,
+#' * _description_: description of software packed in the imagedocker image,
+#' * _parent_: parent docker image (incl. _dockerhub_ account)
+#'   from which to build,
 #' * _script_: name of installation shell script to be
 #'   executed in `docker build` process.
 #'

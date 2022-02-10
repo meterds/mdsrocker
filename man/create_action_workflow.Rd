@@ -5,20 +5,20 @@
 \title{Create Github Actions Workflow for Docker Image Publish}
 \usage{
 create_action_workflow(
+  account,
   images,
   tag = as.character(getRversion()),
-  account,
   save_as = fs::path(".github", "workflows", "publish-docker-images.yml")
 )
 }
 \arguments{
+\item{account}{\code{character} dockerhub account for pushing the images.}
+
 \item{images}{names of docker images to create, subset of
 \code{c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")}}
 
 \item{tag}{\code{character} tag for the docker image, default to the current
 R version; \code{as.character(getRversion())}.}
-
-\item{account}{\code{character} dockerhub account for pushing the images.}
 
 \item{save_as}{path for storing the yml file; default
 to \code{fs::path(".github", "workflows", "publish-docker-images.yml")}.}

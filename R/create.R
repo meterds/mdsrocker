@@ -168,13 +168,22 @@ create_shellscript = function(
 #'
 #' Different dockerfiles are required for the various docker images.
 #'
+#' @details
+#' We add some labels to the docker images, following the Open Container
+#' Initiative (OCI). See the
+#' [list of predefined annotation keys](https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys)
+#' for more information.
+#'
 #' @param image name of docker image to create, one of
 #'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`,
 #'   plus R version as `tag`.
-#' @param from `character` docker image (incl. *dockerhub* account)
-#'   to use as basis.
+#' @param description content of docker image,
+#' @param parent `character` parent docker image (incl. *dockerhub* account)
+#'   from which to build.
 #' @param tag `character` tag for the docker image, default to the current
 #'   R version; `as.character(getRversion())`.
+#' @param labels named `list` with labels (see **Details**). If `NULL`,
+#'   filled with predefined keys.
 #' @param script `character` name of installation shell script to be
 #'   executed in `docker build` process.
 #' @param save_as path for storing the dockerfile; default
@@ -187,13 +196,16 @@ create_shellscript = function(
 #' @importFrom cli cli_alert_success
 #' @importFrom fs path
 #' @importFrom glue glue
-#' @importFrom purrr flatten_chr map
+#' @importFrom purrr flatten_chr imap map
+#' @importFrom stringr str_remove
 #'
 #' @export
 create_dockerfile = function(
   image,
-  from,
+  description,
+  parent,
   tag = as.character(getRversion()),
+  labels = NULL,
   script,
   save_as = fs::path("dockerfiles", glue::glue("{image}_{tag}.Dockerfile"))
 ) {
@@ -203,16 +215,27 @@ create_dockerfile = function(
       c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")
   )
 
-  checkmate::assert_character(from, len = 1L)
+  checkmate::assert_character(description, len = 1L)
+  checkmate::assert_character(parent, len = 1L)
   checkmate::assert_character(tag, len = 1L)
 
   checkmate::assert_file_exists(fs::path("scripts", script), access = "x")
   checkmate::assert_path_for_output(save_as, overwrite = TRUE)
 
   # file content
+  if (is.null(labels)) {
+    labels = auto_labels(image, description, tag)
+  }
+
+  labels = labels |>
+    purrr::imap(
+      ~glue::glue('LABEL org.opencontainers.image.{.y}="{.x}"')
+    )
+
   content =
     list(
-      "from" = glue::glue("FROM {from}:{tag}"),
+      "from" = glue::glue("FROM {parent}:{tag}"),
+      "labels" = purrr::flatten_chr(labels),
       "copy" = glue::glue("COPY /scripts/{script} /rocker_scripts"),
       "run" = glue::glue("RUN /rocker_scripts/{script}"),
       "execute" = c("# default for executing container", "CMD /bin/bash")
@@ -239,11 +262,11 @@ create_dockerfile = function(
 #'
 #' A github actions workflow for building and pushing a stack of docker images.
 #'
+#' @param account `character` dockerhub account for pushing the images.
 #' @param images names of docker images to create, subset of
 #'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`
 #' @param tag `character` tag for the docker image, default to the current
 #'   R version; `as.character(getRversion())`.
-#' @param account `character` dockerhub account for pushing the images.
 #' @param save_as path for storing the yml file; default
 #'   to `fs::path(".github", "workflows", "publish-docker-images.yml")`.
 #'
@@ -258,11 +281,13 @@ create_dockerfile = function(
 #'
 #' @export
 create_action_workflow = function(
+  account,
   images,
   tag = as.character(getRversion()),
-  account,
   save_as = fs::path(".github", "workflows", "publish-docker-images.yml")
 ) {
+
+  checkmate::assert_character(account, len = 1L)
 
   checkmate::assert_subset(
     images,
@@ -270,8 +295,8 @@ create_action_workflow = function(
       "r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial"
     )
   )
+
   checkmate::assert_character(tag, len = 1L)
-  checkmate::assert_character(account, len = 1L)
   checkmate::assert_path_for_output(save_as, overwrite = TRUE)
 
   # script content
@@ -291,19 +316,6 @@ create_action_workflow = function(
     "    username: ${{ secrets.DOCKERHUB_USERNAME }}",
     "    password: ${{ secrets.DOCKERHUB_PAT }}"
   )
-
-  build_and_push = function(index, image, tag, account){
-    c(
-      "-",
-      glue::glue("  name: Build and push Docker image {index}/4 -> {image}"),
-      "  uses: docker/build-push-action@v2",
-      "  with:",
-      "    context: .",
-      glue::glue("    file: dockerfiles/{image}_{tag}.Dockerfile"),
-      "    push: true",
-      glue::glue("    tags: {account}/{image}:{tag}")
-    )
-  }
 
   steps = c(
     list(
@@ -348,4 +360,48 @@ create_action_workflow = function(
   cli::cli_alert_success("Writing github action workflow {.file {save_as}}")
   invisible(TRUE)
 
+}
+
+# helpers ----------------------------------------------------------------------
+
+build_and_push = function(index, image, tag, account){
+  c(
+    "-",
+    glue::glue("  name: Build and push Docker image {index}/4 -> {image}"),
+    "  uses: docker/build-push-action@v2",
+    "  with:",
+    "    context: .",
+    glue::glue("    file: dockerfiles/{image}_{tag}.Dockerfile"),
+    "    push: true",
+    "    tags: |",
+    glue::glue("      {account}/{image}:latest"),
+    glue::glue("      {account}/{image}:{tag}")
+  )
+}
+
+
+#' @importFrom desc desc_get_field desc_get_maintainer
+#' @importFrom gert git_info git_remote_info
+#' @importFrom stringr str_remove str_replace
+
+auto_labels = function(image, description, tag){
+  list(
+    authors = desc::desc_get_maintainer(),
+    base.name = "docker.io/library/ubuntu:focal",
+    description = description,
+    licenses = desc::desc_get_field("License"),
+    revision = gert::git_info()$commit,
+    source = stringr::str_replace(
+      gert::git_remote_info()$url,
+      pattern = "^git@",
+      replacement = "https://"
+    ) |>
+      stringr::str_remove(pattern = "\\.git"),
+    title = image,
+    vendor = stringr::str_remove(
+      readLines("LICENSE.md", n = 3)[3],
+      pattern = "Copyright\\s\\(c\\)\\s[:digit:]{4}\\s"
+    ),
+    version = tag
+  )
 }

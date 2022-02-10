@@ -67,11 +67,11 @@ usethis::use_data(rocker_installation, overwrite = TRUE)
 account = desc::desc_get_field("Config/Dockerhub/Account")
 
 rocker_dockerfiles = tibble::tribble(
-  ~image,           ~from,                                ~script,
-  "r-aws-minimal",  "rocker/r-ver",                        "install-aws.sh",
-  "r-aws-spatial",  glue::glue("{account}/r-aws-minimal"), "install-spatial.sh",
-  "r-cicd-minimal", glue::glue("{account}/r-aws-minimal"), "install-cicd.sh",
-  "r-cicd-spatial", glue::glue("{account}/r-aws-spatial"), "install-cicd.sh"
+  ~image,           ~description,                                                     ~parent,                              ~script,
+  "r-aws-minimal",  "r-ver plus R packages `renv` & `units` and system library `jq`", "rocker/r-ver",                        "install-aws.sh",
+  "r-aws-spatial",  "r-aws-minimal plus a spatial libraries stack",                   glue::glue("{account}/r-aws-minimal"), "install-spatial.sh",
+  "r-cicd-minimal", "r-aws-minimal plus a set of CI/CD tools",                        glue::glue("{account}/r-aws-minimal"), "install-cicd.sh",
+  "r-cicd-spatial", "r-aws-spatial plus a set of CI/CD tools",                        glue::glue("{account}/r-aws-spatial"), "install-cicd.sh"
 )
 
 usethis::use_data(rocker_dockerfiles, overwrite = TRUE)
