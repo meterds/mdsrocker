@@ -16,7 +16,9 @@ docker image containing version-stable *base R* & a set of src build
 tools.
 
 We follow the *version tag* approach of the *rocker*-project, using the
-R version as image tag (e.g. `rocker/r-ver:4.1.2`).
+image tag for specifying which version of R is desired
+(e.g. `rocker/r-ver:4.1.2`). Omit the tag or specify `:latest` to always
+receive the latest versions.
 
 ## Image stack
 
@@ -145,7 +147,7 @@ NULL
 image
 </th>
 <th style="text-align:left;">
-from
+parent
 </th>
 <th style="text-align:left;">
 script

@@ -38,24 +38,19 @@ version-stable docker images based on
 [rocker/r-ver](https://hub.docker.com/r/rocker/r-ver), an *ubuntu*-based
 docker image containing version-stable *base R* & a set of src build tools.
 
-We follow the *version tag* approach of the *rocker*-project, using the R 
-version as image tag (e.g. `rocker/r-ver:4.1.2`).
+We follow the *version tag* approach of the *rocker*-project, using the image 
+tag for specifying which version of R is desired (e.g. `rocker/r-ver:4.1.2`).
+Omit the tag or specify `:latest` to always receive the latest versions.
 
 ## Image stack
 
 ```{r stack, echo = FALSE}
 
-stack = tibble::tribble(
-  ~image,           ~description,
-  "r-aws-minimal",  "r-ver plus R packages `renv` & `units` and system library `jq`",
-  "r-aws-spatial",  "r-aws-minimal plus a spatial libraries stack",
-  "r-cicd-minimal", "r-aws-minimal plus a set of CI/CD tools",
-  "r-cicd-spatial", "r-aws-spatial plus a set of CI/CD tools",
-)
+stack = rocker_dockerfiles |> 
+  dplyr::select(image, description)
 
 stack = stack |> 
   dplyr::mutate(
-    # image = glue::glue("[{image}](https://hub.docker.com/r/{account}/{image})")
     image = kableExtra::cell_spec(
       image, 
       "html",
@@ -87,7 +82,9 @@ kableExtra::kable(rocker_installation)
   the relevant information for generating the dockerfiles.
 
 ```{r dockerfiles, echo = FALSE}
-kableExtra::kable(rocker_dockerfiles)
+rocker_dockerfiles |> 
+  dplyr::select(-description) |> 
+  kableExtra::kable()
 ```
 
 ### Scripts & Files

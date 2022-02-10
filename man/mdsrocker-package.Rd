@@ -11,5 +11,10 @@ Framework for creating version-stable METER docker images for R based on rocker-
 \author{
 \strong{Maintainer}: Christoph Stepper \email{christoph.stepper@metergroup.com}
 
+Authors:
+\itemize{
+  \item Hendrik Wagenseil \email{hendrik.wagenseil@metergroup.com}
+}
+
 }
 \keyword{internal}
