@@ -391,16 +391,14 @@ auto_labels = function(image, description, tag){
     description = description,
     licenses = desc::desc_get_field("License"),
     revision = gert::git_info()$commit,
-    source = stringr::str_replace(
-      gert::git_remote_info()$url,
-      pattern = "^git@",
-      replacement = "https://"
-    ) |>
+    source = gert::git_remote_info()$url |>
+      stringr::str_replace(pattern = ":", replacement = "/") |>
+      stringr::str_replace(pattern = "^git@", replacement = "https://") |>
       stringr::str_remove(pattern = "\\.git"),
     title = image,
-    vendor = stringr::str_remove(
-      readLines("LICENSE.md", n = 3)[3],
-      pattern = "Copyright\\s\\(c\\)\\s[:digit:]{4}\\s"
+    vendor = readLines("LICENSE.md", n = 3)[3] |>
+      stringr::str_remove(
+        pattern = "Copyright\\s\\(c\\)\\s[:digit:]{4}\\s"
     ),
     version = tag
   )
