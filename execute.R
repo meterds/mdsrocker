@@ -6,7 +6,6 @@ purrr::pwalk(mdsrocker::rocker_dockerfiles, mdsrocker::create_dockerfile)
 
 ## github actions ----
 mdsrocker::create_action_workflow(
-  images = mdsrocker::rocker_dockerfiles$image,
-  account = desc::desc_get_field("Config/Dockerhub/Account")
-
+  account = desc::desc_get_field("Config/Dockerhub/Account"),
+  images = mdsrocker::rocker_dockerfiles$image
 )
