@@ -1,0 +1,12 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.Rproj\.user$
+^\.github$
+^LICENSE\.md$
+^README\.Rmd$
+^execute\.R$
+^dev_history\.R$
+^\.dockerignore$
+^dockerfiles$
+^scripts$
+^data-raw$

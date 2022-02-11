@@ -1,74 +1,113 @@
 ---
-output: 
-    github_document:
-    code_folding: hide
-editor_options: 
-  chunk_output_type: console
+output: github_document
 ---
 
-```{r, include = FALSE}
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
 )
 
-pkg_spatial = c(
-    'elevatr'
-    , 'gdalcubes'
-    , 'lwgeom'
-    , 'mapview'
-    , 'ncdf4'
-    , 'openeo'
-    , 'raster'
-    , 'rgdal'
-    , 'rgeos'
-    , 'rstac'
-    , 's2'
-    , 'satellite'
-    , 'sf'
-    , 'sp'
-    , 'stars'
-    , 'starsExtra'
-    , 'terra'
-    , 'units'
-    , 'whitebox'
-)
+# libraries
+library(tibble)
+library(dplyr)
+library(purrr)
+devtools::load_all(".")
 
-pkg_nonspatial = c(
-    'remotes'
-    , 'rcmdcheck'
-    , 'tinytest'
-)
+# dockerhub account
+account = desc::desc_get_field("Config/Dockerhub/Account")
 ```
-
 
 # mdsrocker
 
-[![Docker Image CI](https://github.com/meterds/mdsrocker/actions/workflows/docker-image.yml/badge.svg)](https://github.com/meterds/mdsrocker/actions/workflows/docker-image.yml)
+<!-- badges: start -->
+```{r badge, results='asis', echo=FALSE}
+badge_name = "Docker Image CI"
+src = glue::glue("https://github.com/{account}/mdsrocker/actions/workflows/publish-docker-images.yml/badge.svg")
+href = glue::glue("https://github.com/{account}/mdsrocker/actions/workflows/publish-docker-images.yml")
+glue("[![{badge_name}]({src})]({href})")
+```
+<!-- badges: end -->
 
-The Docker image `mdsrocker` adds a set of geospatial packages to the 
-[r-ver](https://hub.docker.com/r/rocker/r-ver) base R image and is designed 
-towards pipelines of spatial packages at METER Data Science. The image can be 
-pulled from [Dockerhub](https://hub.docker.com/r/meterds/mdsrocker).
+The goal of *mdsrocker* is to provide a framework for building a stack of 
+version-stable docker images based on 
+[rocker/r-ver](https://hub.docker.com/r/rocker/r-ver), an *ubuntu*-based
+docker image containing version-stable *base R* & a set of src build tools.
 
-Currently, the following packages are included:
+We follow the *version tag* approach of the *rocker*-project, using the image 
+tag for specifying which version of R is desired (e.g. `rocker/r-ver:4.1.2`).
+Omit the tag or specify `:latest` to always receive the latest versions.
 
-```{r, echo = FALSE}
-data.table::data.table(
-    Package = pkg_spatial
-    , Title = sapply(pkg_spatial, \(i) packageDescription(i)$Title)
-) |>
-    kableExtra::kable()
+## Image stack
+
+```{r stack, echo = FALSE}
+
+stack = rocker_dockerfiles |> 
+  dplyr::select(image, description)
+
+stack = stack |> 
+  dplyr::mutate(
+    image = kableExtra::cell_spec(
+      image, 
+      "html",
+      link = glue::glue("https://hub.docker.com/r/{account}/{image}")
+    )
+  )
+
+kableExtra::kable(stack, escape = FALSE)
 ```
 
 
-Additionally, the following non-spatial packages are installed: 
+## Architecture
 
-```{r, echo = FALSE}
-data.table::data.table(
-    Package = pkg_nonspatial
-    , Title = sapply(pkg_nonspatial, \(i) packageDescription(i)$Title)
-) |>
-    kableExtra::kable()
+This building system is designed as an R package. 
+
+### Data
+
+All relevant information is stored in *two* `data.frames` (as package data):
+
+- `rocker_installation`: *three* different software bundles for the various
+  scopes of the docker images, each containing a list of R packages and
+  system libraries (not required by the R packages) to install.
+
+```{r installation, echo = FALSE}
+kableExtra::kable(rocker_installation)
 ```
 
+- `rocker_dockerfiles`: *four* dockerfile specifications, each containing 
+  the relevant information for generating the dockerfiles.
+
+```{r dockerfiles, echo = FALSE}
+rocker_dockerfiles |> 
+  dplyr::select(-description) |> 
+  kableExtra::kable()
+```
+
+### Scripts & Files
+
+In this building system, 
+
+- standalone shell scripts containing all the install logic are located under 
+  the `scripts/` directory, 
+- dockerfiles used in the Github Actions workflow to build the images are 
+  located under `dockerfiles/`, and
+- a github actions workflow is stored under `.github/workflows/`.
+
+All of these files can be re-created when changes (e.g. additional R packages)
+are required.
+
+Therefore,
+
+- update the code generating the package data in `data-raw/datasets.R`,
+- re-install the package (or load using `devtools::load_all(".")`),
+- run `execute.R` for calling the `create_...` functions 
+  (`shellscript`, `dockerfile`, `action_workflow`) with the updated data.
+
+# Execution
+
+The Github Actions workflow (building and pushing the images) is scheduled to 
+run every Sunday or can be started manually on Github.

@@ -1,0 +1,31 @@
+Package: mdsrocker
+Title: Docker images for CI/CD and dockerized AWS Solutions at METER Data
+    Science
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Christoph", "Stepper", , "christoph.stepper@metergroup.com", role = c("aut", "cre")),
+    person("Hendrik", "Wagenseil", , "hendrik.wagenseil@metergroup.com", role = "aut")
+  )
+Description: Framework for creating version-stable METER docker images for
+    R based on rocker-project foundation.
+License: MIT + file LICENSE
+Depends: 
+    R (>= 4.1)
+Imports: 
+    checkmate,
+    cli,
+    desc,
+    fs,
+    gert, 
+    glue,
+    purrr,
+    remotes,
+    stringr
+Suggests:
+    dplyr,
+    tibble
+Config/Dockerhub/Account: cstepper
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2

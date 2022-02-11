@@ -1,0 +1,9 @@
+.git
+.gitignore
+.Rbuildignore
+.Rproj.user
+dev_history.R
+mdsrocker.Rproj
+NEWS.md
+README.Rmd
+README.md
