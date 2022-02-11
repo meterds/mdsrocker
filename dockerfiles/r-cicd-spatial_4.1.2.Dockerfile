@@ -1,10 +1,10 @@
-FROM cstepper/r-aws-spatial:4.1.2
+FROM meterds/r-aws-spatial:4.1.2
 
 LABEL org.opencontainers.image.authors="Christoph Stepper <christoph.stepper@metergroup.com>"
 LABEL org.opencontainers.image.base.name="docker.io/library/ubuntu:focal"
 LABEL org.opencontainers.image.description="r-aws-spatial plus a set of CI/CD tools"
 LABEL org.opencontainers.image.licenses="MIT + file LICENSE"
-LABEL org.opencontainers.image.revision="da0f78ad10ee0ab3498b54e1afcd63c9ce176350"
+LABEL org.opencontainers.image.revision="34575ba8b1a36f44cf1ed2ccf2d022844a7fd505"
 LABEL org.opencontainers.image.source="https://github.com/meterds/mdsrocker"
 LABEL org.opencontainers.image.title="r-cicd-spatial"
 LABEL org.opencontainers.image.vendor="METER Group AG, Munich"
