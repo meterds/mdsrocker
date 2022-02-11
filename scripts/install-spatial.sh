@@ -144,7 +144,7 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   starsExtra
 
 #install whiteboxtools
-r -e 'whitebox::install_whitebox'
+r -e 'whitebox::install_whitebox()'
 
 # clean up
 rm -rf /var/lib/apt/lists/*

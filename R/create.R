@@ -8,7 +8,7 @@
 #' @param pkgs `character` vector of R packages to install
 #' @param os definition of operating system; default to `"ubuntu-20.04"`.
 #' @param syslibs `character` vector of system libraries to install
-#'   (which are not found as dependency of the R `pkgs`.
+#'   (which are not found as dependency of the R `pkgs`).
 #' @param save_as path for storing the installation instruction file; default
 #'   to `fs::path("scripts", glue::glue("install-{type}.sh"))`.
 #'
@@ -124,7 +124,7 @@ create_shellscript = function(
     extra = c(
       "",
       "#install whiteboxtools",
-      "r -e 'whitebox::install_whitebox'"
+      "r -e 'whitebox::install_whitebox()'"
     )
   } else {
     extra = character()

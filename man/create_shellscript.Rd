@@ -21,7 +21,7 @@ create_shellscript(
 \item{os}{definition of operating system; default to \code{"ubuntu-20.04"}.}
 
 \item{syslibs}{\code{character} vector of system libraries to install
-(which are not found as dependency of the R \code{pkgs}.}
+(which are not found as dependency of the R \code{pkgs}).}
 
 \item{save_as}{path for storing the installation instruction file; default
 to \code{fs::path("scripts", glue::glue("install-{type}.sh"))}.}
