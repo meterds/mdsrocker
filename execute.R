@@ -1,3 +1,6 @@
+## ensure that latest version of package data is considered ----
+devtools::load_all(".")
+
 ## shell scripts ----
 purrr::pwalk(mdsrocker::rocker_installation, mdsrocker::create_shellscript)
 
