@@ -4,15 +4,15 @@ LABEL org.opencontainers.image.authors="Christoph Stepper <christoph.stepper@met
 LABEL org.opencontainers.image.base.name="docker.io/library/ubuntu:focal"
 LABEL org.opencontainers.image.description="r-aws-minimal plus a spatial libraries stack"
 LABEL org.opencontainers.image.licenses="MIT + file LICENSE"
-LABEL org.opencontainers.image.revision="a5104826eaa34a33b810c0cfaf6ea862f864be19"
+LABEL org.opencontainers.image.revision="3a8a608ed405e5fed2a10015f8a0fc2e643bccc0"
 LABEL org.opencontainers.image.source="https://github.com/meterds/mdsrocker"
 LABEL org.opencontainers.image.title="r-aws-spatial"
 LABEL org.opencontainers.image.vendor="METER Group AG, Munich"
 LABEL org.opencontainers.image.version="4.1.2"
 
-COPY /scripts/install-spatial.sh /rocker_scripts
+COPY /scripts/install_spatial.sh /rocker_scripts
 
-RUN /rocker_scripts/install-spatial.sh
+RUN /rocker_scripts/install_spatial.sh
 
 # default for executing container
 CMD /bin/bash

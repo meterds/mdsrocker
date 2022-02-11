@@ -27,7 +27,7 @@ create_shellscript = function(
   pkgs,
   os = "ubuntu-20.04",
   syslibs = NULL,
-  save_as = fs::path("scripts", glue::glue("install-{type}.sh"))
+  save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
 ) {
 
   type = checkmate::assert_choice(type, c("aws", "cicd", "spatial"))

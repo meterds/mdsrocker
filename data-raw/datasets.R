@@ -54,24 +54,24 @@ syslibs = list(
 
 
 # function arguments
-rocker_installation =
+mdsrocker_installation =
   list(pkgs = pkgs, syslibs = syslibs) |>
   purrr::imap(~tibble::enframe(.x, name = "type", value = .y)) |>
   purrr::reduce(dplyr::inner_join, by = "type")
 
-usethis::use_data(rocker_installation, overwrite = TRUE)
+usethis::use_data(mdsrocker_installation, overwrite = TRUE)
 
 
 ## dockerfiles -----
 
 account = desc::desc_get_field("Config/Dockerhub/Account")
 
-rocker_dockerfiles = tibble::tribble(
+mdsrocker_dockerfiles = tibble::tribble(
   ~image,           ~description,                                                     ~parent,                              ~script,
-  "r-aws-minimal",  "r-ver plus R packages `renv` & `units` and system library `jq`", "rocker/r-ver",                        "install-aws.sh",
-  "r-aws-spatial",  "r-aws-minimal plus a spatial libraries stack",                   glue::glue("{account}/r-aws-minimal"), "install-spatial.sh",
-  "r-cicd-minimal", "r-aws-minimal plus a set of CI/CD tools",                        glue::glue("{account}/r-aws-minimal"), "install-cicd.sh",
-  "r-cicd-spatial", "r-aws-spatial plus a set of CI/CD tools",                        glue::glue("{account}/r-aws-spatial"), "install-cicd.sh"
+  "r-aws-minimal",  "r-ver plus R packages `renv` & `units` and system library `jq`", "rocker/r-ver",                        "install_aws.sh",
+  "r-aws-spatial",  "r-aws-minimal plus a spatial libraries stack",                   glue::glue("{account}/r-aws-minimal"), "install_spatial.sh",
+  "r-cicd-minimal", "r-aws-minimal plus a set of CI/CD tools",                        glue::glue("{account}/r-aws-minimal"), "install_cicd.sh",
+  "r-cicd-spatial", "r-aws-spatial plus a set of CI/CD tools",                        glue::glue("{account}/r-aws-spatial"), "install_cicd.sh"
 )
 
-usethis::use_data(rocker_dockerfiles, overwrite = TRUE)
+usethis::use_data(mdsrocker_dockerfiles, overwrite = TRUE)

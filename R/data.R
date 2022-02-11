@@ -10,7 +10,7 @@
 #'   (not required by specified R packages).
 #'
 #' @source METERGROUP
-"rocker_installation"
+"mdsrocker_installation"
 
 
 #' Dockerfile Specifications
@@ -27,4 +27,4 @@
 #'   executed in `docker build` process.
 #'
 #' @source METERGROUP
-"rocker_dockerfiles"
+"mdsrocker_dockerfiles"

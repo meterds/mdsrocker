@@ -62,7 +62,6 @@ stack = stack |>
 kableExtra::kable(stack, escape = FALSE)
 ```
 
-
 ## Architecture
 
 This building system is designed as an R package. 
@@ -71,19 +70,19 @@ This building system is designed as an R package.
 
 All relevant information is stored in *two* `data.frames` (as package data):
 
-- `rocker_installation`: *three* different software bundles for the various
+- `mdsrocker_installation`: *three* different software bundles for the various
   scopes of the docker images, each containing a list of R packages and
   system libraries (not required by the R packages) to install.
 
 ```{r installation, echo = FALSE}
-kableExtra::kable(rocker_installation)
+kableExtra::kable(mdsrocker_installation)
 ```
 
-- `rocker_dockerfiles`: *four* dockerfile specifications, each containing 
+- `mdsrocker_dockerfiles`: *four* dockerfile specifications, each containing 
   the relevant information for generating the dockerfiles.
 
 ```{r dockerfiles, echo = FALSE}
-rocker_dockerfiles |> 
+mdsrocker_dockerfiles |> 
   dplyr::select(-description) |> 
   kableExtra::kable()
 ```

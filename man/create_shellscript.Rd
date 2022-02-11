@@ -9,7 +9,7 @@ create_shellscript(
   pkgs,
   os = "ubuntu-20.04",
   syslibs = NULL,
-  save_as = fs::path("scripts", glue::glue("install-{type}.sh"))
+  save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
 )
 }
 \arguments{

@@ -78,7 +78,7 @@ This building system is designed as an R package.
 All relevant information is stored in *two* `data.frames` (as package
 data):
 
--   `rocker_installation`: *three* different software bundles for the
+-   `mdsrocker_installation`: *three* different software bundles for the
     various scopes of the docker images, each containing a list of R
     packages and system libraries (not required by the R packages) to
     install.
@@ -137,7 +137,7 @@ NULL
 </tbody>
 </table>
 
--   `rocker_dockerfiles`: *four* dockerfile specifications, each
+-   `mdsrocker_dockerfiles`: *four* dockerfile specifications, each
     containing the relevant information for generating the dockerfiles.
 
 <table>
@@ -163,7 +163,7 @@ r-aws-minimal
 rocker/r-ver
 </td>
 <td style="text-align:left;">
-install-aws.sh
+install_aws.sh
 </td>
 </tr>
 <tr>
@@ -174,7 +174,7 @@ r-aws-spatial
 meterds/r-aws-minimal
 </td>
 <td style="text-align:left;">
-install-spatial.sh
+install_spatial.sh
 </td>
 </tr>
 <tr>
@@ -185,7 +185,7 @@ r-cicd-minimal
 meterds/r-aws-minimal
 </td>
 <td style="text-align:left;">
-install-cicd.sh
+install_cicd.sh
 </td>
 </tr>
 <tr>
@@ -196,7 +196,7 @@ r-cicd-spatial
 meterds/r-aws-spatial
 </td>
 <td style="text-align:left;">
-install-cicd.sh
+install_cicd.sh
 </td>
 </tr>
 </tbody>
