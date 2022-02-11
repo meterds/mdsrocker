@@ -24,7 +24,7 @@ Imports:
 Suggests:
     dplyr,
     tibble
-Config/Dockerhub/Account: cstepper
+Config/Dockerhub/Account: meterds
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

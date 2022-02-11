@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Docker Image
-CI](https://github.com/cstepper/mdsrocker/actions/workflows/publish-docker-images.yml/badge.svg)](https://github.com/cstepper/mdsrocker/actions/workflows/publish-docker-images.yml)
+CI](https://github.com/meterds/mdsrocker/actions/workflows/publish-docker-images.yml/badge.svg)](https://github.com/meterds/mdsrocker/actions/workflows/publish-docker-images.yml)
 <!-- badges: end -->
 
 The goal of *mdsrocker* is to provide a framework for building a stack
@@ -36,7 +36,7 @@ description
 <tbody>
 <tr>
 <td style="text-align:left;">
-<a href="https://hub.docker.com/r/cstepper/r-aws-minimal" style="     " >r-aws-minimal</a>
+<a href="https://hub.docker.com/r/meterds/r-aws-minimal" style="     " >r-aws-minimal</a>
 </td>
 <td style="text-align:left;">
 r-ver plus R packages `renv` & `units` and system library `jq`
@@ -44,7 +44,7 @@ r-ver plus R packages `renv` & `units` and system library `jq`
 </tr>
 <tr>
 <td style="text-align:left;">
-<a href="https://hub.docker.com/r/cstepper/r-aws-spatial" style="     " >r-aws-spatial</a>
+<a href="https://hub.docker.com/r/meterds/r-aws-spatial" style="     " >r-aws-spatial</a>
 </td>
 <td style="text-align:left;">
 r-aws-minimal plus a spatial libraries stack
@@ -52,7 +52,7 @@ r-aws-minimal plus a spatial libraries stack
 </tr>
 <tr>
 <td style="text-align:left;">
-<a href="https://hub.docker.com/r/cstepper/r-cicd-minimal" style="     " >r-cicd-minimal</a>
+<a href="https://hub.docker.com/r/meterds/r-cicd-minimal" style="     " >r-cicd-minimal</a>
 </td>
 <td style="text-align:left;">
 r-aws-minimal plus a set of CI/CD tools
@@ -60,7 +60,7 @@ r-aws-minimal plus a set of CI/CD tools
 </tr>
 <tr>
 <td style="text-align:left;">
-<a href="https://hub.docker.com/r/cstepper/r-cicd-spatial" style="     " >r-cicd-spatial</a>
+<a href="https://hub.docker.com/r/meterds/r-cicd-spatial" style="     " >r-cicd-spatial</a>
 </td>
 <td style="text-align:left;">
 r-aws-spatial plus a set of CI/CD tools
@@ -171,7 +171,7 @@ install-aws.sh
 r-aws-spatial
 </td>
 <td style="text-align:left;">
-cstepper/r-aws-minimal
+meterds/r-aws-minimal
 </td>
 <td style="text-align:left;">
 install-spatial.sh
@@ -182,7 +182,7 @@ install-spatial.sh
 r-cicd-minimal
 </td>
 <td style="text-align:left;">
-cstepper/r-aws-minimal
+meterds/r-aws-minimal
 </td>
 <td style="text-align:left;">
 install-cicd.sh
@@ -193,7 +193,7 @@ install-cicd.sh
 r-cicd-spatial
 </td>
 <td style="text-align:left;">
-cstepper/r-aws-spatial
+meterds/r-aws-spatial
 </td>
 <td style="text-align:left;">
 install-cicd.sh
