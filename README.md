@@ -39,7 +39,7 @@ description
 <a href="https://hub.docker.com/r/meterds/r-aws-minimal" style="     " >r-aws-minimal</a>
 </td>
 <td style="text-align:left;">
-r-ver plus R packages `renv` & `units` and system library `jq`
+r-ver plus R packages `renv` & `units` and system libraries `git` & `jq`
 </td>
 </tr>
 <tr>
@@ -106,7 +106,7 @@ aws
 renv , units
 </td>
 <td style="text-align:left;">
-jq
+git, jq
 </td>
 </tr>
 <tr>

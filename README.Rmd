@@ -47,7 +47,7 @@ Omit the tag or specify `:latest` to always receive the latest versions.
 
 ```{r stack, echo = FALSE}
 
-stack = rocker_dockerfiles |> 
+stack = mdsrocker_dockerfiles |> 
   dplyr::select(image, description)
 
 stack = stack |> 
