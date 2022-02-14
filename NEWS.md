@@ -2,6 +2,9 @@
 
 #### ✨ features and improvements
 
+  * add `git` to *r-aws-minimal* image (necessary for use in `renv::restore`
+    when installing METER R-packages from Gitlab).
+
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
