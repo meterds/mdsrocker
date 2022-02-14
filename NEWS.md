@@ -1,15 +1,9 @@
-# mdsrocker 1.0.0.9000 (2022-02-14)
+# mdsrocker 1.0.1 (2022-02-14)
 
 #### ✨ features and improvements
 
   * add `git` to *r-aws-minimal* image (necessary for use in `renv::restore`
     when installing METER R-packages from Gitlab).
-
-#### 🐛 bug fixes
-
-#### 💬 documentation etc
-
-#### 🍬 miscellaneous
 
 
 # mdsrocker 1.0.0 (2022-02-11)
