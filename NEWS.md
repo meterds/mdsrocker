@@ -2,6 +2,8 @@
 
 #### ✨ features and improvements
 
+  * add *Dockerfiles* for R version *4.1.3* (released on 2022-03-10)
+
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
