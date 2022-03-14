@@ -80,11 +80,11 @@ install2.r --error --skipinstalled -n $NCPUS \
   brio \
   xmlparsedata \
   testthat \
+  rappdirs \
   tinytex \
   cpp11 \
   cachem \
   memoise \
-  rappdirs \
   whisker \
   purrr \
   downlit \
@@ -108,13 +108,13 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   knitr \
   cyclocomp \
   lintr \
-  textshaping \
-  systemfonts \
   fs \
   sass \
+  bslib \
+  textshaping \
+  systemfonts \
   rmarkdown \
   ragg \
-  bslib \
   pkgdown \
   rcmdcheck
 

@@ -40,7 +40,8 @@ version-stable docker images based on
 docker image containing version-stable *base R* & a set of src build tools.
 
 We follow the *version tag* approach of the *rocker*-project, using the image 
-tag for specifying which version of R is desired (e.g. `rocker/r-ver:4.1.2`).
+tag for specifying which version of R is desired 
+(e.g. ``r paste("rocker/r-ver:", as.character(getRversion()))``).
 Omit the tag or specify `:latest` to always receive the latest versions.
 
 ## Image stack

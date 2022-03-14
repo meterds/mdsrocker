@@ -56,7 +56,6 @@ install2.r --error --skipinstalled -n $NCPUS \
   jsonlite \
   furrr \
   progressr \
-  RcppProgress \
   ps \
   processx \
   callr \
