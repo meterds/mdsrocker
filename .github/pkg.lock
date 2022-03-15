@@ -7,7 +7,7 @@
     {
       "ref": "deps::.",
       "package": "mdsrocker-deps",
-      "version": "1.0.1.9000",
+      "version": "1.0.1.9001",
       "type": "deps",
       "direct": true,
       "binary": false,
@@ -18,7 +18,7 @@
         "RemoteType": "deps"
       },
       "sources": [],
-      "target": "src/contrib/mdsrocker-deps_1.0.1.9000.tar.gz",
+      "target": "src/contrib/mdsrocker-deps_1.0.1.9001.tar.gz",
       "platform": "source",
       "rversion": "*",
       "directpkg": true,
@@ -30,7 +30,7 @@
     {
       "ref": "local::.",
       "package": "mdsrocker",
-      "version": "1.0.1.9000",
+      "version": "1.0.1.9001",
       "type": "local",
       "direct": true,
       "binary": false,
@@ -41,7 +41,7 @@
         "RemoteType": "local"
       },
       "sources": ["file:///home/runner/work/mdsrocker/mdsrocker"],
-      "target": "src/contrib/mdsrocker_1.0.1.9000.tar.gz",
+      "target": "src/contrib/mdsrocker_1.0.1.9001.tar.gz",
       "platform": "source",
       "rversion": "*",
       "directpkg": true,
