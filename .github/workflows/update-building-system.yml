@@ -20,7 +20,7 @@ jobs:
         use-public-rspm: true
     -
       name: Restore from renv
-      uses: r-lib/actions/sepup-renv@v1
+      uses: r-lib/actions/setup-renv@v1
     # -
     #   name: Install packages declared in DESCRIPTION
     #   uses: r-lib/actions/setup-r-dependencies@v2
