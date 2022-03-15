@@ -1,8 +1,6 @@
-## 2022-03-14 ====
+## 2022-03-1 ====
 
-# use renv
-mdseasy::renv_settings(settings = list(ignored.packages = ""))
-mdseasy::renv_snapshot()
+
 
 ## 2022-02-07 ====
 
