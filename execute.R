@@ -5,7 +5,7 @@
 purrr::pwalk(mdsrocker::mdsrocker_installation, mdsrocker::create_shellscript)
 
 ## dockerfiles ----
-purrr::pwalk(mdsrocker::mdsrocker_dockerfiles, mdsrocker::create_dockerfile)
+# purrr::pwalk(mdsrocker::mdsrocker_dockerfiles, mdsrocker::create_dockerfile)
 
 ## github actions ----
 mdsrocker::create_action_workflow(
