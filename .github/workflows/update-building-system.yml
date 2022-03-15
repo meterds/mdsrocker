@@ -19,14 +19,17 @@ jobs:
       with:
         use-public-rspm: true
     -
-      name: Install packages declared in DESCRIPTION
-      uses: r-lib/actions/setup-r-dependencies@v2
-      with:
-        extra-packages: local::.
-    -
-      name: sessioninfo
-      run: install.packages("sessioninfo", repos = "https://cran.rstudio.com")
-      shell: Rscript {0}
+      name: Restore from renv
+      uses: r-lib/actions/sepup-renv@v1
+    # -
+    #   name: Install packages declared in DESCRIPTION
+    #   uses: r-lib/actions/setup-r-dependencies@v2
+    #   with:
+    #     extra-packages: local::.
+    # -
+    #   name: sessioninfo
+    #   run: install.packages("sessioninfo", repos = "https://cran.rstudio.com")
+    #   shell: Rscript {0}
     -
       name: Run Script
       run: |
