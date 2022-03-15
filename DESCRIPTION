@@ -23,10 +23,10 @@ Imports:
     stringr
 Suggests:
     dplyr,
+    sessioninfo,
     tibble
-Config/Needs/actions:
-    sessioninfo
-Config/Dockerhub/Account: meterds
+Config/Dockerhub/Account: 
+    meterds
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
