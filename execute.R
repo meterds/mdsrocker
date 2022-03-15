@@ -1,9 +1,13 @@
 # ## ensure that latest version of package data is considered ----
 # devtools::load_all(".")
 
-## shell scripts ----
-purrr::pwalk(mdsrocker::mdsrocker_installation, mdsrocker::create_shellscript)
 
+file.create("test.abc")
+print("Hello")
+
+# ## shell scripts ----
+# purrr::pwalk(mdsrocker::mdsrocker_installation, mdsrocker::create_shellscript)
+#
 # ## dockerfiles ----
 # purrr::pwalk(mdsrocker::mdsrocker_dockerfiles, mdsrocker::create_dockerfile)
 #
