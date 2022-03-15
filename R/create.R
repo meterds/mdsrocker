@@ -308,7 +308,10 @@ create_action_workflow_publish_docker_images = function(
     stop(msg, call. = FALSE)
   }
 
-  rversions = paste(sQuote(rversions, q = FALSE), collapse = ", ")
+  rversions = paste(
+    paste0("'", rversions, "'"),
+    collapse = ", "
+    )
 
   checkmate::assert_path_for_output(save_as, overwrite = TRUE)
 
@@ -404,7 +407,7 @@ build_and_push = function(index, image, account){
     "    tags: |",
     glue::glue("      <account>/<image>:latest", .open = "<", .close = ">"),
     glue::glue(
-      "      <account>/<image>:{{ matrix.R }}"
+      "      <account>/<image>:${{ matrix.R }}"
       , .open = "<", .close = ">"
     )
   )
