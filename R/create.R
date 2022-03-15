@@ -265,6 +265,8 @@ create_dockerfile = function(
 #' @param account `character` dockerhub account for pushing the images.
 #' @param images names of docker images to create, subset of
 #'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`
+#' @param rversions `character` vector of R versions; necessary for setting up
+#'    the matrix for the Github Actions Workflow.
 #' @param save_as path for storing the yml file; default
 #'   to `fs::path(".github", "workflows", "publish-docker-images.yml")`.
 #'
@@ -306,7 +308,7 @@ create_action_workflow_publish_docker_images = function(
     stop(msg, call. = FALSE)
   }
 
-  rversions = paste(sQuote(rversions), collapse = ", ")
+  rversions = paste(sQuote(rversions, q = FALSE), collapse = ", ")
 
   checkmate::assert_path_for_output(save_as, overwrite = TRUE)
 
@@ -407,19 +409,25 @@ build_and_push = function(index, image, account){
 
 #' @importFrom desc desc_get_field desc_get_maintainer
 #' @importFrom gert git_info git_remote_info
-#' @importFrom stringr str_remove str_replace
+#' @importFrom stringr str_detect str_remove str_replace
 
 auto_labels = function(image, description, tag){
+  source = gert::git_remote_info()$url |>
+    stringr::str_remove(pattern = "\\.git$")
+
+  if (stringr::str_detect(source, pattern = "^git@")) {
+    source = source |>
+      stringr::str_replace(pattern = ":", replacement = "/") |>
+      stringr::str_replace(pattern = "^git@", replacement = "https://")
+  }
+
   list(
     authors = desc::desc_get_maintainer(),
     base.name = "docker.io/library/ubuntu:focal",
     description = description,
     licenses = desc::desc_get_field("License"),
     revision = gert::git_info()$commit,
-    source = gert::git_remote_info()$url |>
-      stringr::str_replace(pattern = ":", replacement = "/") |>
-      stringr::str_replace(pattern = "^git@", replacement = "https://") |>
-      stringr::str_remove(pattern = "\\.git"),
+    source = source,
     title = image,
     vendor = readLines("LICENSE.md", n = 3)[3] |>
       stringr::str_remove(

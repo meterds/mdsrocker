@@ -7,6 +7,7 @@
 create_action_workflow_publish_docker_images(
   account,
   images,
+  rversions,
   save_as = fs::path(".github", "workflows", "publish-docker-images.yml")
 )
 }
@@ -15,6 +16,9 @@ create_action_workflow_publish_docker_images(
 
 \item{images}{names of docker images to create, subset of
 \code{c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")}}
+
+\item{rversions}{\code{character} vector of R versions; necessary for setting up
+the matrix for the Github Actions Workflow.}
 
 \item{save_as}{path for storing the yml file; default
 to \code{fs::path(".github", "workflows", "publish-docker-images.yml")}.}
