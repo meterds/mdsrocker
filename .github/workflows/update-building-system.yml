@@ -14,6 +14,8 @@ jobs:
     -
       name: Check out the repo
       uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.ACTSIONS_PAT}}
     -
       name: Setup R
       uses: r-lib/actions/setup-r@v2
