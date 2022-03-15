@@ -25,6 +25,10 @@ jobs:
       with:
         extra-packages: local::.
     -
+      name: sessioninfo
+      run: install.packages("sessioninfo", repos = "https://cran.rstudio.com")
+      shell: Rscript {0}
+    -
       name: Run Script
       run: |
         source("execute.R")
