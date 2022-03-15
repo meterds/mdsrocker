@@ -265,8 +265,6 @@ create_dockerfile = function(
 #' @param account `character` dockerhub account for pushing the images.
 #' @param images names of docker images to create, subset of
 #'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`
-#' @param tag `character` tag for the docker image, default to the current
-#'   R version; `as.character(getRversion())`.
 #' @param save_as path for storing the yml file; default
 #'   to `fs::path(".github", "workflows", "publish-docker-images.yml")`.
 #'
@@ -278,12 +276,13 @@ create_dockerfile = function(
 #' @importFrom fs path
 #' @importFrom glue glue
 #' @importFrom purrr flatten_chr map map2
+#' @importFrom rversions r_versions
 #'
 #' @export
-create_action_workflow = function(
+create_action_workflow_publish_docker_images = function(
   account,
   images,
-  tag = as.character(getRversion()),
+  rversions,
   save_as = fs::path(".github", "workflows", "publish-docker-images.yml")
 ) {
 
@@ -296,7 +295,19 @@ create_action_workflow = function(
     )
   )
 
-  checkmate::assert_character(tag, len = 1L)
+  # check supplied r versions
+  rversions_fail = !rversions %in% rversions::r_versions()$version
+  if (any(rversions_fail)) {
+    rversions_fail = rversions[which(rversions_fail)]
+    msg = sprintf(
+      "Supplied R version(s) not found: %s",
+      paste(rversions_fail, collapse = ", ")
+    )
+    stop(msg, call. = FALSE)
+  }
+
+  rversions = paste(sQuote(rversions), collapse = ", ")
+
   checkmate::assert_path_for_output(save_as, overwrite = TRUE)
 
   # script content
@@ -325,7 +336,6 @@ create_action_workflow = function(
     purrr::map2(
       seq_along(images), images,
       build_and_push,
-      tag = tag,
       account = account
     )
   )
@@ -337,11 +347,15 @@ create_action_workflow = function(
       "name" = "name: Publish Docker Images",
       "on" = c("on:",
                "  schedule:", '    - cron: "30 5 * * SUN"',
-               "  push:", "    branches:", "      - main",
                "  workflow_dispatch:"
       ),
       "jobs" = c("jobs:",
                  "  push_to_registry:", "    runs-on: ubuntu-latest",
+                 "  strategy:",
+                 "    fail-fast: false",
+                 "    matrix:",
+                 glue::glue("      R: [{rversions}]"),
+                 "  name: build images - R ${{ matrix.R }}",
                  "    steps:",
                  steps
       )
@@ -365,18 +379,27 @@ create_action_workflow = function(
 
 # helpers ----------------------------------------------------------------------
 
-build_and_push = function(index, image, tag, account){
+build_and_push = function(index, image, account){
   c(
     "-",
-    glue::glue("  name: Build and push Docker image {index}/4 -> {image}"),
+    glue::glue(
+      "  name: Build and push Docker image <index>/4 -> <image>",
+      .open = "<", .close = ">"
+    ),
     "  uses: docker/build-push-action@v2",
     "  with:",
     "    context: .",
-    glue::glue("    file: dockerfiles/{image}_{tag}.Dockerfile"),
+    glue::glue(
+      "    file: dockerfiles/<image>_${{ matrix.R }}.Dockerfile"
+      , .open = "<", .close = ">"
+    ),
     "    push: true",
     "    tags: |",
-    glue::glue("      {account}/{image}:latest"),
-    glue::glue("      {account}/{image}:{tag}")
+    glue::glue("      <account>/<image>:latest", .open = "<", .close = ">"),
+    glue::glue(
+      "      <account>/<image>:{{ matrix.R }}"
+      , .open = "<", .close = ">"
+    )
   )
 }
 
