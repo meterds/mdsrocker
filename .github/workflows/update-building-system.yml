@@ -22,13 +22,14 @@ jobs:
       name: Install packages declared in DESCRIPTION
       uses: r-lib/actions/setup-r-dependencies@v2
       with:
+        cache-version: 2
         extra-packages: local::.
         needs: actions
-    -
-      name: Extra install sessioninfo
-      run: |
-        install.packages("sessioninfo")
-      shell: Rscript {0}
+    # -
+    #   name: Extra install sessioninfo
+    #   run: |
+    #     install.packages("sessioninfo")
+    #   shell: Rscript {0}
     -
       name: Run Script
       run: |
@@ -36,9 +37,6 @@ jobs:
       shell: Rscript {0}
     -
       name: Commit changes
-      run: |
-        git config --local user.email "actions@github.com"
-        git config --local user.name "GitHub Actions"
-        git add --all
-        git commit -am "add data"
-        git push
+      uses: EndBug/add-and-commit@v9
+      with:
+        default_author: github_actions
