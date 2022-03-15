@@ -3,6 +3,9 @@ name: Publish Docker Images
 on:
   schedule:
     - cron: "30 5 * * SUN"
+  push:
+    paths:
+      - '.github/workflows/publish-docker-images.yml'
   workflow_dispatch:
 
 jobs:
