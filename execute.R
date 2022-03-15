@@ -1,9 +1,7 @@
 # ## ensure that latest version of package data is considered ----
 # devtools::load_all(".")
 
-
-file.create("test.abc")
-print("Hello")
+remotes::package_deps("rcmdcheck")
 
 # ## shell scripts ----
 # purrr::pwalk(mdsrocker::mdsrocker_installation, mdsrocker::create_shellscript)
