@@ -1,8 +1,8 @@
 ## 2022-03-14 ====
 
 # use renv
-
-source("execute.R")
+mdseasy::renv_settings(settings = list(ignored.packages = ""))
+mdseasy::renv_snapshot()
 
 ## 2022-02-07 ====
 
