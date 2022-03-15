@@ -1,6 +1,6 @@
 ## 2022-03-1 ====
 
-
+mdseasy::easy_version(element = "dev", check_renv = FALSE)
 
 ## 2022-02-07 ====
 
