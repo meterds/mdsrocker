@@ -8,11 +8,11 @@ on:
 jobs:
   push_to_registry:
     runs-on: ubuntu-latest
-  strategy:
-    fail-fast: false
-    matrix:
-      R: ['4.1.2', '4.1.3']
-  name: build images - R ${{ matrix.R }}
+    strategy:
+      fail-fast: false
+      matrix:
+        R: ['4.1.2', '4.1.3']
+    name: build images - R ${{ matrix.R }}
     steps:
     -
       name: Check out the repo

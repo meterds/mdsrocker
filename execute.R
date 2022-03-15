@@ -11,6 +11,7 @@ for (rver in rversions) {
 }
 
 ## github actions ----
+rversions = desc::desc_get_list("Config/Docker/Rversions")
 mdsrocker::create_action_workflow_publish_docker_images(
  account = desc::desc_get_field("Config/Dockerhub/Account"),
  images = mdsrocker::mdsrocker_dockerfiles$image,

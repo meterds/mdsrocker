@@ -316,7 +316,7 @@ create_action_workflow_publish_docker_images = function(
   checkout_repo = c(
     "-",
     "  name: Check out the repo",
-    "  uses: actions/checkout@v2"
+    "  uses: actions/checkout@v3"
   )
 
   docker_login = c(
@@ -350,12 +350,13 @@ create_action_workflow_publish_docker_images = function(
                "  workflow_dispatch:"
       ),
       "jobs" = c("jobs:",
-                 "  push_to_registry:", "    runs-on: ubuntu-latest",
-                 "  strategy:",
-                 "    fail-fast: false",
-                 "    matrix:",
-                 glue::glue("      R: [{rversions}]"),
-                 "  name: build images - R ${{ matrix.R }}",
+                 "  push_to_registry:",
+                 "    runs-on: ubuntu-latest",
+                 "    strategy:",
+                 "      fail-fast: false",
+                 "      matrix:",
+                 glue::glue("        R: [{rversions}]"),
+                 "    name: build images - R ${{ matrix.R }}",
                  "    steps:",
                  steps
       )
