@@ -17,8 +17,8 @@ tools.
 
 We follow the *version tag* approach of the *rocker*-project, using the
 image tag for specifying which version of R is desired
-(e.g. `rocker/r-ver:4.1.2`). Omit the tag or specify `:latest` to always
-receive the latest versions.
+(e.g. `rocker/r-ver: 4.1.3`). Omit the tag or specify `:latest` to
+always receive the latest versions.
 
 ## Image stack
 
@@ -210,21 +210,40 @@ In this building system,
     located under the `scripts/` directory,
 -   dockerfiles used in the Github Actions workflow to build the images
     are located under `dockerfiles/`, and
--   a github actions workflow is stored under `.github/workflows/`.
+-   two github actions workflows are stored under `.github/workflows/`:
+    -   `update-building-system.yml`: re-builds all scripts if any
+        changes were done in the repository (e.g. adding an R version to
+        the `DESCRIPTION` file or adding some R packages to the software
+        bundles),
+    -   `publish-docker-images.yml`: actually builds and pushes the
+        defined image stack.
 
-All of these files can be re-created when changes (e.g. additional R
-packages) are required.
+### Updating
 
-Therefore,
+All scripts are automatically updated in the Github Actions Workflow
+`update-building-system.yml` (by running `execute.R`) when commited and
+pushed.
 
--   update the code generating the package data in
+For adding changes (e.g. additional R packages), do:
+
+1.  *git pull* the latest changes in the remote repository,
+2.  *run*:
+    -   `mdseasy::easy_version(element = "dev", check_renv = FALSE, push = FALSE)`
+3.  *update* and *run* the code generating the package data in
     `data-raw/datasets.R`,
--   re-install the package (or load using `devtools::load_all(".")`),
--   run `execute.R` for calling the `create_...` functions
-    (`shellscript`, `dockerfile`, `action_workflow`) with the updated
-    data.
+4.  *run*:
+    -   `devtools::document()`
+    -   `devtools::check()`
+5.  *update* `NEWS.md`
+6.  *run*
+    -   `gert::git_commit_all("YOUR COMMIT MESSAGE")`
+    -   `mdseasy::easy_version()`
 
 # Execution
 
-The Github Actions workflow (building and pushing the images) is
-scheduled to run every Sunday or can be started manually on Github.
+The Github Actions workflow `publish-docker-images.yml` is:
+
+-   triggered by pushed changes to the workflow itself (usually applied
+    via the `update-building-system.yml` workflow),
+-   scheduled to run every Sunday,
+-   or can be started manually on Github.
