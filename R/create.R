@@ -289,6 +289,7 @@ create_action_workflow_publish_docker_images = function(
 ) {
 
   checkmate::assert_character(account, len = 1L)
+  checkmate::assert_path_for_output(save_as, overwrite = TRUE)
 
   checkmate::assert_subset(
     images,
@@ -297,6 +298,13 @@ create_action_workflow_publish_docker_images = function(
     )
   )
 
+  images_array = paste(
+    paste0("'", images, "'"),
+    collapse = ", "
+  )
+
+  rversions = sort(rversions)
+  rversion_latest = rversions[length(rversions)]
   # check supplied r versions
   rversions_fail = !rversions %in% rversions::r_versions()$version
   if (any(rversions_fail)) {
@@ -308,12 +316,11 @@ create_action_workflow_publish_docker_images = function(
     stop(msg, call. = FALSE)
   }
 
-  rversions = paste(
+  rversions_array = paste(
     paste0("'", rversions, "'"),
     collapse = ", "
-    )
+  )
 
-  checkmate::assert_path_for_output(save_as, overwrite = TRUE)
 
   # script content
 
@@ -333,15 +340,41 @@ create_action_workflow_publish_docker_images = function(
     "    password: ${{ secrets.DOCKERHUB_PAT }}"
   )
 
+  create_tags = c(
+    "-",
+    "  name: Create Tags for Docker image",
+    "  uses: haya14busa/action-cond@v1",
+    "  id: condtag",
+    "  with:",
+    glue::glue(
+      "    cond: ${{ matrix.rversion == '<rversion_latest>' }}"
+      , .open = "<", .close = ">"
+    ),
+    glue::glue(
+      '    if_true: "<account>/${{ matrix.image }}:latest, <account>/${{ matrix.image }}:${{ matrix.rversion }}"'
+      , .open = "<", .close = ">"
+    ),
+    glue::glue(
+      '    if_false: "<account>/${{ matrix.image }}:${{ matrix.rversion }}"'
+      , .open = "<", .close = ">"
+    )
+  )
+
+  build_push = c(
+    "-",
+    "  name: Build and push Docker image",
+    "  uses: docker/build-push-action@v2",
+    "  with:",
+    '    file: dockerfiles/${{ matrix.image }}_${{ matrix.rversion }}.Dockerfile',
+    '    push: true',
+    '    tags: ${{ steps.condtag.outputs.value }}'
+  )
+
   steps = c(
     list(
-      checkout_repo,
-      docker_login
-    ),
-    purrr::map2(
-      seq_along(images), images,
-      build_and_push,
-      account = account
+      docker_login,
+      create_tags,
+      build_push
     )
   )
 
@@ -362,10 +395,12 @@ create_action_workflow_publish_docker_images = function(
                  "  push_to_registry:",
                  "    runs-on: ubuntu-latest",
                  "    strategy:",
-                 "      fail-fast: false",
+                 "      fail-fast: true",
+                 "      max-parallel: 1",
                  "      matrix:",
-                 glue::glue("        R: [{rversions}]"),
-                 "    name: build images - R ${{ matrix.R }}",
+                 glue::glue("        rversion: [{rversions_array}]"),
+                 glue::glue("        image: [{images_array}]"),
+                 "    name: ${{ matrix.image }} - ${{ matrix.rversion }}",
                  "    steps:",
                  steps
       )
@@ -388,31 +423,6 @@ create_action_workflow_publish_docker_images = function(
 }
 
 # helpers ----------------------------------------------------------------------
-
-build_and_push = function(index, image, account){
-  c(
-    "-",
-    glue::glue(
-      "  name: Build and push Docker image <index>/4 -> <image>",
-      .open = "<", .close = ">"
-    ),
-    "  uses: docker/build-push-action@v2",
-    "  with:",
-    "    context: .",
-    glue::glue(
-      "    file: dockerfiles/<image>_${{ matrix.R }}.Dockerfile"
-      , .open = "<", .close = ">"
-    ),
-    "    push: true",
-    "    tags: |",
-    glue::glue("      <account>/<image>:latest", .open = "<", .close = ">"),
-    glue::glue(
-      "      <account>/<image>:${{ matrix.R }}"
-      , .open = "<", .close = ">"
-    )
-  )
-}
-
 
 #' @importFrom desc desc_get_field desc_get_maintainer
 #' @importFrom gert git_info git_remote_info
