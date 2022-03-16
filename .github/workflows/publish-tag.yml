@@ -27,8 +27,8 @@ jobs:
       id: condtag-r-aws-minimal
       with:
         cond: ${{ matrix.R == '4.1.3' }}
-        if_true: "meterds/r-aws-minimal:latest, meterds/r-aws-minimal:latest:${{ matrix.R }}"
-        if_false: "meterds/r-aws-minimal:latest:${{ matrix.R }}"
+        if_true: "meterds/r-aws-minimal:latest, meterds/r-aws-minimal:${{ matrix.R }}"
+        if_false: "meterds/r-aws-minimal:${{ matrix.R }}"
     -
       name: Build and push Docker image 1/4 -> r-aws-minimal
       uses: docker/build-push-action@v2
