@@ -432,6 +432,8 @@ auto_labels = function(image, description, tag){
   source = gert::git_remote_info()$url |>
     stringr::str_remove(pattern = "\\.git$")
 
+  cat(source, "\n")
+
   if (stringr::str_detect(source, pattern = "^git@")) {
     source = source |>
       stringr::str_replace(pattern = ":", replacement = "/") |>

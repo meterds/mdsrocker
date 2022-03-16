@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - '*'
-    paths:
-      - 'DESCRIPTION'
   workflow_dispatch:
 
 jobs:
