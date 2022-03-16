@@ -328,12 +328,6 @@ create_action_workflow_publish_docker_images = function(
   # script content
 
   ## define steps
-  checkout_repo = c(
-    "-",
-    "  name: Check out the repo",
-    "  uses: actions/checkout@v3"
-  )
-
   docker_login = c(
     "-",
     "  name: Login to Docker Hub",
@@ -391,6 +385,8 @@ create_action_workflow_publish_docker_images = function(
                '    - cron: "30 5 * * SUN"',
                "  push:",
                "    paths:",
+               "      - 'scripts/**'",
+               "      - 'dockerfiles/**'",
                "      - '.github/workflows/publish-docker-images.yml'",
                "  workflow_dispatch:"
       ),
