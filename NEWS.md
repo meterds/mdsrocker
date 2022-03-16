@@ -4,6 +4,9 @@
 
 #### 🐛 bug fixes
 
+  * update TOKEN settings for *Cancel previous runs* step in 
+    `update-building-system.yml`
+
 #### 💬 documentation etc
 
 #### 🍬 miscellaneous
