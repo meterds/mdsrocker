@@ -237,7 +237,7 @@ For adding changes (e.g. additional R packages), do:
 5.  *update* `NEWS.md`
 6.  *run*
     -   `gert::git_commit_all("YOUR COMMIT MESSAGE")`
-    -   `mdseasy::easy_version()`
+    -   `mdseasy::easy_version(check_renv = FALSE)`
 
 # Execution
 
