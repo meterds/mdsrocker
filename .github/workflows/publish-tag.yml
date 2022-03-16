@@ -1,6 +1,7 @@
 name: Publish Docker Images Test
 
-workflow_dispatch:
+on:
+  workflow_dispatch:
 
 jobs:
   push_to_registry:
@@ -26,11 +27,11 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PAT }}
     -
       name: Create Tags for Docker image 1/4 -> r-aws-minimal
-      uses: uses: haya14busa/action-cond@v1
+      uses: haya14busa/action-cond@v1
       id: condtag-r-aws-minimal
       with:
         cond: ${{ matrix.latest }}
-        if_true: "meterds/r-aws-minimal:latest, meterds/r-aws-minimal:latest:${{ matrix.R }}
+        if_true: "meterds/r-aws-minimal:latest, meterds/r-aws-minimal:latest:${{ matrix.R }}"
         if_false: "meterds/r-aws-minimal:latest:${{ matrix.R }}"
     -
       name: Build and push Docker image 1/4 -> r-aws-minimal
