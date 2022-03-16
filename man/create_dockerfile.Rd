@@ -6,11 +6,12 @@
 \usage{
 create_dockerfile(
   image,
-  description,
   parent,
+  script,
+  description,
+  ...,
   tag = as.character(getRversion()),
   labels = NULL,
-  script,
   save_as = fs::path("dockerfiles", glue::glue("{image}_{tag}.Dockerfile"))
 )
 }
@@ -19,19 +20,22 @@ create_dockerfile(
 \code{c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")},
 plus R version as \code{tag}.}
 
-\item{description}{content of docker image,}
-
 \item{parent}{\code{character} parent docker image (incl. \emph{dockerhub} account)
 from which to build.}
+
+\item{script}{\code{character} name of installation shell script to be
+executed in \verb{docker build} process.}
+
+\item{description}{content of docker image.}
+
+\item{...}{arguments passed on to internal helper functions
+(e.g. \code{verbose = TRUE}).}
 
 \item{tag}{\code{character} tag for the docker image, default to the current
 R version; \code{as.character(getRversion())}.}
 
 \item{labels}{named \code{list} with labels (see \strong{Details}). If \code{NULL},
 filled with predefined keys.}
-
-\item{script}{\code{character} name of installation shell script to be
-executed in \verb{docker build} process.}
 
 \item{save_as}{path for storing the dockerfile; default
 to \code{fs::path("dockerfiles", glue::glue("{image}_{tag}.Dockerfile"))}.}

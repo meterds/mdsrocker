@@ -177,15 +177,17 @@ create_shellscript = function(
 #' @param image name of docker image to create, one of
 #'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`,
 #'   plus R version as `tag`.
-#' @param description content of docker image,
 #' @param parent `character` parent docker image (incl. *dockerhub* account)
 #'   from which to build.
+#' @param script `character` name of installation shell script to be
+#'   executed in `docker build` process.
+#' @param description content of docker image.
+#' @param ... arguments passed on to internal helper functions
+#'   (e.g. `verbose = TRUE`).
 #' @param tag `character` tag for the docker image, default to the current
 #'   R version; `as.character(getRversion())`.
 #' @param labels named `list` with labels (see **Details**). If `NULL`,
 #'   filled with predefined keys.
-#' @param script `character` name of installation shell script to be
-#'   executed in `docker build` process.
 #' @param save_as path for storing the dockerfile; default
 #'   to `fs::path("dockerfiles", glue::glue("{image}_{tag}.Dockerfile"))`.
 #'
@@ -202,11 +204,12 @@ create_shellscript = function(
 #' @export
 create_dockerfile = function(
   image,
-  description,
   parent,
+  script,
+  description,
+  ...,
   tag = as.character(getRversion()),
   labels = NULL,
-  script,
   save_as = fs::path("dockerfiles", glue::glue("{image}_{tag}.Dockerfile"))
 ) {
 
@@ -424,15 +427,27 @@ create_action_workflow_publish_docker_images = function(
 
 # helpers ----------------------------------------------------------------------
 
+#' @importFrom cli cli_alert_info
 #' @importFrom desc desc_get_field desc_get_maintainer
 #' @importFrom gert git_info git_remote_info
 #' @importFrom stringr str_detect str_remove str_replace
 
-auto_labels = function(image, description, tag){
-  source = gert::git_remote_info()$url |>
-    stringr::str_remove(pattern = "\\.git$")
+auto_labels = function(image, description, tag, verbose = TRUE) {
 
-  cat(source, "\n")
+  # retrieve remote repo url
+  source = gert::git_remote_info()$url
+
+  if (verbose) {
+    cli::cli_alert_info("Repository remote URL: {.url {source}}")
+  }
+
+  # fallback
+  if (is.na(source)) {
+    source = "https://github.com/meterds/mdsrocker.git"
+  }
+
+  source = source |>
+    stringr::str_remove(pattern = "\\.git$")
 
   if (stringr::str_detect(source, pattern = "^git@")) {
     source = source |>
