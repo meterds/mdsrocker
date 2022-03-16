@@ -1,11 +1,11 @@
-# mdsrocker 1.0.1.9003 (2022-03-15)
+# mdsrocker 1.1.0 (2022-03-16)
 
 #### ✨ features and improvements
 
   * update `DESCRIPTION` and create functions to handle multiple R versions
     (necessary for new R version *4.1.3*, released on 2022-03-10).
-    + all desired R version can be noted in the `DESCRIPTION` field 
-      `Config/Docker/Rversions`. 
+    + all desired R version can be noted in the `DESCRIPTION` field
+      `Config/Docker/Rversions`.
   * add workflow `update-building-system.yml`:
     + runs the `execute.R` script to update all relevant scripts/files
       (shell scripts, dockerfiles, publish-docker-images.yml)
@@ -19,10 +19,6 @@
 
   * `auto_label`: correct handling of `url` (depending on used git protocol
     `ssh` or `https`).
-
-#### 💬 documentation etc
-
-#### 🍬 miscellaneous
 
 
 # mdsrocker 1.0.1 (2022-02-14)
