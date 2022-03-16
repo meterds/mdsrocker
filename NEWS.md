@@ -1,15 +1,9 @@
-# mdsrocker 1.1.0.9000 (2022-03-16)
-
-#### ✨ features and improvements
+# mdsrocker 1.1.1 (2022-03-16)
 
 #### 🐛 bug fixes
 
-  * update TOKEN settings for *Cancel previous runs* step in 
+  * update TOKEN settings for *Cancel previous runs* step in
     `update-building-system.yml`
-
-#### 💬 documentation etc
-
-#### 🍬 miscellaneous
 
 
 # mdsrocker 1.1.0 (2022-03-16)
