@@ -2,6 +2,8 @@ name: Update Building System
 
 on:
   push:
+    tags:
+      - '*'
     paths:
       - 'DESCRIPTION'
   workflow_dispatch:
@@ -14,7 +16,7 @@ jobs:
       name: Cancel previous runs
       uses: styfle/cancel-workflow-action@0.9.1
       with:
-        access_token ${{ secrets.GITHUB_TOKEN }}
+        access_token ${{ github.token }}
     -
       name: Check out the repo
       uses: actions/checkout@v3
