@@ -384,6 +384,8 @@ create_action_workflow_publish_docker_images = function(
                "  schedule:",
                '    - cron: "30 5 * * SUN"',
                "  push:",
+               "    branches:",
+               "      - main",
                "    paths:",
                "      - 'scripts/**'",
                "      - 'dockerfiles/**'",
@@ -426,20 +428,23 @@ create_action_workflow_publish_docker_images = function(
 #' @importFrom cli cli_alert_info
 #' @importFrom desc desc_get_field desc_get_maintainer
 #' @importFrom gert git_info git_remote_info
+#' @importFrom purrr safely
 #' @importFrom stringr str_detect str_remove str_replace
 
 auto_labels = function(image, description, tag, verbose = TRUE) {
 
   # retrieve remote repo url
-  source = gert::git_remote_info()$url
+  safe_git_remote_info = purrr::safely(gert::git_remote_info)
+  remote_info = safe_git_remote_info()
 
-  if (verbose) {
-    cli::cli_alert_info("Repository remote URL: {.url {source}}")
-  }
-
-  # fallback
-  if (is.na(source)) {
+  if (is.null(remote_info$error)) {
+    source = remote_info$result$url
+    cli::cli_alert_info("Found repository remote URL: {.url {source}}")
+  } else {
     source = "https://github.com/meterds/mdsrocker.git"
+    cli::cli_alert_warning(
+      "Cannot reach git remote, use fallback for remote URL: {.url {source}}"
+    )
   }
 
   source = source |>

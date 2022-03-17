@@ -2,8 +2,8 @@ name: Update Building System
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:

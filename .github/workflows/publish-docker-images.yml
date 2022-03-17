@@ -5,6 +5,8 @@ on:
     - cron: "30 5 * * SUN"
   push:
     paths:
+      - 'scripts/**'
+      - 'dockerfiles/**'
       - '.github/workflows/publish-docker-images.yml'
   workflow_dispatch:
 
