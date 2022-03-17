@@ -1,9 +1,9 @@
-# mdsrocker 1.1.7 (2022-03-17)
+# mdsrocker 1.1.8 (2022-03-17)
 
 #### ✨ features and improvements
 
-  * `create_action_workflow_publish_docker_images` 
-    + creates different job matrices for each R version 
+  * `create_action_workflow_publish_docker_images`
+    + creates different job matrices for each R version
       (in order to run in parallel).
     + is triggered by completed workflow run of `Update Building System`
     + has a job to cancel all "uncompleted" previous workflow runs
