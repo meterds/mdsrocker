@@ -446,6 +446,7 @@ push_to_registry = function(rver, images_array, steps){
   c(
     "",
     glue::glue("  push_to_registry-R_{r_ver}:"),
+    "    needs: cancel_previous_runs",
     "    runs-on: ubuntu-latest",
     "    strategy:",
     "      fail-fast: true",

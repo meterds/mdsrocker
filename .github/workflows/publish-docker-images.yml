@@ -22,6 +22,7 @@ jobs:
         access_token: ${{ secrets.GITHUB_TOKEN }}
 
   push_to_registry-R_4_1_2:
+    needs: cancel_previous_runs
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -54,6 +55,7 @@ jobs:
         tags: ${{ steps.condtag.outputs.value }}
 
   push_to_registry-R_4_1_3:
+    needs: cancel_previous_runs
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
