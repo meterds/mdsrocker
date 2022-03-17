@@ -1,4 +1,4 @@
-# mdsrocker 1.1.6 (2022-03-17)
+# mdsrocker 1.1.7 (2022-03-17)
 
 #### ✨ features and improvements
 
