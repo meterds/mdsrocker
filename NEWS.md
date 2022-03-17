@@ -3,7 +3,7 @@
 #### ✨ features and improvements
 
   * `create_action_workflow_publish_docker_images` now creates different
-    job matrices for each R version (in order to run in parallel) 
+    job matrices for each R version (in order to run in parallel). 
 
 #### 🐛 bug fixes
 
