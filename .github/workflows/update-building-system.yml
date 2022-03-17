@@ -7,7 +7,7 @@ on:
     branches:
       - main
     paths:
-      - 'DESCRIPTON'
+      - 'DESCRIPTION'
   workflow_dispatch:
 
 jobs:
