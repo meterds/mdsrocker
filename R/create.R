@@ -384,18 +384,32 @@ create_action_workflow_publish_docker_images = function(
         "on:",
         "  schedule:",
         '    - cron: "30 5 * * SUN"',
-        "  push:",
-        "    branches:",
-        "      - main",
-        "    paths:",
-        "      - 'scripts/**'",
-        "      - 'dockerfiles/**'",
-        "      - '.github/workflows/publish-docker-images.yml'",
+        "  workflow_run:",
+        "    workflows:",
+        '      - "Update Building System"',
+        "    types:",
+        "      - completed",
+        # "  push:",
+        # "    branches:",
+        # "      - main",
+        # "    paths:",
+        # "      - 'scripts/**'",
+        # "      - 'dockerfiles/**'",
+        # "      - '.github/workflows/publish-docker-images.yml'",
         "  workflow_dispatch:"
       ),
       "jobs" = unlist(
         c(
           "jobs:",
+          "",
+          "  cancel_previous_runs:",
+          "    runs-on: ubuntu-latest",
+          "    steps:",
+          "    -",
+          "      name: Cancel Previous Runs",
+          "      uses: styfle/cancel-workflow-action@0.9.1",
+          "      with:",
+          "        access_token: ${{ secrets.GITHUB_TOKEN }}",
           purrr::map(
             rversions,
             push_to_registry,
@@ -430,6 +444,7 @@ create_action_workflow_publish_docker_images = function(
 push_to_registry = function(rver, images_array, steps){
   r_ver = stringr::str_replace_all(rver, "\\.", "_")
   c(
+    "",
     glue::glue("  push_to_registry-R_{r_ver}:"),
     "    runs-on: ubuntu-latest",
     "    strategy:",

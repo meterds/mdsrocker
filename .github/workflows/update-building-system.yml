@@ -1,9 +1,13 @@
 name: Update Building System
 
 on:
+  # trigger workflow only when a change in DESCRIPTION was made
+  # (e.g. usually via version bump)
   push:
     branches:
       - main
+    paths:
+      - 'DESCRIPTON'
   workflow_dispatch:
 
 jobs:
