@@ -380,30 +380,29 @@ create_action_workflow_publish_docker_images = function(
   content =
     list(
       "name" = "name: Publish Docker Images",
-      "on" = c("on:",
-               "  schedule:",
-               '    - cron: "30 5 * * SUN"',
-               "  push:",
-               "    branches:",
-               "      - main",
-               "    paths:",
-               "      - 'scripts/**'",
-               "      - 'dockerfiles/**'",
-               "      - '.github/workflows/publish-docker-images.yml'",
-               "  workflow_dispatch:"
+      "on" = c(
+        "on:",
+        "  schedule:",
+        '    - cron: "30 5 * * SUN"',
+        "  push:",
+        "    branches:",
+        "      - main",
+        "    paths:",
+        "      - 'scripts/**'",
+        "      - 'dockerfiles/**'",
+        "      - '.github/workflows/publish-docker-images.yml'",
+        "  workflow_dispatch:"
       ),
-      "jobs" = c("jobs:",
-                 "  push_to_registry:",
-                 "    runs-on: ubuntu-latest",
-                 "    strategy:",
-                 "      fail-fast: true",
-                 "      max-parallel: 1",
-                 "      matrix:",
-                 glue::glue("        rversion: [{rversions_array}]"),
-                 glue::glue("        image: [{images_array}]"),
-                 "    name: ${{ matrix.image }} - ${{ matrix.rversion }}",
-                 "    steps:",
-                 steps
+      "jobs" = unlist(
+        c(
+          "jobs:",
+          purrr::map(
+            rversions,
+            push_to_registry,
+            images_array = images_array,
+            steps = steps
+          )
+        )
       )
     ) |>
     purrr::map(~c(.x, ""))
@@ -424,6 +423,27 @@ create_action_workflow_publish_docker_images = function(
 }
 
 # helpers ----------------------------------------------------------------------
+
+#' @importFrom glue glue
+#' @importFrom stringr str_replace_all
+
+push_to_registry = function(rver, images_array, steps){
+  r_ver = stringr::str_replace_all(rver, "\\.", "_")
+  c(
+    glue::glue("  push_to_registry-R_{r_ver}:"),
+    "    runs-on: ubuntu-latest",
+    "    strategy:",
+    "      fail-fast: true",
+    "      max-parallel: 1",
+    "      matrix:",
+    glue::glue("        rversion: ['{rver}']"),
+    glue::glue("        image: [{images_array}]"),
+    "    name: ${{ matrix.image }} - ${{ matrix.rversion }}",
+    "    steps:",
+    steps
+  )
+}
+
 
 #' @importFrom cli cli_alert_info
 #' @importFrom desc desc_get_field desc_get_maintainer
