@@ -198,7 +198,7 @@ create_shellscript = function(
 #' @importFrom cli cli_alert_success
 #' @importFrom fs path
 #' @importFrom glue glue
-#' @importFrom purrr flatten_chr imap map
+#' @importFrom purrr discard flatten_chr imap map
 #' @importFrom stringr str_remove
 #'
 #' @export
