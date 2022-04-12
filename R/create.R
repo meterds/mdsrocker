@@ -239,6 +239,7 @@ create_dockerfile = function(
     list(
       "from" = glue::glue("FROM {parent}:{tag}"),
       "labels" = purrr::flatten_chr(labels),
+      # https://vsupalov.com/docker-arg-env-variable-guide/
       if (image == "r-aws-spatial") {
         "env" = "ENV R_WHITEBOX_EXE_PATH=/usr/local/bin/whitebox_tools"
       },
