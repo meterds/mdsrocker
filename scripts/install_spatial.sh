@@ -5,10 +5,10 @@ set -e
 # always set this for scripts but don't declare as ENV.
 export DEBIAN_FRONTEND=noninteractive
 
-## build ARGs
+# build ARGs
 NCPUS=${NCPUS:--1}
 
-#install system requirements
+# install system requirements
 apt-get -qq update \
   && apt-get -y --no-install-recommends install \
   gdal-bin \
@@ -28,13 +28,14 @@ apt-get -qq update \
   make \
   zlib1g-dev
 
-#install binary R packages
+# install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
   Rcpp \
   sp \
   rlang \
   magrittr \
   purrr \
+  cli \
   glue \
   parallelly \
   listenv \
@@ -79,7 +80,6 @@ install2.r --error --skipinstalled -n $NCPUS \
   base64enc \
   utf8 \
   crayon \
-  cli \
   pkgconfig \
   pillar \
   fansi \
@@ -105,7 +105,7 @@ install2.r --error --skipinstalled -n $NCPUS \
   nabor \
   whitebox
 
-#install source R packages
+# install source R packages
 install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
   terra \
   png \
@@ -142,8 +142,8 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   nngeo \
   starsExtra
 
-#install whiteboxtools
-r -e 'whitebox::install_whitebox()'
+# install whiteboxtools into defined directory
+r -e 'whitebox::install_whitebox(pkg_dir = Sys.getenv("R_WHITEBOX_EXE_PATH"))'
 
 # clean up
 rm -rf /var/lib/apt/lists/*

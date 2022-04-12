@@ -5,10 +5,10 @@ set -e
 # always set this for scripts but don't declare as ENV.
 export DEBIAN_FRONTEND=noninteractive
 
-## build ARGs
+# build ARGs
 NCPUS=${NCPUS:--1}
 
-#install system requirements
+# install system requirements
 apt-get -qq update \
   && apt-get -y --no-install-recommends install \
   git \
@@ -26,7 +26,7 @@ apt-get -qq update \
   make \
   pandoc
 
-#install binary R packages
+# install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
   backports \
   checkmate \
@@ -95,7 +95,7 @@ install2.r --error --skipinstalled -n $NCPUS \
   pkgbuild \
   tinytest
 
-#install source R packages
+# install source R packages
 install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
   openssl \
   curl \
