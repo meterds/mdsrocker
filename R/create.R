@@ -121,10 +121,12 @@ create_shellscript = function(
   )
 
   if (type == "spatial") {
+    # install whiteboxtools; turn warnings into errors to stop the Github
+    # Actions Workflow when the download fails
     extra = c(
       "",
       "# install whiteboxtools into defined directory",
-      "r -e 'whitebox::install_whitebox(pkg_dir = Sys.getenv(\"R_WHITEBOX_EXE_PATH\"))'"
+      "r -e 'options(warn = 2); whitebox::install_whitebox(pkg_dir = \"/usr/local/bin\")'"
     )
   } else {
     extra = character()
@@ -241,7 +243,7 @@ create_dockerfile = function(
       "labels" = purrr::flatten_chr(labels),
       # https://vsupalov.com/docker-arg-env-variable-guide/
       if (image == "r-aws-spatial") {
-        "env" = "ENV R_WHITEBOX_EXE_PATH=/usr/local/bin/whitebox_tools"
+        "env" = "ENV R_WHITEBOX_EXE_PATH=/usr/local/bin/WBT/whitebox_tools"
       },
       "copy" = glue::glue("COPY /scripts/{script} /rocker_scripts"),
       "run" = glue::glue("RUN /rocker_scripts/{script}"),
