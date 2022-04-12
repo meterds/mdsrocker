@@ -143,7 +143,7 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   starsExtra
 
 # install whiteboxtools into defined directory
-r -e 'whitebox::install_whitebox(pkg_dir = Sys.getenv("R_WHITEBOX_EXE_PATH"))'
+r -e 'options(warn = 2); whitebox::install_whitebox(pkg_dir = "/usr/local/bin")'
 
 # clean up
 rm -rf /var/lib/apt/lists/*
