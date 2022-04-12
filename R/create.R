@@ -81,7 +81,7 @@ create_shellscript = function(
     "# always set this for scripts but don't declare as ENV.",
     "export DEBIAN_FRONTEND=noninteractive",
     "",
-    "## build ARGs",
+    "# build ARGs",
     "NCPUS=${NCPUS:--1}"
   )
 
@@ -89,7 +89,7 @@ create_shellscript = function(
   if (length(sysreqs) > 0) {
     sysreqs = c(
       "",
-      "#install system requirements",
+      "# install system requirements",
       "apt-get -qq update \\",
       "  && apt-get -y --no-install-recommends install \\",
       if (length(sysreqs) > 1) {
@@ -102,7 +102,7 @@ create_shellscript = function(
   # packages
   pkgs_binary = c(
     "",
-    "#install binary R packages",
+    "# install binary R packages",
     "install2.r --error --skipinstalled -n $NCPUS \\",
     if (length(pkgs_binary) > 1) {
       paste0("  ", pkgs_binary[-length(pkgs_binary)], " \\")
@@ -112,7 +112,7 @@ create_shellscript = function(
 
   pkgs_source = c(
     "",
-    "#install source R packages",
+    "# install source R packages",
     glue::glue("install2.r --error --skipinstalled -n $NCPUS -r {repo} \\"),
     if (length(pkgs_source) > 1) {
       paste0("  ", pkgs_source[-length(pkgs_source)], " \\")
@@ -123,8 +123,8 @@ create_shellscript = function(
   if (type == "spatial") {
     extra = c(
       "",
-      "#install whiteboxtools",
-      "r -e 'whitebox::install_whitebox()'"
+      "# install whiteboxtools into defined directory",
+      "r -e 'whitebox::install_whitebox(pkg_dir = Sys.getenv(\"R_WHITEBOX_EXE_PATH\"))'"
     )
   } else {
     extra = character()
@@ -198,7 +198,7 @@ create_shellscript = function(
 #' @importFrom cli cli_alert_success
 #' @importFrom fs path
 #' @importFrom glue glue
-#' @importFrom purrr flatten_chr imap map
+#' @importFrom purrr discard flatten_chr imap map
 #' @importFrom stringr str_remove
 #'
 #' @export
@@ -239,10 +239,15 @@ create_dockerfile = function(
     list(
       "from" = glue::glue("FROM {parent}:{tag}"),
       "labels" = purrr::flatten_chr(labels),
+      # https://vsupalov.com/docker-arg-env-variable-guide/
+      if (image == "r-aws-spatial") {
+        "env" = "ENV R_WHITEBOX_EXE_PATH=/usr/local/bin/whitebox_tools"
+      },
       "copy" = glue::glue("COPY /scripts/{script} /rocker_scripts"),
       "run" = glue::glue("RUN /rocker_scripts/{script}"),
       "execute" = c("# default for executing container", "CMD /bin/bash")
     ) |>
+    purrr::discard(is.null) |>
     purrr::map(~c(.x, ""))
 
   # combine all-together

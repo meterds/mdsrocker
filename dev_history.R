@@ -1,3 +1,8 @@
+## 2022-04-12 ====
+
+# fix for installation of whiteboxtools
+mdseasy::easy_version(element = "dev", check_renv = FALSE, push = FALSE)
+
 ## 2022-03-16 ====
 
 # major overhaul

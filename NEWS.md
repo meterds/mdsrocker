@@ -1,3 +1,24 @@
+# mdsrocker 1.1.11.9001 (2022-04-12)
+
+#### ✨ features and improvements
+
+#### 🐛 bug fixes
+
+  * `create_dockerfile`: define System Environment Variable 
+    `R_WHITEBOX_EXE_PATH=/usr/local/bin/whitebox_tools` in *r-aws-spatial* 
+    image docker files (which is also accessible by containers started from 
+    final image, so that `whitebox::wbt_init` should find the installed 
+    executable). See https://vsupalov.com/docker-arg-env-variable-guide/ for
+    more info.
+  * `create_shellscript`: make use of the *env var* when installing 
+    the *whiteboxtools* during *docker build*
+    (`whitebox::install_whitebox(pkg_dir = Sys.getenv("R_WHITEBOX_EXE_PATH")`)
+
+#### 💬 documentation etc
+
+#### 🍬 miscellaneous
+
+
 # mdsrocker 1.1.11 (2022-03-17)
 
 #### ✨ features and improvements
