@@ -26,7 +26,6 @@ apt-get -qq update \
   libssl-dev \
   libudunits2-dev \
   make \
-  wget \
   zlib1g-dev
 
 # install whitebox executable
@@ -147,9 +146,6 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   data.table \
   nngeo \
   starsExtra
-
-# install whiteboxtools into defined directory
-# r -e 'options(warn = 2); whitebox::install_whitebox(pkg_dir = "/usr/local/bin")'
 
 # clean up
 rm -rf /var/lib/apt/lists/*
