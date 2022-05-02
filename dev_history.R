@@ -1,3 +1,11 @@
+## 2022-05-02 ====
+
+# R 4.2.0
+mdseasy::easy_version(element = "dev", check_renv = FALSE, push = FALSE)
+
+
+
+
 ## 2022-04-12 ====
 
 # fix for installation of whiteboxtools

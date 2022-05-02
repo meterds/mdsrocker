@@ -31,7 +31,8 @@ Config/Dockerhub/Account:
     meterds
 Config/Docker/Rversions:
     4.1.2,
-    4.1.3
+    4.1.3,
+    4.2.0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
