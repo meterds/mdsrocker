@@ -26,7 +26,13 @@ apt-get -qq update \
   libssl-dev \
   libudunits2-dev \
   make \
+  wget \
   zlib1g-dev
+
+# install whitebox executable
+wget https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip
+unzip WhiteboxTools_linux_amd64.zip -d /usr/local/bin/
+rm WhiteboxTools_linux_amd64.zip
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
@@ -143,7 +149,7 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   starsExtra
 
 # install whiteboxtools into defined directory
-r -e 'options(warn = 2); whitebox::install_whitebox(pkg_dir = "/usr/local/bin")'
+# r -e 'options(warn = 2); whitebox::install_whitebox(pkg_dir = "/usr/local/bin")'
 
 # clean up
 rm -rf /var/lib/apt/lists/*
