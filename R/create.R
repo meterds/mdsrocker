@@ -121,13 +121,21 @@ create_shellscript = function(
   )
 
   if (type == "spatial") {
+    extra = c(
+      ""
+      , "# install whitebox executable"
+      , "wget https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip"
+      , "unzip WhiteboxTools_linux_amd64.zip -d /usr/local/bin/"
+      , "rm WhiteboxTools_linux_amd64.zip"
+    )
+
     # install whiteboxtools; turn warnings into errors to stop the Github
     # Actions Workflow when the download fails
-    extra = c(
-      "",
-      "# install whiteboxtools into defined directory",
-      "r -e 'options(warn = 2); whitebox::install_whitebox(pkg_dir = \"/usr/local/bin\")'"
-    )
+    # extra = c(
+    #   "",
+    #   "# install whiteboxtools into defined directory",
+    #   "r -e 'options(warn = 2); whitebox::install_whitebox(pkg_dir = \"/usr/local/bin\")'"
+    # )
   } else {
     extra = character()
   }
@@ -143,7 +151,8 @@ create_shellscript = function(
 
   # combine all-together
   all_content = c(
-    header, sysreqs, pkgs_binary, pkgs_source, extra, cleanup
+    # header, sysreqs, pkgs_binary, pkgs_source, extra, cleanup
+    header, sysreqs, extra, pkgs_binary, pkgs_source, cleanup
   )
 
 
