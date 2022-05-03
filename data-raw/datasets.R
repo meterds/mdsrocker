@@ -47,7 +47,7 @@ pkgs = list(
 )
 
 syslibs = list(
-  aws = c("git", "jq"),
+  aws = c("git", "jq", "wget"),
   cicd = NULL,
   spatial = NULL
 )
