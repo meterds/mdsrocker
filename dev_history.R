@@ -1,3 +1,7 @@
+## 2022-05-04 ====
+
+mdseasy::easy_version(element = "dev", check_renv = FALSE, push = FALSE)
+
 ## 2022-05-02 ====
 
 # R 4.2.0
