@@ -23,11 +23,11 @@
 #'
 #' @export
 create_shellscript = function(
-  type,
-  pkgs,
-  os = "ubuntu-20.04",
-  syslibs = NULL,
-  save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
+    type,
+    pkgs,
+    os = "ubuntu-20.04",
+    syslibs = NULL,
+    save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
 ) {
 
   type = checkmate::assert_choice(type, c("aws", "cicd", "spatial"))
@@ -45,8 +45,8 @@ create_shellscript = function(
       ~remotes::package_deps(
         packages = .x,
         repos = repo
-        )$package
-      ) |>
+      )$package
+    ) |>
     unlist() |>
     unique()
 
@@ -57,7 +57,7 @@ create_shellscript = function(
     purrr::map(~remotes::system_requirements(os = os, package = .x)) |>
     purrr::map(
       ~gsub(pattern = "apt-get install -y ", replacement = "", x = .x)
-      )
+    )
 
   # split packages
   # - use binaries for those without any sysreq; install the others from source
@@ -123,15 +123,16 @@ create_shellscript = function(
   if (type == "spatial") {
     extra = c(
       ""
-      , "# install whitebox executable"
-      , "FILE=/home/WhiteboxTools_linux_amd64.zip"
-      , "wget --tries=1 https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip -O $FILE"
-      , "# check if download was successfull"
-      , "if [[ ! -f $FILE ]]"
-      , "then wget --tries=1 https://github.com/giswqs/whitebox-bin/raw/master/WhiteboxTools_linux_amd64.zip -O $FILE"
-      , "fi"
-      , "unzip $FILE -d /usr/local/bin/"
-      , "rm $FILE"
+      # , "# install whitebox executable"
+      # , "FILE=/home/WhiteboxTools_linux_amd64.zip"
+      # , "wget --tries=1 https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip -O $FILE"
+      # , "# check if download was successfull"
+      # , "if [[ ! -f $FILE ]]"
+      # , "then wget --tries=1 https://github.com/giswqs/whitebox-bin/raw/master/WhiteboxTools_linux_amd64.zip -O $FILE"
+      # , "fi"
+      # , "unzip $FILE -d /usr/local/bin/"
+      # , "rm $FILE"
+      , "r -e 'success = whitebox::install_whitebox(); if (!success) unzip(\"/tmp/WhiteboxTools_linux_amd64.zip\", exdir = \"/usr/local/bin\")'"
     )
   } else {
     extra = character()
@@ -208,19 +209,19 @@ create_shellscript = function(
 #'
 #' @export
 create_dockerfile = function(
-  image,
-  parent,
-  script,
-  description,
-  ...,
-  tag = as.character(getRversion()),
-  labels = NULL,
-  save_as = fs::path("dockerfiles", glue::glue("{image}_{tag}.Dockerfile"))
+    image,
+    parent,
+    script,
+    description,
+    ...,
+    tag = as.character(getRversion()),
+    labels = NULL,
+    save_as = fs::path("dockerfiles", glue::glue("{image}_{tag}.Dockerfile"))
 ) {
 
   image = checkmate::assert_choice(
     image,
-      c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")
+    c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")
   )
 
   checkmate::assert_character(description, len = 1L)
@@ -248,7 +249,8 @@ create_dockerfile = function(
       if (image == "r-aws-spatial") {
         "env" = "ENV R_WHITEBOX_EXE_PATH=/usr/local/bin/WBT/whitebox_tools"
       },
-      "copy" = glue::glue("COPY /scripts/{script} /rocker_scripts"),
+      "copy_sh" = glue::glue("COPY /scripts/{script} /rocker_scripts"),
+      "copy_wbt" = glue::glue("COPY /inst/extdata/WhiteboxTools_linux_amd64.zip /tmp"),
       "run" = glue::glue("RUN /rocker_scripts/{script}"),
       "execute" = c("# default for executing container", "CMD /bin/bash")
     ) |>
@@ -295,10 +297,10 @@ create_dockerfile = function(
 #'
 #' @export
 create_action_workflow_publish_docker_images = function(
-  account,
-  images,
-  rversions,
-  save_as = fs::path(".github", "workflows", "publish-docker-images.yml")
+    account,
+    images,
+    rversions,
+    save_as = fs::path(".github", "workflows", "publish-docker-images.yml")
 ) {
 
   checkmate::assert_character(account, len = 1L)
@@ -513,7 +515,7 @@ auto_labels = function(image, description, tag, verbose = TRUE) {
     vendor = readLines("LICENSE.md", n = 3)[3] |>
       stringr::str_remove(
         pattern = "Copyright\\s\\(c\\)\\s[:digit:]{4}\\s"
-    ),
+      ),
     version = tag
   )
 }
