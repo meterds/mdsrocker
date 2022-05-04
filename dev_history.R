@@ -1,3 +1,12 @@
+## 2022-05-02 ====
+
+# R 4.2.0
+mdseasy::easy_version(element = "dev", check_renv = FALSE, push = FALSE)
+
+# installation of whiteboxtools exe
+# see https://github.com/giswqs/whiteboxR/issues/76
+# seems that downloading the zip-file from whiteboxgeo.com fails regularly
+
 ## 2022-04-12 ====
 
 # fix for installation of whiteboxtools
