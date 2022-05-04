@@ -33,7 +33,7 @@ apt-get -qq update \
 FILE=/home/WhiteboxTools_linux_amd64.zip
 wget --tries=1 https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip -O $FILE
 # check if download was successfull
-if ! [[ -f '$FILE' ]]
+if [[ ! -f $FILE ]]
 then wget --tries=1 https://github.com/giswqs/whitebox-bin/raw/master/WhiteboxTools_linux_amd64.zip -O $FILE
 fi
 unzip $FILE -d /usr/local/bin/
