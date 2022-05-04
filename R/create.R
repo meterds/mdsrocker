@@ -124,22 +124,18 @@ create_shellscript = function(
     extra = c(
       ""
       , "# install whitebox executable"
-      , "wget https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip"
-      , "unzip WhiteboxTools_linux_amd64.zip -d /usr/local/bin/"
-      , "rm WhiteboxTools_linux_amd64.zip"
+      , "FILE=/home/WhiteboxTools_linux_amd64.zip"
+      , "wget --tries=1 https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip -O $FILE"
+      , "# check if download was successfull"
+      , "if ! [[ -f '$FILE' ]]"
+      , "then wget --tries=1 https://github.com/giswqs/whitebox-bin/raw/master/WhiteboxTools_linux_amd64.zip -O $FILE"
+      , "fi"
+      , "unzip $FILE -d /usr/local/bin/"
+      , "rm $FILE"
     )
-
-    # install whiteboxtools; turn warnings into errors to stop the Github
-    # Actions Workflow when the download fails
-    # extra = c(
-    #   "",
-    #   "# install whiteboxtools into defined directory",
-    #   "r -e 'options(warn = 2); whitebox::install_whitebox(pkg_dir = \"/usr/local/bin\")'"
-    # )
   } else {
     extra = character()
   }
-
 
   # cleanup
   cleanup = c(
@@ -154,7 +150,6 @@ create_shellscript = function(
     # header, sysreqs, pkgs_binary, pkgs_source, extra, cleanup
     header, sysreqs, extra, pkgs_binary, pkgs_source, cleanup
   )
-
 
   # write to file
   con = file(save_as)
@@ -172,7 +167,6 @@ create_shellscript = function(
   invisible(TRUE)
 
 }
-
 
 
 #' Create Dockerfile

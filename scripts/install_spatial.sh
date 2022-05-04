@@ -26,12 +26,18 @@ apt-get -qq update \
   libssl-dev \
   libudunits2-dev \
   make \
-  zlib1g-dev
+  zlib1g-dev \
+  wget
 
 # install whitebox executable
-wget https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip
-unzip WhiteboxTools_linux_amd64.zip -d /usr/local/bin/
-rm WhiteboxTools_linux_amd64.zip
+FILE=/home/WhiteboxTools_linux_amd64.zip
+wget --tries=1 https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip -O $FILE
+# check if download was successfull
+if ! [[ -f '$FILE' ]]
+then wget --tries=1 https://github.com/giswqs/whitebox-bin/raw/master/WhiteboxTools_linux_amd64.zip -O $FILE
+fi
+unzip $FILE -d /usr/local/bin/
+rm $FILE
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
