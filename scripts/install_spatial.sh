@@ -105,7 +105,7 @@ install2.r --error --skipinstalled -n $NCPUS \
   nabor \
   whitebox
 
-r -e 'success = whitebox::install_whitebox(); if (!success) unzip("/tmp/WhiteboxTools_linux_amd64.zip", exdir = "/usr/local/bin")'
+r -e 'success = whitebox::install_whitebox(pkg_dir = "/usr/local/bin"); if (is.null(success)) unzip("/tmp/WhiteboxTools_linux_amd64.zip", exdir = "/usr/local/bin")'
 
 # install source R packages
 install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \

@@ -132,7 +132,7 @@ create_shellscript = function(
       # , "fi"
       # , "unzip $FILE -d /usr/local/bin/"
       # , "rm $FILE"
-      , "r -e 'success = whitebox::install_whitebox(); if (!success) unzip(\"/tmp/WhiteboxTools_linux_amd64.zip\", exdir = \"/usr/local/bin\")'"
+      , "r -e 'success = whitebox::install_whitebox(pkg_dir = \"/usr/local/bin\"); if (is.null(success)) unzip(\"/tmp/WhiteboxTools_linux_amd64.zip\", exdir = \"/usr/local/bin\")'"
     )
   } else {
     extra = character()
