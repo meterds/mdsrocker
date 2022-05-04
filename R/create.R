@@ -148,8 +148,7 @@ create_shellscript = function(
 
   # combine all-together
   all_content = c(
-    # header, sysreqs, pkgs_binary, pkgs_source, extra, cleanup
-    header, sysreqs, extra, pkgs_binary, pkgs_source, cleanup
+    header, sysreqs, pkgs_binary, extra, pkgs_source, cleanup
   )
 
   # write to file

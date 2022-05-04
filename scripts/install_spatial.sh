@@ -28,8 +28,6 @@ apt-get -qq update \
   make \
   zlib1g-dev
 
-r -e 'success = whitebox::install_whitebox(); if (!success) unzip("/tmp/WhiteboxTools_linux_amd64.zip", exdir = "/usr/local/bin")'
-
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
   Rcpp \
@@ -106,6 +104,8 @@ install2.r --error --skipinstalled -n $NCPUS \
   RcppEigen \
   nabor \
   whitebox
+
+r -e 'success = whitebox::install_whitebox(); if (!success) unzip("/tmp/WhiteboxTools_linux_amd64.zip", exdir = "/usr/local/bin")'
 
 # install source R packages
 install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
