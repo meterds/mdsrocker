@@ -1,3 +1,9 @@
+## 2022-05-04 ====
+
+# evaluation of docker images
+# (which are created with Github Actions and pushed to dockerhub)
+edit_file("inst/documentation/install-whitebox.Rmd")
+
 ## 2022-05-02 ====
 
 # R 4.2.0

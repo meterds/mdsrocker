@@ -1,0 +1,56 @@
+---
+title: "mdsrocker-install-whiteboxtools"
+author: "Christoph Stepper"
+date: '2022-05-04'
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Installation of WhiteboxTools Binary
+
+We want to have *WhiteboxTools* installed during the Github Actions Workflow
+using `whitebox::install_whitebox()`.
+
+As mentioned in this 
+[whiteboxR issue](https://github.com/giswqs/whiteboxR/issues/76),
+it happens from time to time, that the download of the *WhiteboxTools zip file* 
+from https://www.whiteboxgeo.com fails.
+
+## Docker images
+
+Let's have a look at the most recently built docker images.
+
+First download the docker images from dockerhub.
+```{bash docker_pull}
+
+tags=("4.1.2" "4.1.3" "4.2.0")
+
+# pull docker images
+for t in "${tags[@]}"
+do
+    img="meterds/r-aws-spatial:$t"
+    # echo $img
+    docker pull $img -q
+done
+
+# list of docker images
+docker image ls
+
+```
+
+And then check if the *whitebox binary* can be found.
+```{bash docker_run´}
+tags=("4.1.2" "4.1.3" "4.2.0")
+
+# walk through images and check whether whiteboxtools is installed
+for t in "${tags[@]}"
+do
+    img="meterds/r-aws-spatial:$t"
+    echo $img
+    docker run --rm $img Rscript -e "whitebox::check_whitebox_binary()"
+done
+
+```
