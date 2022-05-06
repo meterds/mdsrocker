@@ -17,10 +17,6 @@
 #### 🍬 miscellaneous
 
 
-
-  * add fix for failed downloads of whitebox executable, see [this github issue](https://github.com/giswqs/whiteboxR/issues/76)
-
-
 # mdsrocker 1.2.2 (2022-05-03)
 
 #### ✨ features and improvements

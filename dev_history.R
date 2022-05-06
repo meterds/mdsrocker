@@ -24,8 +24,6 @@ options(timeout = to)
 edit_file("inst/documentation/install-whitebox.Rmd")
 
 
-
-
 mdseasy::easy_version(element = "dev", check_renv = FALSE, push = FALSE)
 
 ## 2022-05-02 ====
