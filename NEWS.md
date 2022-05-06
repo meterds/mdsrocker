@@ -2,8 +2,9 @@
 
 #### ✨ features and improvements
 
-  * add fix for failed downloads of *whitebox executable*, 
-    see [this github issue](https://github.com/giswqs/whiteboxR/issues/76).
+  * add fix for failed downloads of *whitebox executable* (#4), 
+    see [whiteboxR issue](https://github.com/giswqs/whiteboxR/issues/76).
+    
     Current Solution: 
     + manual download and intergration of zipfile into package
     + COPY zip during docker build
