@@ -11,13 +11,23 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Installation of WhiteboxTools Binary
 
-We want to have *WhiteboxTools* installed during the Github Actions Workflow
-using `whitebox::install_whitebox()`.
+We want to have *WhiteboxTools* installed during the Github Actions Workflow.
 
-As mentioned in this 
+### Problem
+
+Originally we used `"whitebox::install_whitebox()` within the 
+*install_spatial.sh* file. As mentioned in this 
 [whiteboxR issue](https://github.com/giswqs/whiteboxR/issues/76),
 it happens from time to time, that the download of the *WhiteboxTools zip file* 
 from https://www.whiteboxgeo.com fails.
+
+### Current Solution
+
+We integrated the *WhiteboxTools zip file* into our *mdsrocker* repository
+(`"inst/extdata/WhiteboxTools_linux_amd64.zip"`) manually.
+
+During the Github Actions Workflow run, we simply use this and extract it 
+to the defined path.
 
 ## Docker images
 

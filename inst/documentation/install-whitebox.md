@@ -6,12 +6,23 @@ Christoph Stepper
 ## Installation of WhiteboxTools Binary
 
 We want to have *WhiteboxTools* installed during the Github Actions
-Workflow using `whitebox::install_whitebox()`.
+Workflow.
 
-As mentioned in this [whiteboxR
+### Problem
+
+Originally we used `"whitebox::install_whitebox()` within the
+*install_spatial.sh* file. As mentioned in this [whiteboxR
 issue](https://github.com/giswqs/whiteboxR/issues/76), it happens from
 time to time, that the download of the *WhiteboxTools zip file* from
 <https://www.whiteboxgeo.com> fails.
+
+### Current Solution
+
+We integrated the *WhiteboxTools zip file* into our *mdsrocker*
+repository (`"inst/extdata/WhiteboxTools_linux_amd64.zip"`) manually.
+
+During the Github Actions Workflow run, we simply use this and extract
+it to the defined path.
 
 ## Docker images
 
@@ -37,10 +48,10 @@ docker image ls
     ## docker.io/meterds/r-aws-spatial:4.1.2
     ## docker.io/meterds/r-aws-spatial:4.1.3
     ## docker.io/meterds/r-aws-spatial:4.2.0
-    ## REPOSITORY              TAG       IMAGE ID       CREATED        SIZE
-    ## meterds/r-aws-spatial   4.1.2     cdc962ab49d6   18 hours ago   2.14GB
-    ## meterds/r-aws-spatial   4.1.3     287fdcfd6989   18 hours ago   2.17GB
-    ## meterds/r-aws-spatial   4.2.0     55d2ac6a8d04   37 hours ago   1.99GB
+    ## REPOSITORY              TAG       IMAGE ID       CREATED       SIZE
+    ## meterds/r-aws-spatial   4.1.3     a0155fe1ad55   2 hours ago   2.15GB
+    ## meterds/r-aws-spatial   4.2.0     598ae230cf1a   2 hours ago   2.15GB
+    ## meterds/r-aws-spatial   4.1.2     200c1238a01c   2 hours ago   2.14GB
 
 And then check if the *whitebox binary* can be found.
 
@@ -61,4 +72,4 @@ done
     ## meterds/r-aws-spatial:4.1.3
     ## [1] TRUE
     ## meterds/r-aws-spatial:4.2.0
-    ## [1] FALSE
+    ## [1] TRUE
