@@ -123,17 +123,11 @@ create_shellscript = function(
   if (type == "spatial") {
     extra = c(
       ""
-      # , "# install whitebox executable"
-      # , "FILE=/home/WhiteboxTools_linux_amd64.zip"
-      # , "wget --tries=1 https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip -O $FILE"
-      # , "# check if download was successfull"
-      # , "if [[ ! -f $FILE ]]"
-      # , "then wget --tries=1 https://github.com/giswqs/whitebox-bin/raw/master/WhiteboxTools_linux_amd64.zip -O $FILE"
-      # , "fi"
-      # , "unzip $FILE -d /usr/local/bin/"
-      # , "rm $FILE"
-      , "r -e 'success = whitebox::install_whitebox(pkg_dir = \"/usr/local/bin\"); if (is.null(success)) unzip(\"/tmp/WhiteboxTools_linux_amd64.zip\", exdir = \"/usr/local/bin\")'"
-    )
+      , "# install whitebox executable"
+      , "WBT_ZIPFILE=/tmp/WhiteboxTools_linux_amd64.zip"
+      , "unzip $WBT_ZIPFILE -d /usr/local/bin"
+      , "rm $WBT_ZIPFILE"
+      )
   } else {
     extra = character()
   }
@@ -148,7 +142,7 @@ create_shellscript = function(
 
   # combine all-together
   all_content = c(
-    header, sysreqs, pkgs_binary, extra, pkgs_source, cleanup
+    header, sysreqs, pkgs_binary, pkgs_source, extra, cleanup
   )
 
   # write to file
