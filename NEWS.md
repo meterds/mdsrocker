@@ -1,3 +1,22 @@
+# mdsrocker 1.2.2.9001 (2022-05-06)
+
+#### ✨ features and improvements
+
+  * add fix for failed downloads of *whitebox executable*, 
+    see [this github issue](https://github.com/giswqs/whiteboxR/issues/76).
+    Current Solution: 
+    + manual download and intergration of zipfile into package
+    + COPY zip during docker build
+    + add unzip part into `install_spatial.sh`
+    
+
+#### 🐛 bug fixes
+
+#### 💬 documentation etc
+
+#### 🍬 miscellaneous
+
+
 # mdsrocker 1.2.2 (2022-05-03)
 
 #### ✨ features and improvements
