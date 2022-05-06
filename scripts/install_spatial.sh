@@ -43,7 +43,6 @@ install2.r --error --skipinstalled -n $NCPUS \
   vctrs \
   lifecycle \
   globals \
-  ellipsis \
   future \
   proxy \
   wk \
@@ -83,6 +82,7 @@ install2.r --error --skipinstalled -n $NCPUS \
   pkgconfig \
   pillar \
   fansi \
+  ellipsis \
   withr \
   tibble \
   isoband \
@@ -104,8 +104,6 @@ install2.r --error --skipinstalled -n $NCPUS \
   RcppEigen \
   nabor \
   whitebox
-
-r -e 'success = whitebox::install_whitebox(pkg_dir = "/usr/local/bin"); if (is.null(success)) unzip("/tmp/WhiteboxTools_linux_amd64.zip", exdir = "/usr/local/bin")'
 
 # install source R packages
 install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
@@ -143,6 +141,11 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   data.table \
   nngeo \
   starsExtra
+
+# install whitebox executable
+WBT_ZIPFILE=/tmp/WhiteboxTools_linux_amd64.zip
+unzip $WBT_ZIPFILE -d /usr/local/bin
+rm $WBT_ZIPFILE
 
 # clean up
 rm -rf /var/lib/apt/lists/*

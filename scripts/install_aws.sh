@@ -13,8 +13,7 @@ apt-get -qq update \
   && apt-get -y --no-install-recommends install \
   git \
   jq \
-  libudunits2-dev \
-  wget
+  libudunits2-dev
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
