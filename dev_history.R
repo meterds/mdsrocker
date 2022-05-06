@@ -1,15 +1,32 @@
 ## 2022-05-04 ====
 
-mdseasy::easy_version(element = "dev", check_renv = FALSE, push = FALSE)
 
+# NOTE:
+# the update of the whitebox zipfile must be done regulary.
+# I suggest each time we add a new R version to the DESCRIPTON,
+# wie can run the download to keep track of changes.
 
-
+# add whitebox binary exe zip file to package
+# (we use this as fallback, if the download fails during
+# `whitebox::install_whitebox()` in the Github Actions call)
+fs::dir_create("inst/extdata")
+to = getOption("timeout")
+options(timeout = 3600)
+utils::download.file(
+  "https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip",
+  destfile = "inst/extdata/WhiteboxTools_linux_amd64.zip"
+)
+options(timeout = to)
 
 
 # evaluation of docker images
 # (which are created with Github Actions and pushed to dockerhub)
 edit_file("inst/documentation/install-whitebox.Rmd")
 
+
+
+
+mdseasy::easy_version(element = "dev", check_renv = FALSE, push = FALSE)
 
 ## 2022-05-02 ====
 
