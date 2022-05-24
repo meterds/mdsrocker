@@ -97,7 +97,10 @@ install2.r --error --skipinstalled -n $NCPUS \
   crosstalk \
   sfheaders \
   geometries \
+  repr \
   generics \
+  rappdirs \
+  IRdisplay \
   lubridate \
   abind \
   BH \
@@ -134,6 +137,7 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   leafpop \
   leafem \
   mapview \
+  httr2 \
   openeo \
   rgdal \
   rstac \
