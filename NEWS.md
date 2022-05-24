@@ -1,14 +1,8 @@
-# mdsrocker 1.2.3.9000 (2022-05-24)
+# mdsrocker 1.2.4 (2022-05-24)
 
 #### ✨ features and improvements
 
   * move package `xml2` from *cicd* to *aws* package list.
-
-#### 🐛 bug fixes
-
-#### 💬 documentation etc
-
-#### 🍬 miscellaneous
 
 
 # mdsrocker 1.2.3 (2022-05-06)
