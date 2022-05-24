@@ -12,6 +12,7 @@ pkgs = list(
   aws = c(
     "renv"
     , "units"
+    , "xml2"
   )
   , cicd = c(
     "checkmate"
@@ -22,7 +23,6 @@ pkgs = list(
     , 'renv'
     , 'rcmdcheck'
     , 'tinytest'
-    , "xml2"
   )
   , spatial = c(
     "elevatr"

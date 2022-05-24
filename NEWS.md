@@ -2,6 +2,8 @@
 
 #### ✨ features and improvements
 
+  * move package `xml2` from *cicd* to *aws* package list.
+
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
