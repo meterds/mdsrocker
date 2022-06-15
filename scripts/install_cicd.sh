@@ -21,6 +21,7 @@ apt-get -qq update \
   libjpeg-dev \
   libpng-dev \
   libssl-dev \
+  libsasl2-dev \
   libtiff-dev \
   libxml2-dev \
   make \
