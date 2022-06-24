@@ -14,7 +14,9 @@ apt-get -qq update \
   git \
   jq \
   libudunits2-dev \
-  libxml2-dev
+  libxml2-dev \
+  libssl-dev \
+  libsasl2-dev
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
