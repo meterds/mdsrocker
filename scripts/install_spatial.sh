@@ -144,7 +144,8 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   stars \
   data.table \
   nngeo \
-  starsExtra
+  starsExtra \
+  vapour
 
 # install whitebox executable
 WBT_ZIPFILE=/tmp/WhiteboxTools_linux_amd64.zip
