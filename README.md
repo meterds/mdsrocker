@@ -128,7 +128,7 @@ spatial
 <td style="text-align:left;">
 elevatr , gdalcubes , lwgeom , mapview , ncdf4 , openeo , raster , rgdal
 , rstac , s2 , satellite , sf , sp , stars , starsExtra, terra , units ,
-whitebox
+vapour , whitebox
 </td>
 <td style="text-align:left;">
 NULL
