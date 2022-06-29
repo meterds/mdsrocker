@@ -2,6 +2,13 @@
 # added some syslibs
 # added R 4.2.1, dropped R 4.1.2
 mdseasy::easy_version(
+  "patch"
+  , check_renv = FALSE
+  , check_gitlab_ci = FALSE
+  , push = TRUE
+)
+
+mdseasy::easy_version(
   "dev"
   , check_renv = FALSE
   , check_gitlab_ci = FALSE
