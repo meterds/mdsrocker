@@ -24,7 +24,6 @@ apt-get -qq update \
   libpng-dev \
   libproj-dev \
   libssl-dev \
-  libsasl2-dev \
   libudunits2-dev \
   make \
   zlib1g-dev

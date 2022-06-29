@@ -21,7 +21,6 @@ apt-get -qq update \
   libjpeg-dev \
   libpng-dev \
   libssl-dev \
-  libsasl2-dev \
   libtiff-dev \
   libxml2-dev \
   make \
@@ -58,35 +57,28 @@ install2.r --error --skipinstalled -n $NCPUS \
   xfun \
   highr \
   evaluate \
+  ps \
+  rprojroot \
+  cli \
+  processx \
+  desc \
+  callr \
+  xmlparsedata \
   utf8 \
   vctrs \
   pkgconfig \
   pillar \
-  tibble \
-  rematch2 \
-  fansi \
-  diffobj \
-  rstudioapi \
-  rprojroot \
-  waldo \
-  ps \
-  processx \
-  praise \
-  pkgload \
   lifecycle \
+  fansi \
   ellipsis \
-  desc \
-  cli \
-  callr \
-  brio \
-  xmlparsedata \
-  testthat \
   rappdirs \
   tinytex \
   cpp11 \
   cachem \
   memoise \
+  brio \
   whisker \
+  tibble \
   purrr \
   downlit \
   renv \
