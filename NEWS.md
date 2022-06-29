@@ -2,6 +2,9 @@
 
 #### ✨ features and improvements
 
+  * add `libssl-dev` and `libsasl2-dev` to default syslibs for r-aws-minimal 
+  * add docker images for R 4.2.1, dropped R 4.1.2
+
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
