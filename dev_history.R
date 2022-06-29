@@ -1,5 +1,15 @@
-## 2022-05-04 ====
+## 2022-06-29 ====
+# added some syslibs
+# added R 4.2.1, dropped R 4.1.2
+mdseasy::easy_version(
+  "dev"
+  , check_renv = FALSE
+  , check_gitlab_ci = FALSE
+  , push = FALSE
+)
 
+
+## 2022-05-04 ====
 
 # NOTE:
 # the update of the whitebox zipfile must be done regulary.
