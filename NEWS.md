@@ -1,15 +1,9 @@
-# mdsrocker 1.2.5.9000 (2022-06-29)
+# mdsrocker 1.2.6 (2022-06-29)
 
 #### ✨ features and improvements
 
-  * add `libssl-dev` and `libsasl2-dev` to default syslibs for r-aws-minimal 
+  * add `libssl-dev` and `libsasl2-dev` to default syslibs for r-aws-minimal
   * add docker images for R 4.2.1, dropped R 4.1.2
-
-#### 🐛 bug fixes
-
-#### 💬 documentation etc
-
-#### 🍬 miscellaneous
 
 
 # mdsrocker 1.2.5 (2022-05-24)
