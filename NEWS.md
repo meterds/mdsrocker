@@ -4,6 +4,7 @@
 
   * add `libssl-dev` and `libsasl2-dev` to default syslibs for r-aws-minimal
   * add docker images for R 4.2.1, dropped R 4.1.2
+  * add `vapour` to package list for r-xxx-spatial
 
 
 # mdsrocker 1.2.5 (2022-05-24)
