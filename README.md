@@ -17,7 +17,7 @@ tools.
 
 We follow the *version tag* approach of the *rocker*-project, using the
 image tag for specifying which version of R is desired
-(e.g. `rocker/r-ver: 4.1.3`). Omit the tag or specify `:latest` to
+(e.g. `rocker/r-ver: 4.2.0`). Omit the tag or specify `:latest` to
 always receive the latest versions.
 
 ## Image stack
@@ -39,7 +39,8 @@ description
 <a href="https://hub.docker.com/r/meterds/r-aws-minimal" style="     " >r-aws-minimal</a>
 </td>
 <td style="text-align:left;">
-r-ver plus R packages `renv` & `units` and system libraries `git` & `jq`
+r-ver plus R packages `renv` & `units` and system libraries `git`, `jq`,
+`libssl-dev` & `libsasl2-dev`
 </td>
 </tr>
 <tr>
@@ -103,10 +104,10 @@ syslibs
 aws
 </td>
 <td style="text-align:left;">
-renv , units
+renv , units, xml2
 </td>
 <td style="text-align:left;">
-git, jq
+git , jq , libssl-dev , libsasl2-dev
 </td>
 </tr>
 <tr>
@@ -114,8 +115,7 @@ git, jq
 cicd
 </td>
 <td style="text-align:left;">
-checkmate, covr , DT , lintr , pkgdown , renv , rcmdcheck, tinytest ,
-xml2
+checkmate, covr , DT , lintr , pkgdown , renv , rcmdcheck, tinytest
 </td>
 <td style="text-align:left;">
 NULL
