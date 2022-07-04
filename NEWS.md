@@ -1,15 +1,9 @@
-# mdsrocker 1.2.6.9001 (2022-07-04)
+# mdsrocker 1.2.7 (2022-07-04)
 
 #### ✨ features and improvements
 
   * add `curl` to list of system libraries in `r-aws-minimal`
   * add AWS CLI to `r-aws-minimal` (#6)
-
-#### 🐛 bug fixes
-
-#### 💬 documentation etc
-
-#### 🍬 miscellaneous
 
 
 # mdsrocker 1.2.6 (2022-06-29)
