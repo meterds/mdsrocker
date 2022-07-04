@@ -120,7 +120,17 @@ create_shellscript = function(
     paste0("  ", pkgs_source[length(pkgs_source)])
   )
 
-  if (type == "spatial") {
+  if (type == "aws") {
+    extra = c(
+      ""
+      , "# install AWS CLI"
+      , "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'"
+      , "unzip /tmp/awscli.zip -d /tmp"
+      , "./tmp/aws/install"
+      , "rm /tmp/awscli.zip"
+      , "rm -r /tmp/aws"
+      )
+  } else if (type == "spatial") {
     extra = c(
       ""
       , "# install whitebox executable"

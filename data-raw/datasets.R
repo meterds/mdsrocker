@@ -48,7 +48,7 @@ pkgs = list(
 )
 
 syslibs = list(
-  aws = c("git", "jq", "libssl-dev", "libsasl2-dev"),
+  aws = c("curl", "git", "jq", "libssl-dev", "libsasl2-dev"),
   cicd = NULL,
   spatial = NULL
 )
@@ -71,7 +71,7 @@ account = desc::desc_get_field("Config/Dockerhub/Account")
 
 mdsrocker_dockerfiles = tibble::tribble(
   ~image,           ~parent,                              ~script,               ~description,
-  "r-aws-minimal",  "rocker/r-ver",                        "install_aws.sh",     "r-ver plus R packages `renv` & `units` and system libraries `git`, `jq`, `libssl-dev` & `libsasl2-dev`",
+  "r-aws-minimal",  "rocker/r-ver",                        "install_aws.sh",     "r-ver plus R packages `renv` & `units` and system libraries `curl`, `git`, `jq`, `libssl-dev` & `libsasl2-dev`",
   "r-aws-spatial",  glue::glue("{account}/r-aws-minimal"), "install_spatial.sh", "r-aws-minimal plus a spatial libraries stack",
   "r-cicd-minimal", glue::glue("{account}/r-aws-minimal"), "install_cicd.sh",    "r-aws-minimal plus a set of CI/CD tools",
   "r-cicd-spatial", glue::glue("{account}/r-aws-spatial"), "install_cicd.sh",    "r-aws-spatial plus a set of CI/CD tools"
