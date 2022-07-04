@@ -39,8 +39,8 @@ description
 <a href="https://hub.docker.com/r/meterds/r-aws-minimal" style="     " >r-aws-minimal</a>
 </td>
 <td style="text-align:left;">
-r-ver plus R packages `renv` & `units` and system libraries `git`, `jq`,
-`libssl-dev` & `libsasl2-dev`
+r-ver plus R packages `renv` & `units` and system libraries `curl`,
+`git`, `jq`, `libssl-dev` & `libsasl2-dev`
 </td>
 </tr>
 <tr>
@@ -107,7 +107,7 @@ aws
 renv , units, xml2
 </td>
 <td style="text-align:left;">
-git , jq , libssl-dev , libsasl2-dev
+curl , git , jq , libssl-dev , libsasl2-dev
 </td>
 </tr>
 <tr>

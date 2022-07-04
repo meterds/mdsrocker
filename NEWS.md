@@ -2,6 +2,9 @@
 
 #### ✨ features and improvements
 
+  * add `curl` to list of system libraries in `r-aws-minimal`
+  * add AWS CLI to `r-aws-minimal` (#6)
+
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
