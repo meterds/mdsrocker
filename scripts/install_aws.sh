@@ -30,10 +30,10 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   xml2
 
 # install AWS CLI
-curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscliv.zip'
-unzip /tmp/awscliv.zip
-/tmp/aws/install
-rm /tmp/awscliv.zip
+curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'
+unzip /tmp/awscli.zip -d /tmp
+./tmp/aws/install
+rm /tmp/awscli.zip
 rm -r /tmp/aws
 
 # clean up
