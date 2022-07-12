@@ -1,14 +1,8 @@
-# mdsrocker 1.2.7.9004 (2022-07-12)
+# mdsrocker 1.2.8 (2022-07-12)
 
 #### ✨ features and improvements
 
   * ensure system libs are updated & upgraded on image build (#8)
-
-#### 🐛 bug fixes
-
-#### 💬 documentation etc
-
-#### 🍬 miscellaneous
 
 
 # mdsrocker 1.2.7 (2022-07-04)
