@@ -91,6 +91,7 @@ create_shellscript = function(
       "",
       "# install system requirements",
       "apt-get -qq update \\",
+      "  && apt-get -y upgrade \\",
       "  && apt-get -y --no-install-recommends install \\",
       if (length(sysreqs) > 1) {
         paste0("  ", sysreqs[-length(sysreqs)], " \\")
