@@ -2,6 +2,8 @@
 
 #### ✨ features and improvements
 
+  * ensure system libs are updated & upgraded on image build (#8)
+
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
