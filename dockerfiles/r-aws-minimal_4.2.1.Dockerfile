@@ -2,9 +2,9 @@ FROM rocker/r-ver:4.2.1
 
 LABEL org.opencontainers.image.authors="Christoph Stepper <christoph.stepper@metergroup.com>"
 LABEL org.opencontainers.image.base.name="docker.io/library/ubuntu:focal"
-LABEL org.opencontainers.image.description="r-ver plus R packages `renv` & `units` and system libraries `git`, `jq`, `libssl-dev` & `libsasl2-dev`"
+LABEL org.opencontainers.image.description="r-ver plus R packages `renv` & `units` and system libraries `curl`, `git`, `jq`, `libssl-dev` & `libsasl2-dev` and AWS CLI version 2"
 LABEL org.opencontainers.image.licenses="MIT + file LICENSE"
-LABEL org.opencontainers.image.revision="dd46b308ef7c55182efc38f38e1362970f9a50f0"
+LABEL org.opencontainers.image.revision="06ca0611cdcffaee29413d0264d17ddd2ab68fcd"
 LABEL org.opencontainers.image.source="https://github.com/meterds/mdsrocker"
 LABEL org.opencontainers.image.title="r-aws-minimal"
 LABEL org.opencontainers.image.vendor="METER Group AG, Munich"

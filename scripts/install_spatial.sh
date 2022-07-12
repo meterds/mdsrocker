@@ -10,6 +10,7 @@ NCPUS=${NCPUS:--1}
 
 # install system requirements
 apt-get -qq update \
+  && apt-get -y upgrade \
   && apt-get -y --no-install-recommends install \
   gdal-bin \
   gsfonts \

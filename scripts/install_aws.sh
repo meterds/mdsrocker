@@ -10,7 +10,9 @@ NCPUS=${NCPUS:--1}
 
 # install system requirements
 apt-get -qq update \
+  && apt-get -y upgrade \
   && apt-get -y --no-install-recommends install \
+  curl \
   git \
   jq \
   libsasl2-dev \
@@ -27,6 +29,13 @@ install2.r --error --skipinstalled -n $NCPUS \
 install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
   units \
   xml2
+
+# install AWS CLI
+curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'
+unzip /tmp/awscli.zip -d /tmp
+./tmp/aws/install
+rm /tmp/awscli.zip
+rm -r /tmp/aws
 
 # clean up
 rm -rf /var/lib/apt/lists/*
