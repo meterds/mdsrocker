@@ -2,6 +2,9 @@
 
 #### ✨ features and improvements
 
+  * add `software-properties-common` to all images (#10)
+  * add `ubuntu-unstable` repo to sources for spatial images (#10)
+
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
