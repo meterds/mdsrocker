@@ -11,7 +11,6 @@ NCPUS=${NCPUS:--1}
 # add ubuntugis-unstable repo to get latest versions of gdal & co.
 add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 
-
 # install system requirements
 apt-get -qq update \
   && apt-get -y upgrade \
