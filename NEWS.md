@@ -1,15 +1,9 @@
-# mdsrocker 1.2.8.9001 (2022-08-11)
+# mdsrocker 1.2.9 (2022-08-11)
 
 #### ✨ features and improvements
 
   * add `software-properties-common` to all images (#10)
   * add `ubuntu-unstable` repo to sources for spatial images (#10)
-
-#### 🐛 bug fixes
-
-#### 💬 documentation etc
-
-#### 🍬 miscellaneous
 
 
 # mdsrocker 1.2.8 (2022-07-12)
