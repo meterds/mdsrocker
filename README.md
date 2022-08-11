@@ -17,7 +17,7 @@ tools.
 
 We follow the *version tag* approach of the *rocker*-project, using the
 image tag for specifying which version of R is desired
-(e.g. `rocker/r-ver: 4.2.0`). Omit the tag or specify `:latest` to
+(e.g. `rocker/r-ver: 4.2.1`). Omit the tag or specify `:latest` to
 always receive the latest versions.
 
 ## Image stack
@@ -40,7 +40,8 @@ description
 </td>
 <td style="text-align:left;">
 r-ver plus R packages `renv` & `units` and system libraries `curl`,
-`git`, `jq`, `libssl-dev` & `libsasl2-dev`
+`git`, `jq`, `libssl-dev`, `libsasl2-dev` & `software-properties-common`
+and AWS CLI version 2
 </td>
 </tr>
 <tr>
@@ -107,7 +108,7 @@ aws
 renv , units, xml2
 </td>
 <td style="text-align:left;">
-curl , git , jq , libssl-dev , libsasl2-dev
+curl , git , jq , libssl-dev , libsasl2-dev , software-properties-common
 </td>
 </tr>
 <tr>
