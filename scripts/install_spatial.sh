@@ -8,6 +8,10 @@ export DEBIAN_FRONTEND=noninteractive
 # build ARGs
 NCPUS=${NCPUS:--1}
 
+# add ubuntugis-unstable repo to get latest versions of gdal & co.
+add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+
+
 # install system requirements
 apt-get -qq update \
   && apt-get -y upgrade \
@@ -79,11 +83,9 @@ install2.r --error --skipinstalled -n $NCPUS \
   brew \
   base64enc \
   utf8 \
-  crayon \
   pkgconfig \
   pillar \
   fansi \
-  ellipsis \
   withr \
   tibble \
   isoband \
@@ -103,6 +105,7 @@ install2.r --error --skipinstalled -n $NCPUS \
   rappdirs \
   IRdisplay \
   lubridate \
+  crayon \
   abind \
   BH \
   RcppEigen \

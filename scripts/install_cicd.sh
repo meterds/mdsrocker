@@ -71,12 +71,11 @@ install2.r --error --skipinstalled -n $NCPUS \
   pillar \
   lifecycle \
   fansi \
-  ellipsis \
   rappdirs \
+  memoise \
+  cachem \
   tinytex \
   cpp11 \
-  cachem \
-  memoise \
   brio \
   whisker \
   tibble \

@@ -18,7 +18,8 @@ apt-get -qq update \
   libsasl2-dev \
   libssl-dev \
   libudunits2-dev \
-  libxml2-dev
+  libxml2-dev \
+  software-properties-common
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \

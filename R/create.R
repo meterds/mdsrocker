@@ -85,6 +85,16 @@ create_shellscript = function(
     "NCPUS=${NCPUS:--1}"
   )
 
+  ## add ubuntugis-unstable repo for spatial images
+  if (type == "spatial") {
+    header = c(
+      header
+      , ""
+      , "# add ubuntugis-unstable repo to get latest versions of gdal & co."
+      , "add-apt-repository ppa:ubuntugis/ubuntugis-unstable"
+    )
+  }
+
   # system requirements
   if (length(sysreqs) > 0) {
     sysreqs = c(
