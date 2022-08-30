@@ -6,7 +6,7 @@
 \usage{
 create_shellscript(
   type,
-  pkgs,
+  rpkgs,
   os = "ubuntu-20.04",
   syslibs = NULL,
   save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
@@ -16,12 +16,12 @@ create_shellscript(
 \item{type}{type of software bundle to install, one of
 \code{c("aws", "cicd", "spatial")}}
 
-\item{pkgs}{\code{character} vector of R packages to install}
+\item{rpkgs}{\code{character} vector of R packages to install}
 
 \item{os}{definition of operating system; default to \code{"ubuntu-20.04"}.}
 
 \item{syslibs}{\code{character} vector of system libraries to install
-(which are not found as dependency of the R \code{pkgs}).}
+(which are not found as dependency of the \code{rpkgs}).}
 
 \item{save_as}{path for storing the installation instruction file; default
 to \code{fs::path("scripts", glue::glue("install-{type}.sh"))}.}

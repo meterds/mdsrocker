@@ -5,10 +5,10 @@
 #'
 #' @param type type of software bundle to install, one of
 #'   `c("aws", "cicd", "spatial")`
-#' @param pkgs `character` vector of R packages to install
+#' @param rpkgs `character` vector of R packages to install
 #' @param os definition of operating system; default to `"ubuntu-20.04"`.
 #' @param syslibs `character` vector of system libraries to install
-#'   (which are not found as dependency of the R `pkgs`).
+#'   (which are not found as dependency of the `rpkgs`).
 #' @param save_as path for storing the installation instruction file; default
 #'   to `fs::path("scripts", glue::glue("install-{type}.sh"))`.
 #'
@@ -24,7 +24,7 @@
 #' @export
 create_shellscript = function(
     type,
-    pkgs,
+    rpkgs,
     os = "ubuntu-20.04",
     syslibs = NULL,
     save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
@@ -32,7 +32,7 @@ create_shellscript = function(
 
   type = checkmate::assert_choice(type, c("aws", "cicd", "spatial"))
 
-  checkmate::assert_character(pkgs, min.len = 1L)
+  checkmate::assert_character(rpkgs, min.len = 1L)
   checkmate::assert_character(os, len = 1L)
   checkmate::assert_character(syslibs, null.ok = TRUE)
   checkmate::assert_path_for_output(save_as, overwrite = TRUE)
@@ -40,7 +40,7 @@ create_shellscript = function(
   ## find package dependencies
   repo = "https://packagemanager.rstudio.com/cran/latest"
 
-  deps = pkgs |>
+  deps = rpkgs |>
     purrr::map(
       ~remotes::package_deps(
         packages = .x,
@@ -62,8 +62,8 @@ create_shellscript = function(
   # split packages
   # - use binaries for those without any sysreq; install the others from source
   deps_has_sysreqs = lengths(sysreqs) == 0L
-  pkgs_binary = deps[deps_has_sysreqs]
-  pkgs_source = deps[!deps_has_sysreqs]
+  rpkgs_binary = deps[deps_has_sysreqs]
+  rpkgs_source = deps[!deps_has_sysreqs]
 
   # additional system libraries
   sysreqs = c(unlist(sysreqs), syslibs)
@@ -110,37 +110,20 @@ create_shellscript = function(
     )
   }
 
-  # packages
-  pkgs_binary = c(
-    "",
-    "# install binary R packages",
-    "install2.r --error --skipinstalled -n $NCPUS \\",
-    if (length(pkgs_binary) > 1) {
-      paste0("  ", pkgs_binary[-length(pkgs_binary)], " \\")
-    },
-    paste0("  ", pkgs_binary[length(pkgs_binary)])
-  )
-
-  pkgs_source = c(
-    "",
-    "# install source R packages",
-    glue::glue("install2.r --error --skipinstalled -n $NCPUS -r {repo} \\"),
-    if (length(pkgs_source) > 1) {
-      paste0("  ", pkgs_source[-length(pkgs_source)], " \\")
-    },
-    paste0("  ", pkgs_source[length(pkgs_source)])
-  )
-
+  # extra software packages required
   if (type == "aws") {
     extra = c(
       ""
+      , "# install Python package pipreqs"
+      , "pip install pipreqs"
+      , ""
       , "# install AWS CLI"
       , "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'"
       , "unzip /tmp/awscli.zip -d /tmp"
       , "./tmp/aws/install"
       , "rm /tmp/awscli.zip"
       , "rm -r /tmp/aws"
-      )
+    )
   } else if (type == "spatial") {
     extra = c(
       ""
@@ -148,10 +131,31 @@ create_shellscript = function(
       , "WBT_ZIPFILE=/tmp/WhiteboxTools_linux_amd64.zip"
       , "unzip $WBT_ZIPFILE -d /usr/local/bin"
       , "rm $WBT_ZIPFILE"
-      )
+    )
   } else {
     extra = character()
   }
+
+  # packages
+  rpkgs_binary = c(
+    "",
+    "# install binary R packages",
+    "install2.r --error --skipinstalled -n $NCPUS \\",
+    if (length(rpkgs_binary) > 1) {
+      paste0("  ", rpkgs_binary[-length(rpkgs_binary)], " \\")
+    },
+    paste0("  ", rpkgs_binary[length(rpkgs_binary)])
+  )
+
+  rpkgs_source = c(
+    "",
+    "# install source R packages",
+    glue::glue("install2.r --error --skipinstalled -n $NCPUS -r {repo} \\"),
+    if (length(rpkgs_source) > 1) {
+      paste0("  ", rpkgs_source[-length(rpkgs_source)], " \\")
+    },
+    paste0("  ", rpkgs_source[length(rpkgs_source)])
+  )
 
   # cleanup
   cleanup = c(
@@ -163,7 +167,7 @@ create_shellscript = function(
 
   # combine all-together
   all_content = c(
-    header, sysreqs, pkgs_binary, pkgs_source, extra, cleanup
+    header, sysreqs, extra, rpkgs_binary, rpkgs_source, cleanup
   )
 
   # write to file
@@ -260,7 +264,9 @@ create_dockerfile = function(
       "from" = glue::glue("FROM {parent}:{tag}"),
       "labels" = purrr::flatten_chr(labels),
       # https://vsupalov.com/docker-arg-env-variable-guide/
-      if (image == "r-aws-spatial") {
+      if (image == "r-aws-minimal") {
+        "env" = "ENV RETICULATE_PYTHON=/usr/bin/python3"
+      } else if (image == "r-aws-spatial") {
         "env" = "ENV R_WHITEBOX_EXE_PATH=/usr/local/bin/WBT/whitebox_tools"
       },
       "copy_sh" = glue::glue("COPY /scripts/{script} /rocker_scripts"),

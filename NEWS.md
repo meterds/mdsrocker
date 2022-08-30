@@ -2,6 +2,11 @@
 
 #### ✨ features and improvements
 
+  * modify image setup to be ready for use with *Python* (#12)
+    + install *python* package `pipreqs` for all images
+    + set environment variable `RETICULATE_PYTHON=/usr/bin/python3` 
+      for all images
+
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
