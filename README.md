@@ -39,9 +39,7 @@ description
 <a href="https://hub.docker.com/r/meterds/r-aws-minimal" style="     " >r-aws-minimal</a>
 </td>
 <td style="text-align:left;">
-r-ver plus R packages `renv` & `units` and system libraries `curl`,
-`git`, `jq`, `libssl-dev`, `libsasl2-dev` & `software-properties-common`
-and AWS CLI version 2
+r-ver plus basic utilities stack
 </td>
 </tr>
 <tr>
@@ -92,10 +90,13 @@ data):
 type
 </th>
 <th style="text-align:left;">
-pkgs
+rpkgs
 </th>
 <th style="text-align:left;">
 syslibs
+</th>
+<th style="text-align:left;">
+extra
 </th>
 </tr>
 </thead>
@@ -108,7 +109,11 @@ aws
 renv , units, xml2
 </td>
 <td style="text-align:left;">
-curl , git , jq , libssl-dev , libsasl2-dev , software-properties-common
+curl , git , jq , libssl-dev , libsasl2-dev , python-pip ,
+software-properties-common
+</td>
+<td style="text-align:left;">
+AWS CLI version 2
 </td>
 </tr>
 <tr>
@@ -117,6 +122,9 @@ cicd
 </td>
 <td style="text-align:left;">
 checkmate, covr , DT , lintr , pkgdown , renv , rcmdcheck, tinytest
+</td>
+<td style="text-align:left;">
+NULL
 </td>
 <td style="text-align:left;">
 NULL
@@ -133,6 +141,9 @@ vapour , whitebox
 </td>
 <td style="text-align:left;">
 NULL
+</td>
+<td style="text-align:left;">
+WhiteboxTools
 </td>
 </tr>
 </tbody>
@@ -229,7 +240,7 @@ For adding changes (e.g. additional R packages), do:
 
 1.  *git pull* the latest changes in the remote repository,
 2.  *run*:
-    -   `mdseasy::easy_version(element = "dev", check_renv = FALSE, push = FALSE)`
+    -   `mdseasy::easy_version(element = "dev", check_renv = FALSE, check_gitlab_ci = FALSE, push = FALSE)`
 3.  *update* and *run* the code generating the package data in
     `data-raw/datasets.R`,
 4.  *run*:
@@ -238,7 +249,7 @@ For adding changes (e.g. additional R packages), do:
 5.  *update* `NEWS.md`
 6.  *run*
     -   `gert::git_commit_all("YOUR COMMIT MESSAGE")`
-    -   `mdseasy::easy_version(check_renv = FALSE)`
+    -   `mdseasy::easy_version(check_renv = FALSE, check_gitlab_ci = FALSE)`
 
 # Execution
 
