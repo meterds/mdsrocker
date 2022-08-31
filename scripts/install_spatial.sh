@@ -32,6 +32,11 @@ apt-get -qq update \
   make \
   zlib1g-dev
 
+# install whitebox executable
+WBT_ZIPFILE=/tmp/WhiteboxTools_linux_amd64.zip
+unzip $WBT_ZIPFILE -d /usr/local/bin
+rm $WBT_ZIPFILE
+
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
   Rcpp \
@@ -149,11 +154,6 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   nngeo \
   starsExtra \
   vapour
-
-# install whitebox executable
-WBT_ZIPFILE=/tmp/WhiteboxTools_linux_amd64.zip
-unzip $WBT_ZIPFILE -d /usr/local/bin
-rm $WBT_ZIPFILE
 
 # clean up
 rm -rf /var/lib/apt/lists/*

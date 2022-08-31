@@ -19,7 +19,18 @@ apt-get -qq update \
   libssl-dev \
   libudunits2-dev \
   libxml2-dev \
+  python-pip \
   software-properties-common
+
+# install AWS CLI
+curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'
+unzip /tmp/awscli.zip -d /tmp
+./tmp/aws/install
+rm /tmp/awscli.zip
+rm -r /tmp/aws
+
+# install Python packages
+python3 -m pip install pipreqs
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
@@ -30,13 +41,6 @@ install2.r --error --skipinstalled -n $NCPUS \
 install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
   units \
   xml2
-
-# install AWS CLI
-curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'
-unzip /tmp/awscli.zip -d /tmp
-./tmp/aws/install
-rm /tmp/awscli.zip
-rm -r /tmp/aws
 
 # clean up
 rm -rf /var/lib/apt/lists/*
