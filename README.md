@@ -109,7 +109,7 @@ rpkgs
 aws
 </td>
 <td style="text-align:left;">
-curl , git , jq , libssl-dev , libsasl2-dev , python-pip ,
+curl , git , jq , libssl-dev , libsasl2-dev , python3-pip ,
 software-properties-common
 </td>
 <td style="text-align:left;">
