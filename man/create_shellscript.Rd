@@ -7,8 +7,10 @@
 create_shellscript(
   type,
   rpkgs,
-  os = "ubuntu-20.04",
   syslibs = NULL,
+  pypkgs = NULL,
+  extra = NULL,
+  os = "ubuntu-20.04",
   save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
 )
 }
@@ -18,10 +20,14 @@ create_shellscript(
 
 \item{rpkgs}{\code{character} vector of R packages to install}
 
-\item{os}{definition of operating system; default to \code{"ubuntu-20.04"}.}
-
 \item{syslibs}{\code{character} vector of system libraries to install
 (which are not found as dependency of the \code{rpkgs}).}
+
+\item{pypkgs}{\code{character} vector of Python packages to install}
+
+\item{extra}{\code{character} vector of additional software packages to install}
+
+\item{os}{definition of operating system; default to \code{"ubuntu-20.04"}.}
 
 \item{save_as}{path for storing the installation instruction file; default
 to \code{fs::path("scripts", glue::glue("install-{type}.sh"))}.}

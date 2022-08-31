@@ -9,9 +9,11 @@ A \code{tibble} with \emph{3} rows and \emph{3} columns:
 \itemize{
 \item \emph{type}: type of software bundle to install, one of
 \code{c("aws", "cicd", "spatial")},
-\item \emph{rpkgs}: R packages to install in respective install scripts,
 \item \emph{syslibs}: additionally system libraries
-(not required by specified R packages).
+(not required by specified R packages),
+\item \emph{extra}: additional software packages,
+\item \emph{pypkgs}: Python packages to install,
+\item \emph{rpkgs}: R packages to install in respective install scripts.
 }
 }
 \source{

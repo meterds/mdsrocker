@@ -77,8 +77,8 @@ rpkgs = list(
 mdsrocker_installation = list(
   syslibs = syslibs,
   extra = extra,
-  rpkgs = rpkgs,
-  pypkgs = pypkgs
+  pypkgs = pypkgs,
+  rpkgs = rpkgs
 ) |>
   purrr::imap(~tibble::enframe(.x, name = "type", value = .y)) |>
   purrr::reduce(dplyr::inner_join, by = "type")
