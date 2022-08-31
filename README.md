@@ -79,9 +79,9 @@ All relevant information is stored in *two* `data.frames` (as package
 data):
 
 -   `mdsrocker_installation`: *three* different software bundles for the
-    various scopes of the docker images, each containing a list of R
-    packages and system libraries (not required by the R packages) to
-    install.
+    various scopes of the docker images, each containing predefined sets
+    of software packages (system libraries, extra software packages,
+    Python packages, R packages) to install.
 
 <table>
 <thead>
@@ -90,13 +90,16 @@ data):
 type
 </th>
 <th style="text-align:left;">
-rpkgs
-</th>
-<th style="text-align:left;">
 syslibs
 </th>
 <th style="text-align:left;">
 extra
+</th>
+<th style="text-align:left;">
+pypkgs
+</th>
+<th style="text-align:left;">
+rpkgs
 </th>
 </tr>
 </thead>
@@ -106,14 +109,17 @@ extra
 aws
 </td>
 <td style="text-align:left;">
-renv , units, xml2
-</td>
-<td style="text-align:left;">
 curl , git , jq , libssl-dev , libsasl2-dev , python-pip ,
 software-properties-common
 </td>
 <td style="text-align:left;">
 AWS CLI version 2
+</td>
+<td style="text-align:left;">
+pipreqs
+</td>
+<td style="text-align:left;">
+renv , units, xml2
 </td>
 </tr>
 <tr>
@@ -121,13 +127,16 @@ AWS CLI version 2
 cicd
 </td>
 <td style="text-align:left;">
+NULL
+</td>
+<td style="text-align:left;">
+NULL
+</td>
+<td style="text-align:left;">
+NULL
+</td>
+<td style="text-align:left;">
 checkmate, covr , DT , lintr , pkgdown , renv , rcmdcheck, tinytest
-</td>
-<td style="text-align:left;">
-NULL
-</td>
-<td style="text-align:left;">
-NULL
 </td>
 </tr>
 <tr>
@@ -135,15 +144,18 @@ NULL
 spatial
 </td>
 <td style="text-align:left;">
-elevatr , gdalcubes , lwgeom , mapview , ncdf4 , openeo , raster , rgdal
-, rstac , s2 , satellite , sf , sp , stars , starsExtra, terra , units ,
-vapour , whitebox
+NULL
+</td>
+<td style="text-align:left;">
+WhiteboxTools
 </td>
 <td style="text-align:left;">
 NULL
 </td>
 <td style="text-align:left;">
-WhiteboxTools
+elevatr , gdalcubes , lwgeom , mapview , ncdf4 , openeo , raster , rgdal
+, rstac , s2 , satellite , sf , sp , stars , starsExtra, terra , units ,
+vapour , whitebox
 </td>
 </tr>
 </tbody>

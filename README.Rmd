@@ -72,8 +72,9 @@ This building system is designed as an R package.
 All relevant information is stored in *two* `data.frames` (as package data):
 
 - `mdsrocker_installation`: *three* different software bundles for the various
-  scopes of the docker images, each containing a list of R packages and
-  system libraries (not required by the R packages) to install.
+  scopes of the docker images, each containing predefined sets of software 
+  packages (system libraries, extra software packages, Python packages, 
+  R packages) to install.
 
 ```{r installation, echo = FALSE}
 kableExtra::kable(mdsrocker_installation)
