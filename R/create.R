@@ -385,7 +385,7 @@ create_action_workflow_publish_docker_images = function(
   docker_login = c(
     "-",
     "  name: Login to Docker Hub",
-    "  uses: docker/login-action@v1",
+    "  uses: docker/login-action@v2",
     "  with:",
     "    username: ${{ secrets.DOCKERHUB_USERNAME }}",
     "    password: ${{ secrets.DOCKERHUB_PAT }}"
@@ -414,7 +414,7 @@ create_action_workflow_publish_docker_images = function(
   build_push = c(
     "-",
     "  name: Build and push Docker image",
-    "  uses: docker/build-push-action@v2",
+    "  uses: docker/build-push-action@v3",
     "  with:",
     '    file: dockerfiles/${{ matrix.image }}_${{ matrix.rversion }}.Dockerfile',
     '    push: true',
@@ -461,7 +461,7 @@ create_action_workflow_publish_docker_images = function(
           "    steps:",
           "    -",
           "      name: Cancel Previous Runs",
-          "      uses: styfle/cancel-workflow-action@0.9.1",
+          "      uses: styfle/cancel-workflow-action@0.10.0",
           "      with:",
           "        access_token: ${{ secrets.GITHUB_TOKEN }}",
           purrr::map(
