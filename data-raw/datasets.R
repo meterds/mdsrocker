@@ -8,6 +8,32 @@ for (r in required) {
 
 ## shell scripts ----
 
+syslibs = list(
+  aws = c(
+    "curl"
+    , "git"
+    , "jq"
+    , "libssl-dev"
+    , "libsasl2-dev"
+    , "python-pip"
+    , "software-properties-common"
+  )
+  , cicd = NULL
+  , spatial = NULL
+)
+
+extra = list(
+  aws = c("AWS CLI version 2")
+  , cicd = NULL
+  , spatial = c("WhiteboxTools")
+)
+
+pypkgs = list(
+  aws = c("pipreqs")
+  , cicd = NULL
+  , spatial = NULL
+)
+
 rpkgs = list(
   aws = c(
     "renv"
@@ -47,32 +73,12 @@ rpkgs = list(
   )
 )
 
-syslibs = list(
-  aws = c(
-    "curl"
-    , "git"
-    , "jq"
-    , "libssl-dev"
-    , "libsasl2-dev"
-    , "python-pip"
-    , "software-properties-common"
-  )
-  , cicd = NULL
-  , spatial = NULL
-)
-
-extra = list(
-  aws = c("AWS CLI version 2")
-  , cicd = NULL
-  , spatial = c("WhiteboxTools")
-)
-
-
 # function arguments
 mdsrocker_installation = list(
-  rpkgs = rpkgs,
   syslibs = syslibs,
-  extra = extra
+  extra = extra,
+  rpkgs = rpkgs,
+  pypkgs = pypkgs
 ) |>
   purrr::imap(~tibble::enframe(.x, name = "type", value = .y)) |>
   purrr::reduce(dplyr::inner_join, by = "type")

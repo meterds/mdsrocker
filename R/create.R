@@ -6,9 +6,11 @@
 #' @param type type of software bundle to install, one of
 #'   `c("aws", "cicd", "spatial")`
 #' @param rpkgs `character` vector of R packages to install
-#' @param os definition of operating system; default to `"ubuntu-20.04"`.
 #' @param syslibs `character` vector of system libraries to install
 #'   (which are not found as dependency of the `rpkgs`).
+#' @param pypkgs `character` vector of Python packages to install
+#' @param extra `character` vector of additional software packages to install
+#' @param os definition of operating system; default to `"ubuntu-20.04"`.
 #' @param save_as path for storing the installation instruction file; default
 #'   to `fs::path("scripts", glue::glue("install-{type}.sh"))`.
 #'
@@ -18,26 +20,30 @@
 #' @importFrom cli cli_alert_success
 #' @importFrom fs path
 #' @importFrom glue glue
-#' @importFrom purrr map
+#' @importFrom purrr map reduce
 #' @importFrom remotes package_deps system_requirements
 #'
 #' @export
 create_shellscript = function(
     type,
     rpkgs,
-    os = "ubuntu-20.04",
     syslibs = NULL,
+    pypkgs = NULL,
+    extra = NULL,
+    os = "ubuntu-20.04",
     save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
 ) {
 
   type = checkmate::assert_choice(type, c("aws", "cicd", "spatial"))
 
   checkmate::assert_character(rpkgs, min.len = 1L)
-  checkmate::assert_character(os, len = 1L)
   checkmate::assert_character(syslibs, null.ok = TRUE)
+  checkmate::assert_character(pypkgs, null.ok = TRUE)
+  checkmate::assert_character(extra, null.ok = TRUE)
+  checkmate::assert_character(os, len = 1L)
   checkmate::assert_path_for_output(save_as, overwrite = TRUE)
 
-  ## find package dependencies
+  ## find R package dependencies
   repo = "https://packagemanager.rstudio.com/cran/latest"
 
   deps = rpkgs |>
@@ -111,11 +117,11 @@ create_shellscript = function(
   }
 
   # extra software packages required
-  if (type == "aws") {
-    extra = c(
-      ""
-      , "# install Python package pipreqs"
-      , "pip install pipreqs"
+  additional = character()
+
+  if ("AWS CLI version 2" %in% extra) {
+    additional = c(
+      additional
       , ""
       , "# install AWS CLI"
       , "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'"
@@ -124,19 +130,33 @@ create_shellscript = function(
       , "rm /tmp/awscli.zip"
       , "rm -r /tmp/aws"
     )
-  } else if (type == "spatial") {
-    extra = c(
-      ""
+  }
+
+  if ("WhiteboxTools" %in% extra) {
+    additional = c(
+      additional
+      , ""
       , "# install whitebox executable"
       , "WBT_ZIPFILE=/tmp/WhiteboxTools_linux_amd64.zip"
       , "unzip $WBT_ZIPFILE -d /usr/local/bin"
       , "rm $WBT_ZIPFILE"
     )
-  } else {
-    extra = character()
   }
 
-  # packages
+  # Python packages (install via pip)
+  if (length(pypkgs) > 0) {
+    pypkgs = c(
+      ""
+      , "# install Python packages"
+      , purrr::map(
+        pypkgs
+        , function(p) glue::glue("python3 -m pip install {p}")
+      ) |>
+        purrr::reduce(c)
+    )
+  }
+
+  # R packages (install via littler)
   rpkgs_binary = c(
     "",
     "# install binary R packages",
@@ -167,7 +187,7 @@ create_shellscript = function(
 
   # combine all-together
   all_content = c(
-    header, sysreqs, extra, rpkgs_binary, rpkgs_source, cleanup
+    header, sysreqs, additional, pypkgs, rpkgs_binary, rpkgs_source, cleanup
   )
 
   # write to file
