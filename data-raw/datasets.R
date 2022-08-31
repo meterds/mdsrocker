@@ -15,7 +15,7 @@ syslibs = list(
     , "jq"
     , "libssl-dev"
     , "libsasl2-dev"
-    , "python-pip"
+    , "python3-pip"
     , "software-properties-common"
   )
   , cicd = NULL
