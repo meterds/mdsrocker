@@ -290,7 +290,9 @@ create_dockerfile = function(
         "env" = "ENV R_WHITEBOX_EXE_PATH=/usr/local/bin/WBT/whitebox_tools"
       },
       "copy_sh" = glue::glue("COPY /scripts/{script} /rocker_scripts"),
-      "copy_wbt" = glue::glue("COPY /inst/extdata/WhiteboxTools_linux_amd64.zip /tmp"),
+      if (image %in% c("r-aws-spatial", "r-cicd-spatial")) {
+        "copy_wbt" = glue::glue("COPY /inst/extdata/WhiteboxTools_linux_amd64.zip /tmp")
+      },
       "run" = glue::glue("RUN /rocker_scripts/{script}"),
       "execute" = c("# default for executing container", "CMD /bin/bash")
     ) |>
