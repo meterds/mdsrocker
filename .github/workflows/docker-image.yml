@@ -1,15 +1,25 @@
 name: Docker Image CI
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
 
 jobs:
-
-  build:
-
+    docker:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file dockerfiles/r-aws-minimal_4.2.1.Dockerfile --tag yadi:$(date +%s)
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PAT }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: dockerfiles/r-aws-minimal_4.2.1.Dockerfile
+          push: true
+          tags: meterds/abc:latest
