@@ -12,4 +12,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file dockerfiles/r-cicd-minimal_4.2.1.Dockerfle --tag yadi:$(date +%s)
+      run: docker build . --file dockerfiles/r-cicd-minimal_4.2.1.Dockerfile --tag yadi:$(date +%s)
