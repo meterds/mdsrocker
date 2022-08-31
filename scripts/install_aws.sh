@@ -19,7 +19,7 @@ apt-get -qq update \
   libssl-dev \
   libudunits2-dev \
   libxml2-dev \
-  python-pip \
+  python3-pip \
   software-properties-common
 
 # install AWS CLI
