@@ -1,10 +1,10 @@
 name: Docker Image CI
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
 
 jobs:
-    docker:
+  docker:
     runs-on: ubuntu-latest
     steps:
        -
