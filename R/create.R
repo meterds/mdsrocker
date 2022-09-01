@@ -443,6 +443,8 @@ create_action_workflow_publish_docker_images = function(
         '      - "Update Building System"',
         "    types:",
         "      - completed",
+        "    branches:",
+        "      - main",
         # "  push:",
         # "    branches:",
         # "      - main",
