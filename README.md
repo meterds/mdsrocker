@@ -39,9 +39,7 @@ description
 <a href="https://hub.docker.com/r/meterds/r-aws-minimal" style="     " >r-aws-minimal</a>
 </td>
 <td style="text-align:left;">
-r-ver plus R packages `renv` & `units` and system libraries `curl`,
-`git`, `jq`, `libssl-dev`, `libsasl2-dev` & `software-properties-common`
-and AWS CLI version 2
+r-ver plus basic utilities stack
 </td>
 </tr>
 <tr>
@@ -81,9 +79,9 @@ All relevant information is stored in *two* `data.frames` (as package
 data):
 
 -   `mdsrocker_installation`: *three* different software bundles for the
-    various scopes of the docker images, each containing a list of R
-    packages and system libraries (not required by the R packages) to
-    install.
+    various scopes of the docker images, each containing predefined sets
+    of software packages (system libraries, extra software packages,
+    Python packages, R packages) to install.
 
 <table>
 <thead>
@@ -92,10 +90,16 @@ data):
 type
 </th>
 <th style="text-align:left;">
-pkgs
+syslibs
 </th>
 <th style="text-align:left;">
-syslibs
+extra
+</th>
+<th style="text-align:left;">
+pypkgs
+</th>
+<th style="text-align:left;">
+rpkgs
 </th>
 </tr>
 </thead>
@@ -105,10 +109,17 @@ syslibs
 aws
 </td>
 <td style="text-align:left;">
-renv , units, xml2
+curl , git , jq , libssl-dev , libsasl2-dev , python3-pip ,
+software-properties-common
 </td>
 <td style="text-align:left;">
-curl , git , jq , libssl-dev , libsasl2-dev , software-properties-common
+AWS CLI version 2
+</td>
+<td style="text-align:left;">
+pipreqs
+</td>
+<td style="text-align:left;">
+renv , units, xml2
 </td>
 </tr>
 <tr>
@@ -116,10 +127,16 @@ curl , git , jq , libssl-dev , libsasl2-dev , software-properties-common
 cicd
 </td>
 <td style="text-align:left;">
-checkmate, covr , DT , lintr , pkgdown , renv , rcmdcheck, tinytest
+NULL
 </td>
 <td style="text-align:left;">
 NULL
+</td>
+<td style="text-align:left;">
+NULL
+</td>
+<td style="text-align:left;">
+checkmate, covr , DT , lintr , pkgdown , renv , rcmdcheck, tinytest
 </td>
 </tr>
 <tr>
@@ -127,12 +144,18 @@ NULL
 spatial
 </td>
 <td style="text-align:left;">
-elevatr , gdalcubes , lwgeom , mapview , ncdf4 , openeo , raster , rgdal
-, rstac , s2 , satellite , sf , sp , stars , starsExtra, terra , units ,
-vapour , whitebox
+NULL
+</td>
+<td style="text-align:left;">
+WhiteboxTools
 </td>
 <td style="text-align:left;">
 NULL
+</td>
+<td style="text-align:left;">
+elevatr , gdalcubes , lwgeom , mapview , ncdf4 , openeo , raster , rgdal
+, rstac , s2 , satellite , sf , sp , stars , starsExtra, terra , units ,
+vapour , whitebox
 </td>
 </tr>
 </tbody>
@@ -229,7 +252,7 @@ For adding changes (e.g. additional R packages), do:
 
 1.  *git pull* the latest changes in the remote repository,
 2.  *run*:
-    -   `mdseasy::easy_version(element = "dev", check_renv = FALSE, push = FALSE)`
+    -   `mdseasy::easy_version(element = "dev", check_renv = FALSE, check_gitlab_ci = FALSE, push = FALSE)`
 3.  *update* and *run* the code generating the package data in
     `data-raw/datasets.R`,
 4.  *run*:
@@ -238,7 +261,7 @@ For adding changes (e.g. additional R packages), do:
 5.  *update* `NEWS.md`
 6.  *run*
     -   `gert::git_commit_all("YOUR COMMIT MESSAGE")`
-    -   `mdseasy::easy_version(check_renv = FALSE)`
+    -   `mdseasy::easy_version(check_renv = FALSE, check_gitlab_ci = FALSE)`
 
 # Execution
 

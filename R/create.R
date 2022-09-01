@@ -5,10 +5,12 @@
 #'
 #' @param type type of software bundle to install, one of
 #'   `c("aws", "cicd", "spatial")`
-#' @param pkgs `character` vector of R packages to install
-#' @param os definition of operating system; default to `"ubuntu-20.04"`.
+#' @param rpkgs `character` vector of R packages to install
 #' @param syslibs `character` vector of system libraries to install
-#'   (which are not found as dependency of the R `pkgs`).
+#'   (which are not found as dependency of the `rpkgs`).
+#' @param pypkgs `character` vector of Python packages to install
+#' @param extra `character` vector of additional software packages to install
+#' @param os definition of operating system; default to `"ubuntu-20.04"`.
 #' @param save_as path for storing the installation instruction file; default
 #'   to `fs::path("scripts", glue::glue("install-{type}.sh"))`.
 #'
@@ -18,29 +20,33 @@
 #' @importFrom cli cli_alert_success
 #' @importFrom fs path
 #' @importFrom glue glue
-#' @importFrom purrr map
+#' @importFrom purrr map reduce
 #' @importFrom remotes package_deps system_requirements
 #'
 #' @export
 create_shellscript = function(
     type,
-    pkgs,
-    os = "ubuntu-20.04",
+    rpkgs,
     syslibs = NULL,
+    pypkgs = NULL,
+    extra = NULL,
+    os = "ubuntu-20.04",
     save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
 ) {
 
   type = checkmate::assert_choice(type, c("aws", "cicd", "spatial"))
 
-  checkmate::assert_character(pkgs, min.len = 1L)
-  checkmate::assert_character(os, len = 1L)
+  checkmate::assert_character(rpkgs, min.len = 1L)
   checkmate::assert_character(syslibs, null.ok = TRUE)
+  checkmate::assert_character(pypkgs, null.ok = TRUE)
+  checkmate::assert_character(extra, null.ok = TRUE)
+  checkmate::assert_character(os, len = 1L)
   checkmate::assert_path_for_output(save_as, overwrite = TRUE)
 
-  ## find package dependencies
+  ## find R package dependencies
   repo = "https://packagemanager.rstudio.com/cran/latest"
 
-  deps = pkgs |>
+  deps = rpkgs |>
     purrr::map(
       ~remotes::package_deps(
         packages = .x,
@@ -62,8 +68,8 @@ create_shellscript = function(
   # split packages
   # - use binaries for those without any sysreq; install the others from source
   deps_has_sysreqs = lengths(sysreqs) == 0L
-  pkgs_binary = deps[deps_has_sysreqs]
-  pkgs_source = deps[!deps_has_sysreqs]
+  rpkgs_binary = deps[deps_has_sysreqs]
+  rpkgs_source = deps[!deps_has_sysreqs]
 
   # additional system libraries
   sysreqs = c(unlist(sysreqs), syslibs)
@@ -110,48 +116,66 @@ create_shellscript = function(
     )
   }
 
-  # packages
-  pkgs_binary = c(
-    "",
-    "# install binary R packages",
-    "install2.r --error --skipinstalled -n $NCPUS \\",
-    if (length(pkgs_binary) > 1) {
-      paste0("  ", pkgs_binary[-length(pkgs_binary)], " \\")
-    },
-    paste0("  ", pkgs_binary[length(pkgs_binary)])
-  )
+  # extra software packages required
+  additional = character()
 
-  pkgs_source = c(
-    "",
-    "# install source R packages",
-    glue::glue("install2.r --error --skipinstalled -n $NCPUS -r {repo} \\"),
-    if (length(pkgs_source) > 1) {
-      paste0("  ", pkgs_source[-length(pkgs_source)], " \\")
-    },
-    paste0("  ", pkgs_source[length(pkgs_source)])
-  )
-
-  if (type == "aws") {
-    extra = c(
-      ""
+  if ("AWS CLI version 2" %in% extra) {
+    additional = c(
+      additional
+      , ""
       , "# install AWS CLI"
       , "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'"
       , "unzip /tmp/awscli.zip -d /tmp"
       , "./tmp/aws/install"
       , "rm /tmp/awscli.zip"
       , "rm -r /tmp/aws"
-      )
-  } else if (type == "spatial") {
-    extra = c(
-      ""
+    )
+  }
+
+  if ("WhiteboxTools" %in% extra) {
+    additional = c(
+      additional
+      , ""
       , "# install whitebox executable"
       , "WBT_ZIPFILE=/tmp/WhiteboxTools_linux_amd64.zip"
       , "unzip $WBT_ZIPFILE -d /usr/local/bin"
       , "rm $WBT_ZIPFILE"
-      )
-  } else {
-    extra = character()
+    )
   }
+
+  # Python packages (install via pip)
+  if (length(pypkgs) > 0) {
+    pypkgs = c(
+      ""
+      , "# install Python packages"
+      , purrr::map(
+        pypkgs
+        , function(p) glue::glue("python3 -m pip install {p}")
+      ) |>
+        purrr::reduce(c)
+    )
+  }
+
+  # R packages (install via littler)
+  rpkgs_binary = c(
+    "",
+    "# install binary R packages",
+    "install2.r --error --skipinstalled -n $NCPUS \\",
+    if (length(rpkgs_binary) > 1) {
+      paste0("  ", rpkgs_binary[-length(rpkgs_binary)], " \\")
+    },
+    paste0("  ", rpkgs_binary[length(rpkgs_binary)])
+  )
+
+  rpkgs_source = c(
+    "",
+    "# install source R packages",
+    glue::glue("install2.r --error --skipinstalled -n $NCPUS -r {repo} \\"),
+    if (length(rpkgs_source) > 1) {
+      paste0("  ", rpkgs_source[-length(rpkgs_source)], " \\")
+    },
+    paste0("  ", rpkgs_source[length(rpkgs_source)])
+  )
 
   # cleanup
   cleanup = c(
@@ -163,7 +187,7 @@ create_shellscript = function(
 
   # combine all-together
   all_content = c(
-    header, sysreqs, pkgs_binary, pkgs_source, extra, cleanup
+    header, sysreqs, additional, pypkgs, rpkgs_binary, rpkgs_source, cleanup
   )
 
   # write to file
@@ -260,11 +284,15 @@ create_dockerfile = function(
       "from" = glue::glue("FROM {parent}:{tag}"),
       "labels" = purrr::flatten_chr(labels),
       # https://vsupalov.com/docker-arg-env-variable-guide/
-      if (image == "r-aws-spatial") {
+      if (image == "r-aws-minimal") {
+        "env" = "ENV RETICULATE_PYTHON=/usr/bin/python3"
+      } else if (image == "r-aws-spatial") {
         "env" = "ENV R_WHITEBOX_EXE_PATH=/usr/local/bin/WBT/whitebox_tools"
       },
       "copy_sh" = glue::glue("COPY /scripts/{script} /rocker_scripts"),
-      "copy_wbt" = glue::glue("COPY /inst/extdata/WhiteboxTools_linux_amd64.zip /tmp"),
+      if (image %in% c("r-aws-spatial", "r-cicd-spatial")) {
+        "copy_wbt" = glue::glue("COPY /inst/extdata/WhiteboxTools_linux_amd64.zip /tmp")
+      },
       "run" = glue::glue("RUN /rocker_scripts/{script}"),
       "execute" = c("# default for executing container", "CMD /bin/bash")
     ) |>
@@ -357,7 +385,7 @@ create_action_workflow_publish_docker_images = function(
   docker_login = c(
     "-",
     "  name: Login to Docker Hub",
-    "  uses: docker/login-action@v1",
+    "  uses: docker/login-action@v2",
     "  with:",
     "    username: ${{ secrets.DOCKERHUB_USERNAME }}",
     "    password: ${{ secrets.DOCKERHUB_PAT }}"
@@ -386,7 +414,7 @@ create_action_workflow_publish_docker_images = function(
   build_push = c(
     "-",
     "  name: Build and push Docker image",
-    "  uses: docker/build-push-action@v2",
+    "  uses: docker/build-push-action@v3",
     "  with:",
     '    file: dockerfiles/${{ matrix.image }}_${{ matrix.rversion }}.Dockerfile',
     '    push: true',
@@ -415,6 +443,8 @@ create_action_workflow_publish_docker_images = function(
         '      - "Update Building System"',
         "    types:",
         "      - completed",
+        "    branches:",
+        "      - main",
         # "  push:",
         # "    branches:",
         # "      - main",
@@ -433,7 +463,7 @@ create_action_workflow_publish_docker_images = function(
           "    steps:",
           "    -",
           "      name: Cancel Previous Runs",
-          "      uses: styfle/cancel-workflow-action@0.9.1",
+          "      uses: styfle/cancel-workflow-action@0.10.0",
           "      with:",
           "        access_token: ${{ secrets.GITHUB_TOKEN }}",
           purrr::map(

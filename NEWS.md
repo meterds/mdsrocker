@@ -1,3 +1,28 @@
+# mdsrocker 1.2.9.9001 (2022-08-30)
+
+#### ✨ features and improvements
+
+  * modify image setup to be ready for use with *Python* (#12)
+    + set environment variable `RETICULATE_PYTHON=/usr/bin/python3` 
+    + install `python3-pip` as system library
+    + add `pypkgs` to `mdsrocker_installation`: possibility to add Python
+      packages to docker images 
+    + install *python* package `pipreqs` for all `aws`-base images
+  * do not include *WhiteboxTools* to non-spatial images
+
+#### 🐛 bug fixes
+
+  * *gitlab-actions*: 
+    + *Publish Docker Images* action trigger modified, so that it only is 
+      triggered by the *Update Building System* when it successfully ran 
+      on the *main* branch.
+    + updated some *actions* versions.
+
+#### 💬 documentation etc
+
+#### 🍬 miscellaneous
+
+
 # mdsrocker 1.2.9 (2022-08-11)
 
 #### ✨ features and improvements

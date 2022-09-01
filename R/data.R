@@ -5,9 +5,11 @@
 #' @format A `tibble` with *3* rows and *3* columns:
 #' * _type_: type of software bundle to install, one of
 #'   `c("aws", "cicd", "spatial")`,
-#' * _pkgs_: R packages to install in respective install scripts,
 #' * _syslibs_: additionally system libraries
-#'   (not required by specified R packages).
+#'   (not required by specified R packages),
+#' * _extra_: additional software packages,
+#' * _pypkgs_: Python packages to install,
+#' * _rpkgs_: R packages to install in respective install scripts.
 #'
 #' @source METERGROUP
 "mdsrocker_installation"

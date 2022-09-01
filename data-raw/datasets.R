@@ -8,7 +8,33 @@ for (r in required) {
 
 ## shell scripts ----
 
-pkgs = list(
+syslibs = list(
+  aws = c(
+    "curl"
+    , "git"
+    , "jq"
+    , "libssl-dev"
+    , "libsasl2-dev"
+    , "python3-pip"
+    , "software-properties-common"
+  )
+  , cicd = NULL
+  , spatial = NULL
+)
+
+extra = list(
+  aws = c("AWS CLI version 2")
+  , cicd = NULL
+  , spatial = c("WhiteboxTools")
+)
+
+pypkgs = list(
+  aws = c("pipreqs")
+  , cicd = NULL
+  , spatial = NULL
+)
+
+rpkgs = list(
   aws = c(
     "renv"
     , "units"
@@ -47,24 +73,12 @@ pkgs = list(
   )
 )
 
-syslibs = list(
-  aws = c(
-    "curl"
-    , "git"
-    , "jq"
-    , "libssl-dev"
-    , "libsasl2-dev"
-    , "software-properties-common"
-  )
-  , cicd = NULL
-  , spatial = NULL
-)
-
-
 # function arguments
 mdsrocker_installation = list(
-  pkgs = pkgs,
-  syslibs = syslibs
+  syslibs = syslibs,
+  extra = extra,
+  pypkgs = pypkgs,
+  rpkgs = rpkgs
 ) |>
   purrr::imap(~tibble::enframe(.x, name = "type", value = .y)) |>
   purrr::reduce(dplyr::inner_join, by = "type")
@@ -78,7 +92,7 @@ account = desc::desc_get_field("Config/Dockerhub/Account")
 
 mdsrocker_dockerfiles = tibble::tribble(
     ~image,           ~parent,                              ~script,               ~description,
-  "r-aws-minimal",  "rocker/r-ver",                        "install_aws.sh",     "r-ver plus R packages `renv` & `units` and system libraries `curl`, `git`, `jq`, `libssl-dev`, `libsasl2-dev` & `software-properties-common` and AWS CLI version 2",
+  "r-aws-minimal",  "rocker/r-ver",                        "install_aws.sh",     "r-ver plus basic utilities stack",
   "r-aws-spatial",  glue::glue("{account}/r-aws-minimal"), "install_spatial.sh", "r-aws-minimal plus a spatial libraries stack",
   "r-cicd-minimal", glue::glue("{account}/r-aws-minimal"), "install_cicd.sh",    "r-aws-minimal plus a set of CI/CD tools",
   "r-cicd-spatial", glue::glue("{account}/r-aws-spatial"), "install_cicd.sh",    "r-aws-spatial plus a set of CI/CD tools"
