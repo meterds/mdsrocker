@@ -8,6 +8,8 @@ on:
       - "Update Building System"
     types:
       - completed
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
