@@ -267,7 +267,7 @@ For adding changes (e.g. additional R packages), do:
 
 The Github Actions workflow `publish-docker-images.yml` is:
 
--   triggered by pushed changes to the workflow itself (usually applied
-    via the `update-building-system.yml` workflow),
 -   scheduled to run every Sunday,
+-   triggered by successful runs of the `update-building-system.yml`
+    workflow on `main` branch,
 -   or can be started manually on Github.
