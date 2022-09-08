@@ -13,9 +13,12 @@ syslibs = list(
     "curl"
     , "git"
     , "jq"
+    , "libbz2-dev"
     , "libssl-dev"
     , "libsasl2-dev"
+    , "python3-dev"
     , "python3-pip"
+    , "python3-venv"
     , "software-properties-common"
   )
   , cicd = NULL

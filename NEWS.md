@@ -2,6 +2,10 @@
 
 #### ✨ features and improvements
 
+  * modify image setup to be ready for use with *Python* - PART 2 (#12)
+    + *unset* environment variable `RETICULATE_PYTHON` again
+    + install `libbz2-dev python3-dev python3-venv` as system libraries
+
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
