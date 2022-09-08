@@ -1,16 +1,10 @@
-# mdsrocker 1.3.0.9000 (2022-09-08)
+# mdsrocker 1.3.1 (2022-09-08)
 
 #### ✨ features and improvements
 
   * modify image setup to be ready for use with *Python* - PART 2 (#12)
     + *unset* environment variable `RETICULATE_PYTHON` again
     + install `libbz2-dev python3-dev python3-venv` as system libraries
-
-#### 🐛 bug fixes
-
-#### 💬 documentation etc
-
-#### 🍬 miscellaneous
 
 
 # mdsrocker 1.3.0 (2022-09-01)
