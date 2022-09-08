@@ -109,8 +109,8 @@ rpkgs
 aws
 </td>
 <td style="text-align:left;">
-curl , git , jq , libssl-dev , libsasl2-dev , python3-pip ,
-software-properties-common
+curl , git , jq , libbz2-dev , libssl-dev , libsasl2-dev , python3-dev ,
+python3-pip , python3-venv , software-properties-common
 </td>
 <td style="text-align:left;">
 AWS CLI version 2
@@ -155,7 +155,7 @@ NULL
 <td style="text-align:left;">
 elevatr , gdalcubes , lwgeom , mapview , ncdf4 , openeo , raster , rgdal
 , rstac , s2 , satellite , sf , sp , stars , starsExtra, terra , units ,
-vapour , whitebox
+whitebox
 </td>
 </tr>
 </tbody>

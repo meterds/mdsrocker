@@ -5,6 +5,8 @@
   * modify image setup to be ready for use with *Python* - PART 2 (#12)
     + *unset* environment variable `RETICULATE_PYTHON` again
     + install `libbz2-dev python3-dev python3-venv` as system libraries
+  * remove `vapour` package from *spatial* package list, as archived on CRAN 
+    as of 2022-09-08
 
 
 # mdsrocker 1.3.0 (2022-09-01)

@@ -71,7 +71,6 @@ rpkgs = list(
     , "starsExtra"
     , "terra"
     , "units"
-    , "vapour"
     , "whitebox"
   )
 )
