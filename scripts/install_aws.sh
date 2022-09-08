@@ -15,11 +15,14 @@ apt-get -qq update \
   curl \
   git \
   jq \
+  libbz2-dev \
   libsasl2-dev \
   libssl-dev \
   libudunits2-dev \
   libxml2-dev \
+  python3-dev \
   python3-pip \
+  python3-venv \
   software-properties-common
 
 # install AWS CLI

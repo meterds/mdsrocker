@@ -152,8 +152,7 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   stars \
   data.table \
   nngeo \
-  starsExtra \
-  vapour
+  starsExtra
 
 # clean up
 rm -rf /var/lib/apt/lists/*
