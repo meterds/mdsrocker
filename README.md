@@ -119,7 +119,7 @@ AWS CLI version 2
 pipreqs
 </td>
 <td style="text-align:left;">
-renv , units, xml2
+curl , renv , reticulate, units , xml2
 </td>
 </tr>
 <tr>

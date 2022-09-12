@@ -39,7 +39,9 @@ pypkgs = list(
 
 rpkgs = list(
   aws = c(
-    "renv"
+    "curl"
+    , "renv"
+    , "reticulate"
     , "units"
     , "xml2"
   )
