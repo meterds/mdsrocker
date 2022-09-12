@@ -2,6 +2,9 @@
 
 #### ✨ features and improvements
 
+  * add `curl` and `reticulate` to `r-aws-minimal` image in order to be able 
+    to `renv::restore()` during `docker build` using this image (without
+    adding all the required system libraries by hand in each project)
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
