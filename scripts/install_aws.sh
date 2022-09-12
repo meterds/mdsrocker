@@ -16,10 +16,13 @@ apt-get -qq update \
   git \
   jq \
   libbz2-dev \
+  libcurl4-openssl-dev \
+  libpng-dev \
   libsasl2-dev \
   libssl-dev \
   libudunits2-dev \
   libxml2-dev \
+  python3 \
   python3-dev \
   python3-pip \
   python3-venv \
@@ -38,10 +41,19 @@ python3 -m pip install pipreqs
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
   renv \
-  Rcpp
+  rprojroot \
+  Rcpp \
+  withr \
+  rappdirs \
+  jsonlite \
+  here \
+  RcppTOML
 
 # install source R packages
 install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
+  curl \
+  png \
+  reticulate \
   units \
   xml2
 
