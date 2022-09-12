@@ -1,15 +1,10 @@
-# mdsrocker 1.3.1.9000 (2022-09-12)
+# mdsrocker 1.3.2 (2022-09-12)
 
 #### ✨ features and improvements
 
-  * add `curl` and `reticulate` to `r-aws-minimal` image in order to be able 
+  * add `curl` and `reticulate` to `r-aws-minimal` image in order to be able
     to `renv::restore()` during `docker build` using this image (without
     adding all the required system libraries by hand in each project)
-#### 🐛 bug fixes
-
-#### 💬 documentation etc
-
-#### 🍬 miscellaneous
 
 
 # mdsrocker 1.3.1 (2022-09-08)
@@ -19,7 +14,7 @@
   * modify image setup to be ready for use with *Python* - PART 2 (#12)
     + *unset* environment variable `RETICULATE_PYTHON` again
     + install `libbz2-dev python3-dev python3-venv` as system libraries
-  * remove `vapour` package from *spatial* package list, as archived on CRAN 
+  * remove `vapour` package from *spatial* package list, as archived on CRAN
     as of 2022-09-08
 
 
