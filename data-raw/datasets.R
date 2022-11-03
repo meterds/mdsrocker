@@ -16,6 +16,7 @@ syslibs = list(
     , "libbz2-dev"
     , "libssl-dev"
     , "libsasl2-dev"
+    , "libsodium-dev"
     , "python3-dev"
     , "python3-pip"
     , "python3-venv"
@@ -23,35 +24,37 @@ syslibs = list(
   )
   , cicd = NULL
   , spatial = NULL
+  , full = NULL
 )
 
 extra = list(
   aws = c("AWS CLI version 2")
   , cicd = NULL
   , spatial = c("WhiteboxTools")
+  , full = NULL
 )
 
 pypkgs = list(
-  aws = c("pipreqs")
+  aws = c("pipreqs", "poetry")
   , cicd = NULL
   , spatial = NULL
+  , full = NULL
 )
 
 rpkgs = list(
   aws = c(
-    "curl"
+    "checkmate"
+    , "curl"
     , "renv"
     , "reticulate"
     , "units"
     , "xml2"
   )
   , cicd = c(
-    "checkmate"
-    , "covr"
+    "covr"
     , "DT"
     , "lintr"
     , 'pkgdown'
-    , 'renv'
     , 'rcmdcheck'
     , 'tinytest'
   )
@@ -74,6 +77,14 @@ rpkgs = list(
     , "terra"
     , "units"
     , "whitebox"
+  )
+  , full = c(
+    "arrow"
+    , "dplyr"
+    , "paws"
+    , "plumber"
+    , "targets"
+    , "tarchetypes"
   )
 )
 
@@ -99,7 +110,8 @@ mdsrocker_dockerfiles = tibble::tribble(
   "r-aws-minimal",  "rocker/r-ver",                        "install_aws.sh",     "r-ver plus basic utilities stack",
   "r-aws-spatial",  glue::glue("{account}/r-aws-minimal"), "install_spatial.sh", "r-aws-minimal plus a spatial libraries stack",
   "r-cicd-minimal", glue::glue("{account}/r-aws-minimal"), "install_cicd.sh",    "r-aws-minimal plus a set of CI/CD tools",
-  "r-cicd-spatial", glue::glue("{account}/r-aws-spatial"), "install_cicd.sh",    "r-aws-spatial plus a set of CI/CD tools"
+  "r-cicd-spatial", glue::glue("{account}/r-aws-spatial"), "install_cicd.sh",    "r-aws-spatial plus a set of CI/CD tools",
+  "r-aws-full",     glue::glue("{account}/r-aws-spatial"), "install_full.sh",    "r-aws-spatial plus a set of API tools"
 )
 
 usethis::use_data(mdsrocker_dockerfiles, overwrite = TRUE)
