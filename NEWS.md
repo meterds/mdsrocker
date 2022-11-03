@@ -1,3 +1,14 @@
+# mdsrocker 1.3.2.9000 (2022-11-03)
+
+#### ✨ features and improvements
+
+#### 🐛 bug fixes
+
+#### 💬 documentation etc
+
+#### 🍬 miscellaneous
+
+
 # mdsrocker 1.3.2 (2022-09-12)
 
 #### ✨ features and improvements
