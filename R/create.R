@@ -101,13 +101,23 @@ create_shellscript = function(
     "}"
   )
 
+  ## add deadsnakes ppa for installing python3
+  if (type == "aws") {
+    header = c(
+      header,
+      "",
+      "# add deadsnakes for python3.9",
+      "add-apt-repository ppa:deadsnakes/ppa"
+    )
+  }
+
   ## add ubuntugis-unstable repo for spatial images
   if (type == "spatial") {
     header = c(
-      header
-      , ""
-      , "# add ubuntugis-unstable repo to get latest versions of gdal & co."
-      , "add-apt-repository ppa:ubuntugis/ubuntugis-unstable"
+      header,
+      "",
+      "# add ubuntugis-unstable repo to get latest versions of gdal & co.",
+      "add-apt-repository ppa:ubuntugis/ubuntugis-unstable"
     )
   }
 
@@ -129,40 +139,53 @@ create_shellscript = function(
 
   if ("AWS CLI version 2" %in% extra) {
     additional = c(
-      additional
-      , ""
-      , "# install AWS CLI"
-      , "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'"
-      , "unzip /tmp/awscli.zip -d /tmp"
-      , "./tmp/aws/install"
-      , "rm /tmp/awscli.zip"
-      , "rm -r /tmp/aws"
+      additional,
+      "",
+      "# install AWS CLI",
+      "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'",
+      "unzip /tmp/awscli.zip -d /tmp",
+      "./tmp/aws/install",
+      "rm /tmp/awscli.zip",
+      "rm -r /tmp/aws"
     )
   }
 
   if ("WhiteboxTools" %in% extra) {
     additional = c(
-      additional
-      , ""
-      , "# install whitebox executable"
-      , "WBT_ZIPFILE=/tmp/WhiteboxTools_linux_amd64.zip"
-      , "unzip $WBT_ZIPFILE -d /usr/local/bin"
-      , "rm $WBT_ZIPFILE"
+      additional,
+      "",
+      "# install whitebox executable",
+      "WBT_ZIPFILE=/tmp/WhiteboxTools_linux_amd64.zip",
+      "unzip $WBT_ZIPFILE -d /usr/local/bin",
+      "rm $WBT_ZIPFILE"
     )
   }
 
   # Python packages (install via pip)
   if (length(pypkgs) > 0) {
     pypkgs = c(
-      ""
-      , "# install Python packages"
-      , "python3 -m pip install --no-cache-dir --upgrade \\"
-      , "  pip"
-      , "python3 -m pip install --no-cache-dir \\"
-      , if (length(pypkgs) > 1) {
+      "",
+      "# install Python packages",
+      "python3.9 -m pip install --no-cache-dir --upgrade \\",
+      "  pip",
+      "python3.9 -m pip install --no-cache-dir \\",
+      if (length(pypkgs) > 1) {
         paste0("  ", pypkgs[-length(pypkgs)], " \\")
       },
       paste0("  ", pypkgs[length(pypkgs)])
+    )
+  }
+
+  # R packages update
+  rpkgs_update = character()
+  if (type == "aws") {
+    rpkgs_update = c(
+      rpkgs_update,
+      "",
+      "# update R packages",
+      "R_LIBS_SITE=/usr/local/lib/R/site-library",
+      "ln -s ${R_LIBS_SITE}/littler/examples/update.r /usr/local/bin/update.r",
+      "update.r -n $NCPUS"
     )
   }
 
@@ -201,7 +224,7 @@ create_shellscript = function(
 
   # combine all-together
   all_content = c(
-    header, sysreqs, additional, pypkgs, rpkgs_binary, rpkgs_source, cleanup
+    header, sysreqs, additional, pypkgs, rpkgs_update, rpkgs_binary, rpkgs_source, cleanup
   )
 
   # write to file

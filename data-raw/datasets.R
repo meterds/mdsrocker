@@ -15,13 +15,13 @@ syslibs = list(
     , "jq"
     , "libbz2-dev"
     , "libpng-dev"
-    , "libpython3-dev"
+    , "libpython3.9-dev"
     , "libssl-dev"
     , "libsasl2-dev"
     , "libsodium-dev"
-    , "python3-dev"
-    , "python3-pip"
-    , "python3-venv"
+    , "python3.9-dev"
+    , "python3.9-pip"
+    , "python3.9-venv"
     , "software-properties-common"
   )
   , cicd = NULL
@@ -87,6 +87,7 @@ rpkgs = list(
     , "plumber"
     , "targets"
     , "tarchetypes"
+    , "zoo"
   )
 )
 
