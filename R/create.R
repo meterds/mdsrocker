@@ -88,17 +88,7 @@ create_shellscript = function(
     "export DEBIAN_FRONTEND=noninteractive",
     "",
     "# build ARGs",
-    "NCPUS=${NCPUS:--1}",
-    "",
-    "# a function to install apt packages only if they are not installed",
-    "function apt_install() {",
-    '  if ! dpkg -s "$@" >/dev/null 2>&1; then',
-    '  if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then',
-    "  apt-get -qq update",
-    "  fi",
-    '  apt-get install -y --no-install-recommends "$@"',
-    "  fi",
-    "}"
+    "NCPUS=${NCPUS:--1}"
   )
 
   ## add deadsnakes ppa for installing python3
@@ -124,6 +114,16 @@ create_shellscript = function(
   # system requirements
   if (length(sysreqs) > 0) {
     sysreqs = c(
+      "",
+      "# a function to install apt packages only if they are not installed",
+      "function apt_install() {",
+      '  if ! dpkg -s "$@" >/dev/null 2>&1; then',
+      '  if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then',
+      "  apt-get -qq update",
+      "  fi",
+      '  apt-get install -y --no-install-recommends "$@"',
+      "  fi",
+      "}",
       "",
       "# install system requirements",
       "apt_install \\",
