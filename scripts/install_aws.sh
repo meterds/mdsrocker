@@ -18,6 +18,9 @@ function apt_install() {
   fi
 }
 
+# add deadsnakes for python3.9
+add-apt-repository ppa:deadsnakes/ppa
+
 # install system requirements
 apt_install \
   curl \
@@ -45,11 +48,16 @@ rm /tmp/awscli.zip
 rm -r /tmp/aws
 
 # install Python packages
-python3 -m pip install --no-cache-dir --upgrade \
+python3.9 -m pip install --no-cache-dir --upgrade \
   pip
-python3 -m pip install --no-cache-dir \
+python3.9 -m pip install --no-cache-dir \
   pipreqs \
   poetry
+
+# update R packages
+R_LIBS_SITE=/usr/local/lib/R/site-library
+ln -s ${R_LIBS_SITE}/littler/examples/update.r /usr/local/bin/update.r
+update.r -n $NCPUS
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
