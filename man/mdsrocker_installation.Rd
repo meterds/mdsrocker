@@ -5,10 +5,10 @@
 \alias{mdsrocker_installation}
 \title{Installation Instructions for Docker Builds}
 \format{
-A \code{tibble} with \emph{3} rows and \emph{3} columns:
+A \code{tibble} with \emph{4} rows and \emph{5} columns:
 \itemize{
 \item \emph{type}: type of software bundle to install, one of
-\code{c("aws", "cicd", "spatial")},
+\code{c("aws", "cicd", "spatial", "full")},
 \item \emph{syslibs}: additionally system libraries
 (not required by specified R packages),
 \item \emph{extra}: additional software packages,

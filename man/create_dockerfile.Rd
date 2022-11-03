@@ -17,7 +17,7 @@ create_dockerfile(
 }
 \arguments{
 \item{image}{name of docker image to create, one of
-\code{c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")},
+\code{c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial", "r-aws-full")},
 plus R version as \code{tag}.}
 
 \item{parent}{\code{character} parent docker image (incl. \emph{dockerhub} account)

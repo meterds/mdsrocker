@@ -2,9 +2,9 @@
 #'
 #' A data set containing the the requirements to install in the docker builds.
 #'
-#' @format A `tibble` with *3* rows and *3* columns:
+#' @format A `tibble` with *4* rows and *5* columns:
 #' * _type_: type of software bundle to install, one of
-#'   `c("aws", "cicd", "spatial")`,
+#'   `c("aws", "cicd", "spatial", "full")`,
 #' * _syslibs_: additionally system libraries
 #'   (not required by specified R packages),
 #' * _extra_: additional software packages,
@@ -21,7 +21,7 @@
 #'
 #' @format A `tibble` with *4* rows and *4* columns:
 #' * _image_: name of the docker image, one of
-#'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`,
+#'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial", "r-aws-full")`,
 #' * _description_: description of software packed in the docker image,
 #' * _parent_: parent docker image (incl. _dockerhub_ account)
 #'   from which to build,

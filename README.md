@@ -66,6 +66,14 @@ r-aws-minimal plus a set of CI/CD tools
 r-aws-spatial plus a set of CI/CD tools
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+<a href="https://hub.docker.com/r/meterds/r-aws-full" style="     " >r-aws-full</a>
+</td>
+<td style="text-align:left;">
+r-aws-spatial plus a set of API tools
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -109,17 +117,17 @@ rpkgs
 aws
 </td>
 <td style="text-align:left;">
-curl , git , jq , libbz2-dev , libssl-dev , libsasl2-dev , python3-dev ,
-python3-pip , python3-venv , software-properties-common
+curl , git , jq , libbz2-dev , libssl-dev , libsasl2-dev , libsodium-dev
+, python3-dev , python3-pip , python3-venv , software-properties-common
 </td>
 <td style="text-align:left;">
 AWS CLI version 2
 </td>
 <td style="text-align:left;">
-pipreqs
+pipreqs, poetry
 </td>
 <td style="text-align:left;">
-curl , renv , reticulate, units , xml2
+checkmate , curl , renv , reticulate, units , xml2
 </td>
 </tr>
 <tr>
@@ -136,7 +144,7 @@ NULL
 NULL
 </td>
 <td style="text-align:left;">
-checkmate, covr , DT , lintr , pkgdown , renv , rcmdcheck, tinytest
+covr , DT , lintr , pkgdown , rcmdcheck, tinytest
 </td>
 </tr>
 <tr>
@@ -156,6 +164,23 @@ NULL
 elevatr , gdalcubes , lwgeom , mapview , ncdf4 , openeo , raster , rgdal
 , rstac , s2 , satellite , sf , sp , stars , starsExtra, terra , units ,
 whitebox
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+full
+</td>
+<td style="text-align:left;">
+NULL
+</td>
+<td style="text-align:left;">
+NULL
+</td>
+<td style="text-align:left;">
+NULL
+</td>
+<td style="text-align:left;">
+arrow , dplyr , paws , plumber , targets , tarchetypes
 </td>
 </tr>
 </tbody>
@@ -221,6 +246,17 @@ meterds/r-aws-spatial
 </td>
 <td style="text-align:left;">
 install_cicd.sh
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r-aws-full
+</td>
+<td style="text-align:left;">
+meterds/r-aws-spatial
+</td>
+<td style="text-align:left;">
+install_full.sh
 </td>
 </tr>
 </tbody>

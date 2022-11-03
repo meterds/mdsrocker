@@ -16,7 +16,7 @@ create_shellscript(
 }
 \arguments{
 \item{type}{type of software bundle to install, one of
-\code{c("aws", "cicd", "spatial")}}
+\code{c("aws", "cicd", "spatial", "full")}}
 
 \item{rpkgs}{\code{character} vector of R packages to install}
 
