@@ -14,6 +14,8 @@ syslibs = list(
     , "git"
     , "jq"
     , "libbz2-dev"
+    , "libpng-dev"
+    , "libpython3-dev"
     , "libssl-dev"
     , "libsasl2-dev"
     , "libsodium-dev"

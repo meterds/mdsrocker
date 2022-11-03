@@ -4,7 +4,7 @@
 #' for the various docker images.
 #'
 #' @param type type of software bundle to install, one of
-#'   `c("aws", "cicd", "spatial")`
+#'   `c("aws", "cicd", "spatial", "full")`
 #' @param rpkgs `character` vector of R packages to install
 #' @param syslibs `character` vector of system libraries to install
 #'   (which are not found as dependency of the `rpkgs`).
@@ -34,7 +34,7 @@ create_shellscript = function(
     save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
 ) {
 
-  type = checkmate::assert_choice(type, c("aws", "cicd", "spatial"))
+  type = checkmate::assert_choice(type, c("aws", "cicd", "spatial", "full"))
 
   checkmate::assert_character(rpkgs, min.len = 1L)
   checkmate::assert_character(syslibs, null.ok = TRUE)
@@ -88,7 +88,17 @@ create_shellscript = function(
     "export DEBIAN_FRONTEND=noninteractive",
     "",
     "# build ARGs",
-    "NCPUS=${NCPUS:--1}"
+    "NCPUS=${NCPUS:--1}",
+    "",
+    "# a function to install apt packages only if they are not installed",
+    "function apt_install() {",
+    '  if ! dpkg -s "$@" >/dev/null 2>&1; then',
+    '  if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then',
+    "  apt-get -qq update",
+    "  fi",
+    '  apt-get install -y --no-install-recommends "$@"',
+    "  fi",
+    "}"
   )
 
   ## add ubuntugis-unstable repo for spatial images
@@ -106,9 +116,7 @@ create_shellscript = function(
     sysreqs = c(
       "",
       "# install system requirements",
-      "apt-get -qq update \\",
-      "  && apt-get -y upgrade \\",
-      "  && apt-get -y --no-install-recommends install \\",
+      "apt_install \\",
       if (length(sysreqs) > 1) {
         paste0("  ", sysreqs[-length(sysreqs)], " \\")
       },
@@ -148,11 +156,13 @@ create_shellscript = function(
     pypkgs = c(
       ""
       , "# install Python packages"
-      , purrr::map(
-        pypkgs
-        , function(p) glue::glue("python3 -m pip install {p}")
-      ) |>
-        purrr::reduce(c)
+      , "python3 -m pip install --no-cache-dir --upgrade \\"
+      , "  pip"
+      , "python3 -m pip install --no-cache-dir \\"
+      , if (length(pypkgs) > 1) {
+        paste0("  ", pypkgs[-length(pypkgs)], " \\")
+      },
+      paste0("  ", pypkgs[length(pypkgs)])
     )
   }
 
@@ -182,7 +192,11 @@ create_shellscript = function(
     "",
     "# clean up",
     "rm -rf /var/lib/apt/lists/*",
-    "rm -r /tmp/downloaded_packages"
+    "rm -r /tmp/downloaded_packages",
+    "",
+    "## Strip binary installed lybraries from RSPM",
+    "## https://github.com/rocker-org/rocker-versioned2/issues/340",
+    "strip /usr/local/lib/R/site-library/*/libs/*.so"
   )
 
   # combine all-together
@@ -219,7 +233,7 @@ create_shellscript = function(
 #' for more information.
 #'
 #' @param image name of docker image to create, one of
-#'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`,
+#'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial", "r-aws-full")`,
 #'   plus R version as `tag`.
 #' @param parent `character` parent docker image (incl. *dockerhub* account)
 #'   from which to build.
@@ -259,7 +273,7 @@ create_dockerfile = function(
 
   image = checkmate::assert_choice(
     image,
-    c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")
+    c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial", "r-aws-full")
   )
 
   checkmate::assert_character(description, len = 1L)
@@ -349,7 +363,7 @@ create_action_workflow_publish_docker_images = function(
   checkmate::assert_subset(
     images,
     choices = c(
-      "r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial"
+      "r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial", "r-aws-full"
     )
   )
 
