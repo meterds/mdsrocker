@@ -22,7 +22,6 @@ syslibs = list(
     , "python3.9-dev"
     , "python3.9-pip"
     , "python3.9-venv"
-    , "software-properties-common"
   )
   , cicd = NULL
   , spatial = NULL

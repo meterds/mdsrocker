@@ -52,6 +52,14 @@ r-aws-minimal plus a spatial libraries stack
 </tr>
 <tr>
 <td style="text-align:left;">
+<a href="https://hub.docker.com/r/meterds/r-aws-full" style="     " >r-aws-full</a>
+</td>
+<td style="text-align:left;">
+r-aws-spatial plus a set of API tools
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 <a href="https://hub.docker.com/r/meterds/r-cicd-minimal" style="     " >r-cicd-minimal</a>
 </td>
 <td style="text-align:left;">
@@ -66,14 +74,6 @@ r-aws-minimal plus a set of CI/CD tools
 r-aws-spatial plus a set of CI/CD tools
 </td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://hub.docker.com/r/meterds/r-aws-full" style="     " >r-aws-full</a>
-</td>
-<td style="text-align:left;">
-r-aws-spatial plus a set of API tools
-</td>
-</tr>
 </tbody>
 </table>
 
@@ -86,7 +86,7 @@ This building system is designed as an R package.
 All relevant information is stored in *two* `data.frames` (as package
 data):
 
--   `mdsrocker_installation`: *three* different software bundles for the
+-   `mdsrocker_installation`: *four* different software bundles for the
     various scopes of the docker images, each containing predefined sets
     of software packages (system libraries, extra software packages,
     Python packages, R packages) to install.
@@ -117,8 +117,9 @@ rpkgs
 aws
 </td>
 <td style="text-align:left;">
-curl , git , jq , libbz2-dev , libssl-dev , libsasl2-dev , libsodium-dev
-, python3-dev , python3-pip , python3-venv , software-properties-common
+curl , git , jq , libbz2-dev , libpng-dev , libpython3.9-dev, libssl-dev
+, libsasl2-dev , libsodium-dev , python3.9-dev , python3.9-pip ,
+python3.9-venv
 </td>
 <td style="text-align:left;">
 AWS CLI version 2
@@ -180,7 +181,7 @@ NULL
 NULL
 </td>
 <td style="text-align:left;">
-arrow , dplyr , paws , plumber , targets , tarchetypes
+arrow , dplyr , paws , plumber , targets , tarchetypes, zoo
 </td>
 </tr>
 </tbody>
@@ -228,6 +229,17 @@ install_spatial.sh
 </tr>
 <tr>
 <td style="text-align:left;">
+r-aws-full
+</td>
+<td style="text-align:left;">
+meterds/r-aws-spatial
+</td>
+<td style="text-align:left;">
+install_full.sh
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 r-cicd-minimal
 </td>
 <td style="text-align:left;">
@@ -246,17 +258,6 @@ meterds/r-aws-spatial
 </td>
 <td style="text-align:left;">
 install_cicd.sh
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-r-aws-full
-</td>
-<td style="text-align:left;">
-meterds/r-aws-spatial
-</td>
-<td style="text-align:left;">
-install_full.sh
 </td>
 </tr>
 </tbody>

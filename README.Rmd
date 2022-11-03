@@ -71,7 +71,7 @@ This building system is designed as an R package.
 
 All relevant information is stored in *two* `data.frames` (as package data):
 
-- `mdsrocker_installation`: *three* different software bundles for the various
+- `mdsrocker_installation`: *four* different software bundles for the various
   scopes of the docker images, each containing predefined sets of software 
   packages (system libraries, extra software packages, Python packages, 
   R packages) to install.

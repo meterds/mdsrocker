@@ -91,10 +91,17 @@ create_shellscript = function(
     "NCPUS=${NCPUS:--1}"
   )
 
-  ## add deadsnakes ppa for installing python3
+  ## add deadsnakes ppa for installing python3.9
   if (type == "aws") {
     header = c(
       header,
+      "",
+      "# install software-properties-common to have add-apt-repository available",
+      "apt-get -qq update \\",
+      "  && apt-get -y upgrade \\",
+      "  && apt-get -y --no-install-recommends install \\",
+      "  software-properties-common \\",
+      "  && apt-get update",
       "",
       "# add deadsnakes for python3.9",
       "add-apt-repository ppa:deadsnakes/ppa"
