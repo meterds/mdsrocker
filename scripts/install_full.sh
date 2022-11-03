@@ -74,7 +74,8 @@ install2.r --error --skipinstalled -n $NCPUS \
   processx \
   backports \
   callr \
-  base64url
+  base64url \
+  zoo
 
 # install source R packages
 install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \

@@ -8,6 +8,9 @@ export DEBIAN_FRONTEND=noninteractive
 # build ARGs
 NCPUS=${NCPUS:--1}
 
+# add ubuntugis-unstable repo to get latest versions of gdal & co.
+add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+
 # a function to install apt packages only if they are not installed
 function apt_install() {
   if ! dpkg -s "$@" >/dev/null 2>&1; then
@@ -17,9 +20,6 @@ function apt_install() {
   apt-get install -y --no-install-recommends "$@"
   fi
 }
-
-# add ubuntugis-unstable repo to get latest versions of gdal & co.
-add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 
 # install system requirements
 apt_install \

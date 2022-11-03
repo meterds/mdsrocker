@@ -8,6 +8,16 @@ export DEBIAN_FRONTEND=noninteractive
 # build ARGs
 NCPUS=${NCPUS:--1}
 
+# install software-properties-common to have add-apt-repository available
+apt-get -qq update \
+  && apt-get -y upgrade \
+  && apt-get -y --no-install-recommends install \
+  software-properties-common \
+  && apt-get update
+
+# add deadsnakes for python3.9
+add-apt-repository ppa:deadsnakes/ppa
+
 # a function to install apt packages only if they are not installed
 function apt_install() {
   if ! dpkg -s "$@" >/dev/null 2>&1; then
@@ -18,9 +28,6 @@ function apt_install() {
   fi
 }
 
-# add deadsnakes for python3.9
-add-apt-repository ppa:deadsnakes/ppa
-
 # install system requirements
 apt_install \
   curl \
@@ -29,16 +36,16 @@ apt_install \
   libbz2-dev \
   libcurl4-openssl-dev \
   libpng-dev \
+  libpython3.9-dev \
   libsasl2-dev \
   libsodium-dev \
   libssl-dev \
   libudunits2-dev \
   libxml2-dev \
   python3 \
-  python3-dev \
-  python3-pip \
-  python3-venv \
-  software-properties-common
+  python3.9-dev \
+  python3.9-pip \
+  python3.9-venv
 
 # install AWS CLI
 curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'
