@@ -233,7 +233,7 @@ create_shellscript = function(
 #' for more information.
 #'
 #' @param image name of docker image to create, one of
-#'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial", "r-aws-full")`,
+#'   `c("r-aws-minimal", "r-aws-spatial", "r-aws-full", "r-cicd-minimal", "r-cicd-spatial")`,
 #'   plus R version as `tag`.
 #' @param parent `character` parent docker image (incl. *dockerhub* account)
 #'   from which to build.
@@ -273,7 +273,7 @@ create_dockerfile = function(
 
   image = checkmate::assert_choice(
     image,
-    c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial", "r-aws-full")
+    c("r-aws-minimal", "r-aws-spatial", "r-aws-full", "r-cicd-minimal", "r-cicd-spatial")
   )
 
   checkmate::assert_character(description, len = 1L)
@@ -363,7 +363,7 @@ create_action_workflow_publish_docker_images = function(
   checkmate::assert_subset(
     images,
     choices = c(
-      "r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial", "r-aws-full"
+      "r-aws-minimal", "r-aws-spatial", "r-aws-full", "r-cicd-minimal", "r-cicd-spatial"
     )
   )
 
@@ -475,7 +475,7 @@ create_action_workflow_publish_docker_images = function(
           "    steps:",
           "    -",
           "      name: Cancel Previous Runs",
-          "      uses: styfle/cancel-workflow-action@0.10.0",
+          "      uses: styfle/cancel-workflow-action@0.11.0",
           "      with:",
           "        access_token: ${{ secrets.GITHUB_TOKEN }}",
           purrr::map(

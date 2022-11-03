@@ -111,9 +111,9 @@ mdsrocker_dockerfiles = tibble::tribble(
     ~image,           ~parent,                              ~script,               ~description,
   "r-aws-minimal",  "rocker/r-ver",                        "install_aws.sh",     "r-ver plus basic utilities stack",
   "r-aws-spatial",  glue::glue("{account}/r-aws-minimal"), "install_spatial.sh", "r-aws-minimal plus a spatial libraries stack",
+  "r-aws-full",     glue::glue("{account}/r-aws-spatial"), "install_full.sh",    "r-aws-spatial plus a set of API tools",
   "r-cicd-minimal", glue::glue("{account}/r-aws-minimal"), "install_cicd.sh",    "r-aws-minimal plus a set of CI/CD tools",
-  "r-cicd-spatial", glue::glue("{account}/r-aws-spatial"), "install_cicd.sh",    "r-aws-spatial plus a set of CI/CD tools",
-  "r-aws-full",     glue::glue("{account}/r-aws-spatial"), "install_full.sh",    "r-aws-spatial plus a set of API tools"
+  "r-cicd-spatial", glue::glue("{account}/r-aws-spatial"), "install_cicd.sh",    "r-aws-spatial plus a set of CI/CD tools"
 )
 
 usethis::use_data(mdsrocker_dockerfiles, overwrite = TRUE)
