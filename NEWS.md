@@ -1,20 +1,16 @@
-# mdsrocker 1.3.2.9001 (2022-11-03)
+# mdsrocker 1.4.0 (2022-11-03)
 
 #### ✨ features and improvements
 
-  * add `r-aws-full` to image stack (#14): 
-    this image contains some more package dependencies for 
+  * add `r-aws-full` to image stack (#14):
+    this image contains some more package dependencies for
     + setting up `plumber` APIs
     + reading and writing from AWS S3
     + handling *parquet* file formats
 
-#### 🐛 bug fixes
-
-#### 💬 documentation etc
-
 #### 🍬 miscellaneous
 
-  * some minor modifications to the `create_shellscript` function 
+  * some minor modifications to the `create_shellscript` function
     (as seen at https://github.com/rocker-org/rocker-versioned2/tree/master/scripts)
 
 
