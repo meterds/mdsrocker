@@ -8,13 +8,21 @@ export DEBIAN_FRONTEND=noninteractive
 # build ARGs
 NCPUS=${NCPUS:--1}
 
+# a function to install apt packages only if they are not installed
+function apt_install() {
+  if ! dpkg -s "$@" >/dev/null 2>&1; then
+  if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
+  apt-get -qq update
+  fi
+  apt-get install -y --no-install-recommends "$@"
+  fi
+}
+
 # add ubuntugis-unstable repo to get latest versions of gdal & co.
 add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 
 # install system requirements
-apt-get -qq update \
-  && apt-get -y upgrade \
-  && apt-get -y --no-install-recommends install \
+apt_install \
   gdal-bin \
   gsfonts \
   imagemagick \
@@ -27,6 +35,7 @@ apt-get -qq update \
   libnetcdf-dev \
   libpng-dev \
   libproj-dev \
+  libsqlite3-dev \
   libssl-dev \
   libudunits2-dev \
   make \
@@ -44,8 +53,8 @@ install2.r --error --skipinstalled -n $NCPUS \
   rlang \
   magrittr \
   purrr \
-  cli \
   glue \
+  cli \
   parallelly \
   listenv \
   digest \
@@ -96,6 +105,7 @@ install2.r --error --skipinstalled -n $NCPUS \
   gtable \
   gridExtra \
   ggplot2 \
+  commonmark \
   lazyeval \
   leaflet.providers \
   viridis \
@@ -157,3 +167,7 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
 # clean up
 rm -rf /var/lib/apt/lists/*
 rm -r /tmp/downloaded_packages
+
+## Strip binary installed lybraries from RSPM
+## https://github.com/rocker-org/rocker-versioned2/issues/340
+strip /usr/local/lib/R/site-library/*/libs/*.so

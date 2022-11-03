@@ -8,10 +8,18 @@ export DEBIAN_FRONTEND=noninteractive
 # build ARGs
 NCPUS=${NCPUS:--1}
 
+# a function to install apt packages only if they are not installed
+function apt_install() {
+  if ! dpkg -s "$@" >/dev/null 2>&1; then
+  if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
+  apt-get -qq update
+  fi
+  apt-get install -y --no-install-recommends "$@"
+  fi
+}
+
 # install system requirements
-apt-get -qq update \
-  && apt-get -y upgrade \
-  && apt-get -y --no-install-recommends install \
+apt_install \
   curl \
   git \
   jq \
@@ -19,6 +27,7 @@ apt-get -qq update \
   libcurl4-openssl-dev \
   libpng-dev \
   libsasl2-dev \
+  libsodium-dev \
   libssl-dev \
   libudunits2-dev \
   libxml2-dev \
@@ -36,10 +45,16 @@ rm /tmp/awscli.zip
 rm -r /tmp/aws
 
 # install Python packages
-python3 -m pip install pipreqs
+python3 -m pip install --no-cache-dir --upgrade \
+  pip
+python3 -m pip install --no-cache-dir \
+  pipreqs \
+  poetry
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
+  backports \
+  checkmate \
   renv \
   rprojroot \
   Rcpp \
@@ -60,3 +75,7 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
 # clean up
 rm -rf /var/lib/apt/lists/*
 rm -r /tmp/downloaded_packages
+
+## Strip binary installed lybraries from RSPM
+## https://github.com/rocker-org/rocker-versioned2/issues/340
+strip /usr/local/lib/R/site-library/*/libs/*.so

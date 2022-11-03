@@ -31,7 +31,7 @@ jobs:
       max-parallel: 1
       matrix:
         rversion: ['4.1.3']
-        image: ['r-aws-minimal', 'r-aws-spatial', 'r-cicd-minimal', 'r-cicd-spatial']
+        image: ['r-aws-minimal', 'r-aws-spatial', 'r-cicd-minimal', 'r-cicd-spatial', 'r-aws-full']
     name: ${{ matrix.image }} - ${{ matrix.rversion }}
     steps:
     -
@@ -64,7 +64,7 @@ jobs:
       max-parallel: 1
       matrix:
         rversion: ['4.2.0']
-        image: ['r-aws-minimal', 'r-aws-spatial', 'r-cicd-minimal', 'r-cicd-spatial']
+        image: ['r-aws-minimal', 'r-aws-spatial', 'r-cicd-minimal', 'r-cicd-spatial', 'r-aws-full']
     name: ${{ matrix.image }} - ${{ matrix.rversion }}
     steps:
     -
@@ -97,7 +97,7 @@ jobs:
       max-parallel: 1
       matrix:
         rversion: ['4.2.1']
-        image: ['r-aws-minimal', 'r-aws-spatial', 'r-cicd-minimal', 'r-cicd-spatial']
+        image: ['r-aws-minimal', 'r-aws-spatial', 'r-cicd-minimal', 'r-cicd-spatial', 'r-aws-full']
     name: ${{ matrix.image }} - ${{ matrix.rversion }}
     steps:
     -

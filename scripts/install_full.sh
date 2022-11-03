@@ -20,102 +20,96 @@ function apt_install() {
 
 # install system requirements
 apt_install \
-  git \
   libcurl4-openssl-dev \
-  libfontconfig1-dev \
-  libfreetype6-dev \
-  libfribidi-dev \
-  libharfbuzz-dev \
+  libglpk-dev \
+  libgmp3-dev \
   libicu-dev \
-  libjpeg-dev \
-  libpng-dev \
+  libsodium-dev \
   libssl-dev \
-  libtiff-dev \
   libxml2-dev \
   make \
-  pandoc
+  pandoc \
+  zlib1g-dev
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
+  rlang \
+  lifecycle \
+  glue \
+  cli \
+  withr \
+  vctrs \
+  magrittr \
+  bit \
+  cpp11 \
+  tidyselect \
+  R6 \
+  purrr \
+  bit64 \
+  assertthat \
+  utf8 \
+  fansi \
+  pkgconfig \
+  pillar \
+  tibble \
+  generics \
+  dplyr \
   sys \
   askpass \
-  R6 \
   mime \
-  jsonlite \
-  lazyeval \
-  yaml \
-  withr \
-  crayon \
-  rex \
-  digest \
-  magrittr \
-  rlang \
-  later \
   Rcpp \
-  fastmap \
+  jsonlite \
+  digest \
   base64enc \
-  htmltools \
+  later \
   promises \
-  jquerylib \
-  crosstalk \
-  htmlwidgets \
-  DT \
-  glue \
+  ellipsis \
+  swagger \
+  crayon \
   xfun \
+  yaml \
   highr \
   evaluate \
   ps \
-  rprojroot \
-  cli \
   processx \
-  desc \
-  callr \
-  xmlparsedata \
   backports \
-  utf8 \
-  vctrs \
-  pkgconfig \
-  pillar \
-  lifecycle \
-  fansi \
-  rappdirs \
-  memoise \
-  cachem \
-  tinytex \
-  cpp11 \
-  brio \
-  whisker \
-  tibble \
-  purrr \
-  downlit \
-  prettyunits \
-  xopen \
-  sessioninfo \
-  pkgbuild \
-  tinytest
+  callr \
+  base64url
 
 # install source R packages
 install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
+  arrow \
   openssl \
-  curl \
-  httr \
-  covr \
-  stringi \
-  stringr \
-  remotes \
   xml2 \
+  httr \
+  curl \
+  paws.common \
+  paws.storage \
+  paws.security.identity \
+  paws.networking \
+  paws.management \
+  paws.machine.learning \
+  paws.end.user.computing \
+  paws.developer.tools \
+  paws.database \
+  paws.customer.engagement \
+  paws.cost.management \
+  paws.compute \
+  paws.application.integration \
+  paws.analytics \
+  paws \
+  sodium \
+  httpuv \
+  webutils \
+  stringi \
+  plumber \
+  stringr \
   knitr \
-  cyclocomp \
-  lintr \
+  igraph \
+  data.table \
+  targets \
   fs \
-  sass \
-  bslib \
-  textshaping \
-  systemfonts \
-  rmarkdown \
-  ragg \
-  pkgdown \
-  rcmdcheck
+  tarchetypes
 
 # clean up
 rm -rf /var/lib/apt/lists/*
