@@ -104,7 +104,7 @@ create_shellscript = function(
       "  && apt-get update",
       "",
       "# add deadsnakes for python3.9",
-      "add-apt-repository ppa:deadsnakes/ppa"
+      "add-apt-repository -y ppa:deadsnakes/ppa"
     )
   }
 
@@ -114,7 +114,7 @@ create_shellscript = function(
       header,
       "",
       "# add ubuntugis-unstable repo to get latest versions of gdal & co.",
-      "add-apt-repository ppa:ubuntugis/ubuntugis-unstable"
+      "add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable"
     )
   }
 

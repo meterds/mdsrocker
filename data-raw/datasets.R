@@ -15,12 +15,11 @@ syslibs = list(
     , "jq"
     , "libbz2-dev"
     , "libpng-dev"
-    , "libpython3.9-dev"
     , "libssl-dev"
     , "libsasl2-dev"
     , "libsodium-dev"
     , "python3.9-dev"
-    , "python3.9-pip"
+    , "python3-pip"
     , "python3.9-venv"
   )
   , cicd = NULL

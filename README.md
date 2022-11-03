@@ -117,9 +117,8 @@ rpkgs
 aws
 </td>
 <td style="text-align:left;">
-curl , git , jq , libbz2-dev , libpng-dev , libpython3.9-dev, libssl-dev
-, libsasl2-dev , libsodium-dev , python3.9-dev , python3.9-pip ,
-python3.9-venv
+curl , git , jq , libbz2-dev , libpng-dev , libssl-dev , libsasl2-dev ,
+libsodium-dev , python3.9-dev , python3-pip , python3.9-venv
 </td>
 <td style="text-align:left;">
 AWS CLI version 2
