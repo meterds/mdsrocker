@@ -2,6 +2,8 @@
 
 #### ✨ features and improvements
 
+  * add docker images for R 4.2.2, dropped R 4.1.3
+
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
