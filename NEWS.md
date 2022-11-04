@@ -1,14 +1,8 @@
-# mdsrocker 1.4.3.9000 (2022-11-04)
+# mdsrocker 1.5.0 (2022-11-04)
 
 #### ✨ features and improvements
 
   * add docker images for R 4.2.2, dropped R 4.1.3
-
-#### 🐛 bug fixes
-
-#### 💬 documentation etc
-
-#### 🍬 miscellaneous
 
 
 # mdsrocker 1.4.3 (2022-11-03)
