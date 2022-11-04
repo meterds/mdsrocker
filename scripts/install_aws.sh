@@ -16,7 +16,7 @@ apt-get -qq update \
   && apt-get update
 
 # add deadsnakes for python3.9
-add-apt-repository ppa:deadsnakes/ppa
+add-apt-repository -y ppa:deadsnakes/ppa
 
 # a function to install apt packages only if they are not installed
 function apt_install() {
@@ -36,15 +36,14 @@ apt_install \
   libbz2-dev \
   libcurl4-openssl-dev \
   libpng-dev \
-  libpython3.9-dev \
   libsasl2-dev \
   libsodium-dev \
   libssl-dev \
   libudunits2-dev \
   libxml2-dev \
   python3 \
+  python3-pip \
   python3.9-dev \
-  python3.9-pip \
   python3.9-venv
 
 # install AWS CLI

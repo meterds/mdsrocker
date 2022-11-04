@@ -9,7 +9,7 @@ export DEBIAN_FRONTEND=noninteractive
 NCPUS=${NCPUS:--1}
 
 # add ubuntugis-unstable repo to get latest versions of gdal & co.
-add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
 
 # a function to install apt packages only if they are not installed
 function apt_install() {
