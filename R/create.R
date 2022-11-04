@@ -10,7 +10,10 @@
 #'   (which are not found as dependency of the `rpkgs`).
 #' @param pypkgs `character` vector of Python packages to install
 #' @param extra `character` vector of additional software packages to install
-#' @param os definition of operating system; default to `"ubuntu-20.04"`.
+#' @param os definition of operating system;
+#'   default to `tolower(system("lsb_release -si", intern = TRUE))`.
+#' @param os_release definition of operating system release version;
+#'   default to `system("lsb_release -sr", intern = TRUE)`.
 #' @param save_as path for storing the installation instruction file; default
 #'   to `fs::path("scripts", glue::glue("install-{type}.sh"))`.
 #'
@@ -30,7 +33,8 @@ create_shellscript = function(
     syslibs = NULL,
     pypkgs = NULL,
     extra = NULL,
-    os = "ubuntu-20.04",
+    os = tolower(system("lsb_release -si", intern = TRUE)),
+    os_release = system("lsb_release -sr", intern = TRUE),
     save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
 ) {
 
@@ -41,6 +45,7 @@ create_shellscript = function(
   checkmate::assert_character(pypkgs, null.ok = TRUE)
   checkmate::assert_character(extra, null.ok = TRUE)
   checkmate::assert_character(os, len = 1L)
+  checkmate::assert_character(os_release, len = 1L)
   checkmate::assert_path_for_output(save_as, overwrite = TRUE)
 
   ## find R package dependencies
@@ -60,7 +65,11 @@ create_shellscript = function(
   ## find system requirements
   sysreqs = deps |>
     purrr::set_names() |>
-    purrr::map(~remotes::system_requirements(os = os, package = .x)) |>
+    purrr::map(
+      ~remotes::system_requirements(
+        os = os, os_release = os_release, package = .x
+        )
+    ) |>
     purrr::map(
       ~gsub(pattern = "apt-get install -y ", replacement = "", x = .x)
     )
