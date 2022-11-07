@@ -17,7 +17,7 @@ tools.
 
 We follow the *version tag* approach of the *rocker*-project, using the
 image tag for specifying which version of R is desired
-(e.g. `rocker/r-ver: 4.2.1`). Omit the tag or specify `:latest` to
+(e.g. `rocker/r-ver: 4.2.2`). Omit the tag or specify `:latest` to
 always receive the latest versions.
 
 ## Image stack
@@ -39,7 +39,7 @@ description
 <a href="https://hub.docker.com/r/meterds/r-aws-minimal" style="     " >r-aws-minimal</a>
 </td>
 <td style="text-align:left;">
-r-ver plus basic utilities stack
+r-ver plus basic utilities stack including API tools
 </td>
 </tr>
 <tr>
@@ -48,14 +48,6 @@ r-ver plus basic utilities stack
 </td>
 <td style="text-align:left;">
 r-aws-minimal plus a spatial libraries stack
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<a href="https://hub.docker.com/r/meterds/r-aws-full" style="     " >r-aws-full</a>
-</td>
-<td style="text-align:left;">
-r-aws-spatial plus a set of API tools
 </td>
 </tr>
 <tr>
@@ -86,7 +78,7 @@ This building system is designed as an R package.
 All relevant information is stored in *two* `data.frames` (as package
 data):
 
--   `mdsrocker_installation`: *four* different software bundles for the
+-   `mdsrocker_installation`: *three* different software bundles for the
     various scopes of the docker images, each containing predefined sets
     of software packages (system libraries, extra software packages,
     Python packages, R packages) to install.
@@ -117,34 +109,19 @@ rpkgs
 aws
 </td>
 <td style="text-align:left;">
-curl , git , jq , libbz2-dev , libpng-dev , libssl-dev , libsasl2-dev ,
-libsodium-dev , python3.9-dev , python3-pip , python3.9-venv
+apt-utils , curl , git , jq , libbz2-dev , libpng-dev , libssl-dev ,
+libsasl2-dev , libsodium-dev , python3-dev , python3-pip , python3-venv
+, software-properties-common
 </td>
 <td style="text-align:left;">
 AWS CLI version 2
 </td>
 <td style="text-align:left;">
-pipreqs, poetry
+pipreqs , poetry , requests
 </td>
 <td style="text-align:left;">
-checkmate , curl , renv , reticulate, units , xml2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-cicd
-</td>
-<td style="text-align:left;">
-NULL
-</td>
-<td style="text-align:left;">
-NULL
-</td>
-<td style="text-align:left;">
-NULL
-</td>
-<td style="text-align:left;">
-covr , DT , lintr , pkgdown , rcmdcheck, tinytest
+arrow , checkmate , curl , dplyr , paws , plumber , renv , reticulate ,
+targets , tarchetypes, units , xml2 , zoo
 </td>
 </tr>
 <tr>
@@ -168,7 +145,7 @@ whitebox
 </tr>
 <tr>
 <td style="text-align:left;">
-full
+cicd
 </td>
 <td style="text-align:left;">
 NULL
@@ -180,7 +157,7 @@ NULL
 NULL
 </td>
 <td style="text-align:left;">
-arrow , dplyr , paws , plumber , targets , tarchetypes, zoo
+covr , DT , lintr , pkgdown , rcmdcheck, tinytest
 </td>
 </tr>
 </tbody>
@@ -224,17 +201,6 @@ meterds/r-aws-minimal
 </td>
 <td style="text-align:left;">
 install_spatial.sh
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-r-aws-full
-</td>
-<td style="text-align:left;">
-meterds/r-aws-spatial
-</td>
-<td style="text-align:left;">
-install_full.sh
 </td>
 </tr>
 <tr>
