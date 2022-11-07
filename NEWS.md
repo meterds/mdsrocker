@@ -1,20 +1,14 @@
-# mdsrocker 1.5.0.9000 (2022-11-07)
+# mdsrocker 1.5.1 (2022-11-07)
 
 #### ✨ features and improvements
 
-  * remove `full` software bundles again and integrate the required software 
-    into the `aws` software bundle in order to keep the image stack more 
+  * remove `full` software bundles again and integrate the required software
+    into the `aws` software bundle in order to keep the image stack more
     concise.
   * remove all *python3.9* extra stuff, as this causes troubles when building
     the images based on an *ubuntu-22.04 rocker/r-ver* base image (#16).
-    + Note for the user: you must add all these things into your application 
+    + Note for the user: you must add all these things into your application
       or *Dockerfile*, resp.
-
-#### 🐛 bug fixes
-
-#### 💬 documentation etc
-
-#### 🍬 miscellaneous
 
 
 # mdsrocker 1.5.0 (2022-11-04)
