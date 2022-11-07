@@ -10,13 +10,14 @@ create_shellscript(
   syslibs = NULL,
   pypkgs = NULL,
   extra = NULL,
-  os = "ubuntu-20.04",
+  os = tolower(system("lsb_release -si", intern = TRUE)),
+  os_release = system("lsb_release -sr", intern = TRUE),
   save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
 )
 }
 \arguments{
 \item{type}{type of software bundle to install, one of
-\code{c("aws", "cicd", "spatial", "full")}}
+\code{c("aws", "spatial", "cicd")}}
 
 \item{rpkgs}{\code{character} vector of R packages to install}
 
@@ -27,7 +28,11 @@ create_shellscript(
 
 \item{extra}{\code{character} vector of additional software packages to install}
 
-\item{os}{definition of operating system; default to \code{"ubuntu-20.04"}.}
+\item{os}{definition of operating system;
+default to \code{tolower(system("lsb_release -si", intern = TRUE))}.}
+
+\item{os_release}{definition of operating system release version;
+default to \code{system("lsb_release -sr", intern = TRUE)}.}
 
 \item{save_as}{path for storing the installation instruction file; default
 to \code{fs::path("scripts", glue::glue("install-{type}.sh"))}.}
