@@ -4,7 +4,7 @@
 #' for the various docker images.
 #'
 #' @param type type of software bundle to install, one of
-#'   `c("aws", "cicd", "spatial", "full")`
+#'   `c("aws", "spatial", "cicd")`
 #' @param rpkgs `character` vector of R packages to install
 #' @param syslibs `character` vector of system libraries to install
 #'   (which are not found as dependency of the `rpkgs`).
@@ -38,7 +38,7 @@ create_shellscript = function(
     save_as = fs::path("scripts", glue::glue("install_{type}.sh"))
 ) {
 
-  type = checkmate::assert_choice(type, c("aws", "cicd", "spatial", "full"))
+  type = checkmate::assert_choice(type, c("aws", "spatial", "cicd"))
 
   checkmate::assert_character(rpkgs, min.len = 1L)
   checkmate::assert_character(syslibs, null.ok = TRUE)
@@ -99,23 +99,6 @@ create_shellscript = function(
     "# build ARGs",
     "NCPUS=${NCPUS:--1}"
   )
-
-  ## add deadsnakes ppa for installing python3.9
-  if (type == "aws") {
-    header = c(
-      header,
-      "",
-      "# install software-properties-common to have add-apt-repository available",
-      "apt-get -qq update \\",
-      "  && apt-get -y upgrade \\",
-      "  && apt-get -y --no-install-recommends install \\",
-      "  software-properties-common \\",
-      "  && apt-get update",
-      "",
-      "# add deadsnakes for python3.9",
-      "add-apt-repository -y ppa:deadsnakes/ppa"
-    )
-  }
 
   ## add ubuntugis-unstable repo for spatial images
   if (type == "spatial") {
@@ -182,9 +165,9 @@ create_shellscript = function(
     pypkgs = c(
       "",
       "# install Python packages",
-      "python3.9 -m pip install --no-cache-dir --upgrade \\",
+      "python3 -m pip install --no-cache-dir --upgrade \\",
       "  pip",
-      "python3.9 -m pip install --no-cache-dir \\",
+      "python3 -m pip install --no-cache-dir \\",
       if (length(pypkgs) > 1) {
         paste0("  ", pypkgs[-length(pypkgs)], " \\")
       },
@@ -272,7 +255,7 @@ create_shellscript = function(
 #' for more information.
 #'
 #' @param image name of docker image to create, one of
-#'   `c("r-aws-minimal", "r-aws-spatial", "r-aws-full", "r-cicd-minimal", "r-cicd-spatial")`,
+#'   `c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")`,
 #'   plus R version as `tag`.
 #' @param parent `character` parent docker image (incl. *dockerhub* account)
 #'   from which to build.
@@ -312,7 +295,7 @@ create_dockerfile = function(
 
   image = checkmate::assert_choice(
     image,
-    c("r-aws-minimal", "r-aws-spatial", "r-aws-full", "r-cicd-minimal", "r-cicd-spatial")
+    c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")
   )
 
   checkmate::assert_character(description, len = 1L)
@@ -402,7 +385,7 @@ create_action_workflow_publish_docker_images = function(
   checkmate::assert_subset(
     images,
     choices = c(
-      "r-aws-minimal", "r-aws-spatial", "r-aws-full", "r-cicd-minimal", "r-cicd-spatial"
+      "r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial"
     )
   )
 
