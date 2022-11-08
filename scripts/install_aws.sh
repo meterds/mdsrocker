@@ -8,16 +8,6 @@ export DEBIAN_FRONTEND=noninteractive
 # build ARGs
 NCPUS=${NCPUS:--1}
 
-# install software-properties-common to have add-apt-repository available
-apt-get -qq update \
-  && apt-get -y upgrade \
-  && apt-get -y --no-install-recommends install \
-  software-properties-common \
-  && apt-get update
-
-# add deadsnakes for python3.9
-add-apt-repository -y ppa:deadsnakes/ppa
-
 # a function to install apt packages only if they are not installed
 function apt_install() {
   if ! dpkg -s "$@" >/dev/null 2>&1; then
@@ -30,21 +20,29 @@ function apt_install() {
 
 # install system requirements
 apt_install \
+  apt-utils \
   curl \
   git \
   jq \
   libbz2-dev \
   libcurl4-openssl-dev \
+  libglpk-dev \
+  libgmp3-dev \
+  libicu-dev \
   libpng-dev \
   libsasl2-dev \
   libsodium-dev \
   libssl-dev \
   libudunits2-dev \
   libxml2-dev \
+  make \
+  pandoc \
   python3 \
+  python3-dev \
   python3-pip \
-  python3.9-dev \
-  python3.9-venv
+  python3-venv \
+  software-properties-common \
+  zlib1g-dev
 
 # install AWS CLI
 curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'
@@ -54,11 +52,12 @@ rm /tmp/awscli.zip
 rm -r /tmp/aws
 
 # install Python packages
-python3.9 -m pip install --no-cache-dir --upgrade \
+python3 -m pip install --no-cache-dir --upgrade \
   pip
-python3.9 -m pip install --no-cache-dir \
+python3 -m pip install --no-cache-dir \
   pipreqs \
-  poetry
+  poetry \
+  requests
 
 # update R packages
 R_LIBS_SITE=/usr/local/lib/R/site-library
@@ -67,24 +66,93 @@ update.r -n $NCPUS
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
+  rlang \
+  lifecycle \
+  glue \
+  cli \
+  withr \
+  vctrs \
+  magrittr \
+  bit \
+  cpp11 \
+  tidyselect \
+  R6 \
+  purrr \
+  bit64 \
+  assertthat \
   backports \
   checkmate \
+  utf8 \
+  fansi \
+  pkgconfig \
+  pillar \
+  tibble \
+  generics \
+  dplyr \
+  sys \
+  askpass \
+  mime \
+  Rcpp \
+  jsonlite \
+  digest \
+  base64enc \
+  later \
+  promises \
+  ellipsis \
+  swagger \
+  crayon \
   renv \
   rprojroot \
-  Rcpp \
-  withr \
   rappdirs \
-  jsonlite \
   here \
-  RcppTOML
+  RcppTOML \
+  xfun \
+  yaml \
+  highr \
+  evaluate \
+  ps \
+  processx \
+  callr \
+  base64url \
+  zoo
 
 # install source R packages
 install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
+  arrow \
   curl \
+  openssl \
+  xml2 \
+  httr \
+  paws.common \
+  paws.storage \
+  paws.security.identity \
+  paws.networking \
+  paws.management \
+  paws.machine.learning \
+  paws.end.user.computing \
+  paws.developer.tools \
+  paws.database \
+  paws.customer.engagement \
+  paws.cost.management \
+  paws.compute \
+  paws.application.integration \
+  paws.analytics \
+  paws \
+  sodium \
+  httpuv \
+  webutils \
+  stringi \
+  plumber \
   png \
   reticulate \
-  units \
-  xml2
+  stringr \
+  knitr \
+  igraph \
+  data.table \
+  targets \
+  fs \
+  tarchetypes \
+  units
 
 # clean up
 rm -rf /var/lib/apt/lists/*

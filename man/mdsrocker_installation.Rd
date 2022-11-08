@@ -8,7 +8,7 @@
 A \code{tibble} with \emph{4} rows and \emph{5} columns:
 \itemize{
 \item \emph{type}: type of software bundle to install, one of
-\code{c("aws", "cicd", "spatial", "full")},
+\code{c("aws", "spatial", "cicd")},
 \item \emph{syslibs}: additionally system libraries
 (not required by specified R packages),
 \item \emph{extra}: additional software packages,

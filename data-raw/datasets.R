@@ -10,7 +10,8 @@ for (r in required) {
 
 syslibs = list(
   aws = c(
-    "curl"
+    "apt-utils"
+    , "curl"
     , "git"
     , "jq"
     , "libbz2-dev"
@@ -18,45 +19,42 @@ syslibs = list(
     , "libssl-dev"
     , "libsasl2-dev"
     , "libsodium-dev"
-    , "python3.9-dev"
+    , "python3-dev"
     , "python3-pip"
-    , "python3.9-venv"
+    , "python3-venv"
+    , "software-properties-common"
   )
-  , cicd = NULL
   , spatial = NULL
-  , full = NULL
+  , cicd = NULL
 )
 
 extra = list(
   aws = c("AWS CLI version 2")
   , cicd = NULL
   , spatial = c("WhiteboxTools")
-  , full = NULL
 )
 
 pypkgs = list(
-  aws = c("pipreqs", "poetry")
+  aws = c("pipreqs", "poetry", "requests")
   , cicd = NULL
   , spatial = NULL
-  , full = NULL
 )
 
 rpkgs = list(
   aws = c(
-    "checkmate"
+    "arrow"
+    , "checkmate"
     , "curl"
+    , "dplyr"
+    , "paws"
+    , "plumber"
     , "renv"
     , "reticulate"
+    , "targets"
+    , "tarchetypes"
     , "units"
     , "xml2"
-  )
-  , cicd = c(
-    "covr"
-    , "DT"
-    , "lintr"
-    , 'pkgdown'
-    , 'rcmdcheck'
-    , 'tinytest'
+    , "zoo"
   )
   , spatial = c(
     "elevatr"
@@ -78,14 +76,13 @@ rpkgs = list(
     , "units"
     , "whitebox"
   )
-  , full = c(
-    "arrow"
-    , "dplyr"
-    , "paws"
-    , "plumber"
-    , "targets"
-    , "tarchetypes"
-    , "zoo"
+  , cicd = c(
+    "covr"
+    , "DT"
+    , "lintr"
+    , 'pkgdown'
+    , 'rcmdcheck'
+    , 'tinytest'
   )
 )
 
@@ -107,12 +104,11 @@ usethis::use_data(mdsrocker_installation, overwrite = TRUE)
 account = desc::desc_get_field("Config/Dockerhub/Account")
 
 mdsrocker_dockerfiles = tibble::tribble(
-    ~image,           ~parent,                              ~script,               ~description,
-  "r-aws-minimal",  "rocker/r-ver",                        "install_aws.sh",     "r-ver plus basic utilities stack",
-  "r-aws-spatial",  glue::glue("{account}/r-aws-minimal"), "install_spatial.sh", "r-aws-minimal plus a spatial libraries stack",
-  "r-aws-full",     glue::glue("{account}/r-aws-spatial"), "install_full.sh",    "r-aws-spatial plus a set of API tools",
-  "r-cicd-minimal", glue::glue("{account}/r-aws-minimal"), "install_cicd.sh",    "r-aws-minimal plus a set of CI/CD tools",
-  "r-cicd-spatial", glue::glue("{account}/r-aws-spatial"), "install_cicd.sh",    "r-aws-spatial plus a set of CI/CD tools"
+    ~image,           ~parent,                               ~script,               ~description,
+  "r-aws-minimal",  "rocker/r-ver",                         "install_aws.sh",     "r-ver plus basic utilities stack including API tools",
+  "r-aws-spatial",  glue::glue("{account}/r-aws-minimal"),  "install_spatial.sh", "r-aws-minimal plus a spatial libraries stack",
+  "r-cicd-minimal", glue::glue("{account}/r-aws-minimal"),  "install_cicd.sh",    "r-aws-minimal plus a set of CI/CD tools",
+  "r-cicd-spatial", glue::glue("{account}/r-aws-spatial"),  "install_cicd.sh",    "r-aws-spatial plus a set of CI/CD tools"
 )
 
 usethis::use_data(mdsrocker_dockerfiles, overwrite = TRUE)

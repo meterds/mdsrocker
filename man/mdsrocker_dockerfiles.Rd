@@ -8,7 +8,7 @@
 A \code{tibble} with \emph{4} rows and \emph{4} columns:
 \itemize{
 \item \emph{image}: name of the docker image, one of
-\code{c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial", "r-aws-full")},
+\code{c("r-aws-minimal", "r-aws-spatial", "r-cicd-minimal", "r-cicd-spatial")},
 \item \emph{description}: description of software packed in the docker image,
 \item \emph{parent}: parent docker image (incl. \emph{dockerhub} account)
 from which to build,

@@ -8,6 +8,14 @@ export DEBIAN_FRONTEND=noninteractive
 # build ARGs
 NCPUS=${NCPUS:--1}
 
+# re-install gpg-agent and software-properties-common
+# for Ubuntu-22.04 (as otherwise add-apt-repository fails)
+apt-get -qq update \
+  && apt-get -y upgrade \
+  && apt-get -y --no-install-recommends install \
+  gpg-agent \
+  software-properties-common
+
 # add ubuntugis-unstable repo to get latest versions of gdal & co.
 add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
 
@@ -116,6 +124,7 @@ install2.r --error --skipinstalled -n $NCPUS \
   geometries \
   repr \
   generics \
+  timechange \
   rappdirs \
   IRdisplay \
   lubridate \
