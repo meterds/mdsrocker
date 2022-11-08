@@ -150,7 +150,7 @@ create_shellscript = function(
       "",
       "# install AWS CLI",
       "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscli.zip'",
-      "unzip /tmp/awscli.zip -d /tmp",
+      "unzip -qq /tmp/awscli.zip -d /tmp",
       "./tmp/aws/install",
       "rm /tmp/awscli.zip",
       "rm -r /tmp/aws"
