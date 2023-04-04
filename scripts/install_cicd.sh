@@ -52,36 +52,36 @@ install2.r --error --skipinstalled -n $NCPUS \
   rlang \
   later \
   Rcpp \
+  ellipsis \
   fastmap \
   base64enc \
   htmltools \
-  promises \
-  jquerylib \
-  crosstalk \
-  htmlwidgets \
-  DT \
+  rappdirs \
+  vctrs \
+  lifecycle \
   glue \
+  cli \
+  memoise \
+  cachem \
+  tinytex \
+  jquerylib \
+  fontawesome \
   xfun \
   highr \
   evaluate \
+  promises \
+  crosstalk \
   ps \
   rprojroot \
-  cli \
   processx \
   desc \
   callr \
   xmlparsedata \
   backports \
   utf8 \
-  vctrs \
   pkgconfig \
   pillar \
-  lifecycle \
   fansi \
-  rappdirs \
-  memoise \
-  cachem \
-  tinytex \
   cpp11 \
   brio \
   whisker \
@@ -95,24 +95,26 @@ install2.r --error --skipinstalled -n $NCPUS \
   tinytest
 
 # install source R packages
-install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
+install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.posit.co/cran/latest \
   openssl \
   curl \
   httr \
   covr \
+  fs \
   stringi \
+  sass \
   stringr \
+  bslib \
+  rmarkdown \
+  knitr \
+  htmlwidgets \
+  DT \
   remotes \
   xml2 \
-  knitr \
   cyclocomp \
   lintr \
-  fs \
-  sass \
-  bslib \
   textshaping \
   systemfonts \
-  rmarkdown \
   ragg \
   pkgdown \
   rcmdcheck

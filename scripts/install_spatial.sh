@@ -39,6 +39,7 @@ apt_install \
   libfreetype6-dev \
   libgdal-dev \
   libgeos-dev \
+  libicu-dev \
   libmagick++-dev \
   libnetcdf-dev \
   libpng-dev \
@@ -47,6 +48,7 @@ apt_install \
   libssl-dev \
   libudunits2-dev \
   make \
+  pandoc \
   zlib1g-dev
 
 # install whitebox executable
@@ -56,18 +58,18 @@ rm $WBT_ZIPFILE
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
+  glue \
   Rcpp \
   sp \
+  vctrs \
   rlang \
   magrittr \
-  purrr \
-  glue \
+  lifecycle \
   cli \
+  purrr \
   parallelly \
   listenv \
   digest \
-  vctrs \
-  lifecycle \
   globals \
   future \
   proxy \
@@ -95,11 +97,19 @@ install2.r --error --skipinstalled -n $NCPUS \
   labeling \
   farver \
   plyr \
+  rappdirs \
+  memoise \
+  cachem \
+  tinytex \
+  jquerylib \
+  fontawesome \
+  highr \
+  evaluate \
   cpp11 \
   yaml \
+  ellipsis \
   fastmap \
   uuid \
-  htmlwidgets \
   htmltools \
   brew \
   base64enc \
@@ -123,9 +133,8 @@ install2.r --error --skipinstalled -n $NCPUS \
   sfheaders \
   geometries \
   repr \
-  generics \
   timechange \
-  rappdirs \
+  generics \
   IRdisplay \
   lubridate \
   crayon \
@@ -136,7 +145,7 @@ install2.r --error --skipinstalled -n $NCPUS \
   whitebox
 
 # install source R packages
-install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
+install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.posit.co/cran/latest \
   terra \
   png \
   raster \
@@ -152,8 +161,16 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   gdalcubes \
   lwgeom \
   httpuv \
+  fs \
+  stringi \
+  sass \
+  stringr \
+  bslib \
   systemfonts \
+  rmarkdown \
+  knitr \
   svglite \
+  htmlwidgets \
   rapidjsonr \
   jsonify \
   leaflet \

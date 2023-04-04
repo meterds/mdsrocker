@@ -83,9 +83,9 @@ install2.r --error --skipinstalled -n $NCPUS \
   backports \
   checkmate \
   utf8 \
-  fansi \
   pkgconfig \
   pillar \
+  fansi \
   tibble \
   generics \
   dplyr \
@@ -114,10 +114,16 @@ install2.r --error --skipinstalled -n $NCPUS \
   processx \
   callr \
   base64url \
+  parallelly \
+  listenv \
+  globals \
+  future \
+  future.callr \
+  furrr \
   zoo
 
 # install source R packages
-install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.com/cran/latest \
+install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.posit.co/cran/latest \
   arrow \
   curl \
   openssl \
@@ -145,7 +151,6 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.rstudio.c
   plumber \
   png \
   reticulate \
-  stringr \
   knitr \
   igraph \
   data.table \
