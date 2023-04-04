@@ -8,6 +8,7 @@
 
 #### 🍬 miscellaneous
 
+  * modify `DESCRIPTION`, `LICENSE` etc to *ADDIUM*
 
 # mdsrocker 1.6.0 (2023-04-04)
 
