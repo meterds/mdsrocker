@@ -67,7 +67,13 @@ create_shellscript = function(
     purrr::set_names() |>
     purrr::map(
       ~remotes::system_requirements(
-        os = os, os_release = os_release, package = .x
+        os = os,
+        # TODO:
+        # change back as soon as CRAN version of `remotes` supports "22.04"
+        # keep hard-coded "20.04" for the meanwhile
+        # os_release = os_release,
+        os_release = "20.04",
+        package = .x
         )
     ) |>
     purrr::map(
