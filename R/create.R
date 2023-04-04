@@ -49,7 +49,7 @@ create_shellscript = function(
   checkmate::assert_path_for_output(save_as, overwrite = TRUE)
 
   ## find R package dependencies
-  repo = "https://packagemanager.rstudio.com/cran/latest"
+  repo = "https://packagemanager.posit.co/cran/latest"
 
   deps = rpkgs |>
     purrr::map(
