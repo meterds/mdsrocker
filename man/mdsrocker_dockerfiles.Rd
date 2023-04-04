@@ -17,7 +17,7 @@ executed in \verb{docker build} process.
 }
 }
 \source{
-METERGROUP
+ADDIUM
 }
 \usage{
 mdsrocker_dockerfiles

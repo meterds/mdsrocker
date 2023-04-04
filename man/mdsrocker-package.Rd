@@ -9,11 +9,11 @@
 Framework for creating version-stable METER docker images for R based on rocker-project foundation.
 }
 \author{
-\strong{Maintainer}: Christoph Stepper \email{christoph.stepper@metergroup.com}
+\strong{Maintainer}: Christoph Stepper \email{christoph.stepper@addium.io}
 
 Authors:
 \itemize{
-  \item Hendrik Wagenseil \email{hendrik.wagenseil@metergroup.com}
+  \item Hendrik Wagenseil \email{hendrik.wagenseil@addium.io}
 }
 
 }

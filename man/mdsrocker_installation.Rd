@@ -17,7 +17,7 @@ A \code{tibble} with \emph{4} rows and \emph{5} columns:
 }
 }
 \source{
-METERGROUP
+ADDIUM
 }
 \usage{
 mdsrocker_installation

@@ -4,6 +4,9 @@
 
 #### 🐛 bug fixes
 
+  * `create_shellscript`: hard-code "os_release" to "20.04", as CRAN version of 
+    `remotes` does not support "Ubuntu 22.04" in `remotes::system_requirements`.
+  
 #### 💬 documentation etc
 
 #### 🍬 miscellaneous
