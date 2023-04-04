@@ -1,17 +1,14 @@
-# mdsrocker 1.6.0.9000 (2023-04-04)
-
-#### ✨ features and improvements
+# mdsrocker 1.6.1 (2023-04-04)
 
 #### 🐛 bug fixes
 
-  * `create_shellscript`: hard-code "os_release" to "20.04", as CRAN version of 
+  * `create_shellscript`: hard-code "os_release" to "20.04", as CRAN version of
     `remotes` does not support "Ubuntu 22.04" in `remotes::system_requirements`.
-  
-#### 💬 documentation etc
 
 #### 🍬 miscellaneous
 
   * modify `DESCRIPTION`, `LICENSE` etc to *ADDIUM*
+
 
 # mdsrocker 1.6.0 (2023-04-04)
 
