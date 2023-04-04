@@ -2,11 +2,15 @@
 
 #### ✨ features and improvements
 
+  * add docker images for R 4.2.3, keep all images for R 4.2.X
+
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
 
 #### 🍬 miscellaneous
+
+  * update the `WhiteboxTools_linux_amd64.zip` binary in the repository.
 
 
 # mdsrocker 1.5.1 (2022-11-07)
