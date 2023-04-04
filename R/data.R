@@ -11,7 +11,7 @@
 #' * _pypkgs_: Python packages to install,
 #' * _rpkgs_: R packages to install in respective install scripts.
 #'
-#' @source METERGROUP
+#' @source ADDIUM
 "mdsrocker_installation"
 
 
@@ -28,5 +28,5 @@
 #' * _script_: name of installation shell script to be
 #'   executed in `docker build` process.
 #'
-#' @source METERGROUP
+#' @source ADDIUM
 "mdsrocker_dockerfiles"
