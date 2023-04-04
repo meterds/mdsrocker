@@ -1,3 +1,14 @@
+# mdsrocker 1.6.0.9000 (2023-04-04)
+
+#### ✨ features and improvements
+
+#### 🐛 bug fixes
+
+#### 💬 documentation etc
+
+#### 🍬 miscellaneous
+
+
 # mdsrocker 1.6.0 (2023-04-04)
 
 #### ✨ features and improvements
