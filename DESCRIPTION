@@ -1,7 +1,7 @@
 Package: mdsrocker
 Title: Docker images for CI/CD and dockerized AWS Solutions at METER Data
     Science
-Version: 1.6.2.9000
+Version: 1.6.3
 Authors@R: c(
     person("Christoph", "Stepper", , "christoph.stepper@addium.io", role = c("aut", "cre")),
     person("Hendrik", "Wagenseil", , "hendrik.wagenseil@addium.io", role = "aut")
