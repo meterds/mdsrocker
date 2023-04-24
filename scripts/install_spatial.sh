@@ -84,6 +84,7 @@ install2.r --error --skipinstalled -n $NCPUS \
   jsonlite \
   furrr \
   progressr \
+  BH \
   ps \
   processx \
   callr \
@@ -139,7 +140,6 @@ install2.r --error --skipinstalled -n $NCPUS \
   lubridate \
   crayon \
   abind \
-  BH \
   RcppEigen \
   nabor \
   whitebox
