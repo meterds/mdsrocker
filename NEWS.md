@@ -2,6 +2,8 @@
 
 #### ✨ features and improvements
 
+  * update for *R 4.3.1*
+
 #### 🐛 bug fixes
 
 #### 💬 documentation etc
