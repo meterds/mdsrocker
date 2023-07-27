@@ -106,8 +106,8 @@ install2.r --error --skipinstalled -n $NCPUS \
   rappdirs \
   here \
   RcppTOML \
-  xfun \
   yaml \
+  xfun \
   highr \
   evaluate \
   ps \
