@@ -32,15 +32,12 @@ function apt_install() {
 # install system requirements
 apt_install \
   gdal-bin \
-  gsfonts \
-  imagemagick \
   libcurl4-openssl-dev \
   libfontconfig1-dev \
   libfreetype6-dev \
   libgdal-dev \
   libgeos-dev \
   libicu-dev \
-  libmagick++-dev \
   libnetcdf-dev \
   libpng-dev \
   libproj-dev \
@@ -58,9 +55,9 @@ rm $WBT_ZIPFILE
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
-  glue \
   Rcpp \
   sp \
+  glue \
   vctrs \
   rlang \
   magrittr \
@@ -85,11 +82,9 @@ install2.r --error --skipinstalled -n $NCPUS \
   furrr \
   progressr \
   BH \
-  ps \
-  processx \
-  callr \
-  later \
+  fastmap \
   promises \
+  later \
   xfun \
   colorspace \
   viridisLite \
@@ -109,7 +104,6 @@ install2.r --error --skipinstalled -n $NCPUS \
   cpp11 \
   yaml \
   ellipsis \
-  fastmap \
   uuid \
   htmltools \
   brew \
@@ -124,12 +118,10 @@ install2.r --error --skipinstalled -n $NCPUS \
   gtable \
   gridExtra \
   ggplot2 \
-  commonmark \
   lazyeval \
-  leaflet.providers \
   viridis \
   scales \
-  markdown \
+  leaflet.providers \
   crosstalk \
   sfheaders \
   geometries \
@@ -175,7 +167,6 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.posit.co/
   jsonify \
   leaflet \
   geojsonsf \
-  webshot \
   servr \
   satellite \
   leafpop \
@@ -183,7 +174,6 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.posit.co/
   mapview \
   httr2 \
   openeo \
-  rgdal \
   rstac \
   stars \
   data.table \

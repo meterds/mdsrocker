@@ -97,6 +97,7 @@ install2.r --error --skipinstalled -n $NCPUS \
   digest \
   base64enc \
   later \
+  fastmap \
   promises \
   ellipsis \
   swagger \
@@ -114,12 +115,6 @@ install2.r --error --skipinstalled -n $NCPUS \
   processx \
   callr \
   base64url \
-  parallelly \
-  listenv \
-  globals \
-  future \
-  future.callr \
-  furrr \
   zoo
 
 # install source R packages
