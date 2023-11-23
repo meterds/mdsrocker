@@ -64,7 +64,7 @@ rpkgs = list(
     , "ncdf4"
     , "openeo"
     , "raster"
-    , "rgdal"
+    # , "rgdal"
     , "rstac"
     , "s2"
     , "satellite"
@@ -88,10 +88,10 @@ rpkgs = list(
 
 # function arguments
 mdsrocker_installation = list(
-  syslibs = syslibs,
-  extra = extra,
-  pypkgs = pypkgs,
-  rpkgs = rpkgs
+  syslibs = syslibs
+  , extra = extra
+  , pypkgs = pypkgs
+  , rpkgs = rpkgs
 ) |>
   purrr::imap(~tibble::enframe(.x, name = "type", value = .y)) |>
   purrr::reduce(dplyr::inner_join, by = "type")
