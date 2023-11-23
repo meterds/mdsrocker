@@ -1,3 +1,8 @@
+# mdsrocker (development version)
+
+  * update for *R 4.3.2*
+  
+  
 # mdsrocker 1.6.4 (2023-07-27)
 
 #### ✨ features and improvements
