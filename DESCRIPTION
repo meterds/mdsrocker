@@ -1,7 +1,7 @@
 Package: mdsrocker
 Title: Docker images for CI/CD and dockerized AWS Solutions at METER Data
     Science
-Version: 1.6.4
+Version: 1.6.4.9000
 Authors@R: c(
     person("Christoph", "Stepper", , "christoph.stepper@addium.io", role = c("aut", "cre")),
     person("Hendrik", "Wagenseil", , "hendrik.wagenseil@addium.io", role = "aut")
@@ -30,11 +30,9 @@ Config/Needs/Actions:
 Config/Dockerhub/Account: 
     meterds
 Config/Docker/Rversions:
-    4.2.1,
-    4.2.2,
-    4.2.3,
     4.3.0,
-    4.3.1
+    4.3.1,
+    4.3.2
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

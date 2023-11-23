@@ -33,7 +33,8 @@ apt_install \
   libtiff-dev \
   libxml2-dev \
   make \
-  pandoc
+  pandoc \
+  zlib1g-dev
 
 # install binary R packages
 install2.r --error --skipinstalled -n $NCPUS \
@@ -48,14 +49,15 @@ install2.r --error --skipinstalled -n $NCPUS \
   crayon \
   rex \
   digest \
-  magrittr \
   rlang \
-  later \
   Rcpp \
-  ellipsis \
+  magrittr \
+  later \
   fastmap \
+  ellipsis \
   base64enc \
   htmltools \
+  promises \
   rappdirs \
   vctrs \
   lifecycle \
@@ -69,7 +71,6 @@ install2.r --error --skipinstalled -n $NCPUS \
   xfun \
   highr \
   evaluate \
-  promises \
   crosstalk \
   ps \
   rprojroot \
@@ -107,6 +108,7 @@ install2.r --error --skipinstalled -n $NCPUS -r https://packagemanager.posit.co/
   bslib \
   rmarkdown \
   knitr \
+  httpuv \
   htmlwidgets \
   DT \
   remotes \

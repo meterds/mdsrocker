@@ -17,7 +17,7 @@ tools.
 
 We follow the *version tag* approach of the *rocker*-project, using the
 image tag for specifying which version of R is desired
-(e.g. `rocker/r-ver: 4.2.2`). Omit the tag or specify `:latest` to
+(e.g. `rocker/r-ver: 4.3.1`). Omit the tag or specify `:latest` to
 always receive the latest versions.
 
 ## Image stack
@@ -78,10 +78,10 @@ This building system is designed as an R package.
 All relevant information is stored in *two* `data.frames` (as package
 data):
 
--   `mdsrocker_installation`: *three* different software bundles for the
-    various scopes of the docker images, each containing predefined sets
-    of software packages (system libraries, extra software packages,
-    Python packages, R packages) to install.
+- `mdsrocker_installation`: *three* different software bundles for the
+  various scopes of the docker images, each containing predefined sets
+  of software packages (system libraries, extra software packages,
+  Python packages, R packages) to install.
 
 <table>
 <thead>
@@ -138,8 +138,8 @@ WhiteboxTools
 NULL
 </td>
 <td style="text-align:left;">
-elevatr , gdalcubes , lwgeom , mapview , ncdf4 , openeo , raster , rgdal
-, rstac , s2 , satellite , sf , sp , stars , starsExtra, terra , units ,
+elevatr , gdalcubes , lwgeom , mapview , ncdf4 , openeo , raster , rstac
+, s2 , satellite , sf , sp , stars , starsExtra, terra , units ,
 whitebox
 </td>
 </tr>
@@ -163,8 +163,8 @@ covr , DT , lintr , pkgdown , rcmdcheck, tinytest
 </tbody>
 </table>
 
--   `mdsrocker_dockerfiles`: *four* dockerfile specifications, each
-    containing the relevant information for generating the dockerfiles.
+- `mdsrocker_dockerfiles`: *four* dockerfile specifications, each
+  containing the relevant information for generating the dockerfiles.
 
 <table>
 <thead>
@@ -232,17 +232,17 @@ install_cicd.sh
 
 In this building system,
 
--   standalone shell scripts containing all the install logic are
-    located under the `scripts/` directory,
--   dockerfiles used in the Github Actions workflow to build the images
-    are located under `dockerfiles/`, and
--   two github actions workflows are stored under `.github/workflows/`:
-    -   `update-building-system.yml`: re-builds all scripts if any
-        changes were done in the repository (e.g. adding an R version to
-        the `DESCRIPTION` file or adding some R packages to the software
-        bundles),
-    -   `publish-docker-images.yml`: actually builds and pushes the
-        defined image stack.
+- standalone shell scripts containing all the install logic are located
+  under the `scripts/` directory,
+- dockerfiles used in the Github Actions workflow to build the images
+  are located under `dockerfiles/`, and
+- two github actions workflows are stored under `.github/workflows/`:
+  - `update-building-system.yml`: re-builds all scripts if any changes
+    were done in the repository (e.g. adding an R version to the
+    `DESCRIPTION` file or adding some R packages to the software
+    bundles),
+  - `publish-docker-images.yml`: actually builds and pushes the defined
+    image stack.
 
 ### Updating
 
@@ -254,22 +254,22 @@ For adding changes (e.g. additional R packages), do:
 
 1.  *git pull* the latest changes in the remote repository,
 2.  *run*:
-    -   `mdseasy::easy_version(element = "dev", check_renv = FALSE, check_gitlab_ci = FALSE, push = FALSE)`
+    - `mdseasy::easy_version(element = "dev", check_renv = FALSE, check_gitlab_ci = FALSE, push = FALSE)`
 3.  *update* and *run* the code generating the package data in
     `data-raw/datasets.R`,
 4.  *run*:
-    -   `devtools::document()`
-    -   `devtools::check()`
+    - `devtools::document()`
+    - `devtools::check()`
 5.  *update* `NEWS.md`
 6.  *run*
-    -   `gert::git_commit_all("YOUR COMMIT MESSAGE")`
-    -   `mdseasy::easy_version(check_renv = FALSE, check_gitlab_ci = FALSE)`
+    - `gert::git_commit_all("YOUR COMMIT MESSAGE")`
+    - `mdseasy::easy_version(check_renv = FALSE, check_gitlab_ci = FALSE)`
 
 # Execution
 
 The Github Actions workflow `publish-docker-images.yml` is:
 
--   scheduled to run every Sunday,
--   triggered by successful runs of the `update-building-system.yml`
-    workflow on `main` branch,
--   or can be started manually on Github.
+- scheduled to run every Sunday,
+- triggered by successful runs of the `update-building-system.yml`
+  workflow on `main` branch,
+- or can be started manually on Github.
